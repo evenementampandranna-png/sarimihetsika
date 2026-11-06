@@ -11,7 +11,7 @@
 <meta name="description" content="Studio diaporama : sary, vidéo, mozika, effets, transitions ary filaharana kisendrasendra.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&family=Dancing+Script:wght@600&family=Bebas+Neue&family=Montserrat:wght@600;800&family=Lora:wght@500;700&family=Pacifico&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&family=Dancing+Script:wght@600&family=Bebas+Neue&family=Montserrat:wght@600;800&family=Lora:wght@500;700&family=Pacifico&family=Gochi+Hand&family=Caveat:wght@600;700&family=Amatic+SC:wght@700&display=swap">
 <style>
 /* Layout: a dark lightbox stage and a film-strip timeline on the left, a tool drawer on the right */
 :root{
@@ -142,6 +142,9 @@ input[type=range]{accent-color:var(--accent);width:100%;margin:0;height:22px}
 .clip.is-live::before{content:"";position:absolute;left:10px;right:10px;top:-9px;height:3px;border-radius:2px;background:#f4a53a}
 .clip-tag{position:absolute;top:6px;left:6px;font:600 9px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;padding:4px 5px;border-radius:4px;background:rgb(0 0 0 / .65);color:#eee8f5}
 .clip-add{flex:none;width:136px;border:1.5px dashed #4d455c;border-radius:8px;background:none;color:#cfc8db;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-weight:600;font-size:13px;min-height:108px}
+.clip-txt{background:#000!important;color:#fff;font:400 13px/1.15 'Gochi Hand','Segoe Print',cursive;text-align:center;padding:6px;overflow:hidden}
+.clip-txt span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clip-add.txt{min-height:108px}
 .clip-add:hover{border-color:#f4a53a;color:#f4a53a}
 .sortable-ghost{opacity:.3}
 .sortable-chosen{box-shadow:0 0 0 2px #f4a53a}
@@ -369,6 +372,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
         <fieldset class="grp">
           <legend data-i18n="grpOrder"></legend>
           <label class="sw"><input type="checkbox" id="sAutoplay" data-set="autoplay"><span class="sw-ui"></span><span data-i18n="autoplay"></span></label>
+          <label class="sw"><input type="checkbox" id="sCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
           <label class="sw"><input type="checkbox" id="sShuffle" data-set="shuffle"><span class="sw-ui"></span><span data-i18n="shuffleLong"></span></label>
           <label class="sw"><input type="checkbox" id="sKeepEnds" data-set="keepEnds"><span class="sw-ui"></span><span data-i18n="keepEnds"></span></label>
           <label class="sw"><input type="checkbox" id="sLoop" data-set="loop"><span class="sw-ui"></span><span data-i18n="loop"></span></label>
@@ -446,6 +450,8 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="tIntroS"><span data-i18n="introS"></span></label><input type="text" id="tIntroS" data-set="intro.sub" maxlength="80"></div>
           <div class="field"><label class="field-l" for="tOutroT"><span data-i18n="outroT"></span></label><input type="text" id="tOutroT" data-set="outro.title" maxlength="80"></div>
           <label class="sw"><input type="checkbox" id="tKeep" data-set="keepText"><span class="sw-ui"></span><span data-i18n="keepText"></span></label>
+          <label class="sw"><input type="checkbox" id="tCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
+          <div class="row"><button class="btn mini" id="bChapters"><svg class="ic"><use href="#i-type"/></svg><span data-i18n="addChapters"></span></button></div>
         </fieldset>
         <div class="row" style="justify-content:space-between"><p class="note" data-i18n="tplHint" style="flex:1;min-width:0"></p><span class="mstat" id="tplCount"></span></div>
         <div class="seg" role="group" id="tplCats" style="align-self:flex-start"></div>
@@ -459,6 +465,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="sIntroT"><span data-i18n="titleL"></span></label><input type="text" id="sIntroT" data-set="intro.title" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sIntroS"><span data-i18n="subL"></span></label><input type="text" id="sIntroS" data-set="intro.sub" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sIntroBg"><span data-i18n="tbgL"></span></label><select id="sIntroBg" data-set="intro.bg" data-opts="tbg"></select></div>
+          <div class="field"><label class="field-l" for="sIntroDec"><span data-i18n="decorL"></span></label><select id="sIntroDec" data-set="intro.decor" data-opts="decor"></select></div>
           <div class="field"><label class="field-l" for="sIntroImg"><span data-i18n="imgL"></span></label>
             <div class="row" style="flex-wrap:nowrap"><select id="sIntroImg" data-set="intro.imgId" data-opts="img" style="flex:1"></select>
             <button class="btn icon" data-upload="intro" data-i18n-aria="uploadImg"><svg class="ic"><use href="#i-plus"/></svg></button></div></div>
@@ -472,6 +479,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="sOutroT"><span data-i18n="titleL"></span></label><input type="text" id="sOutroT" data-set="outro.title" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sOutroS"><span data-i18n="subL"></span></label><input type="text" id="sOutroS" data-set="outro.sub" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sOutroBg"><span data-i18n="tbgL"></span></label><select id="sOutroBg" data-set="outro.bg" data-opts="tbg"></select></div>
+          <div class="field"><label class="field-l" for="sOutroDec"><span data-i18n="decorL"></span></label><select id="sOutroDec" data-set="outro.decor" data-opts="decor"></select></div>
           <div class="field"><label class="field-l" for="sOutroImg"><span data-i18n="imgL"></span></label>
             <div class="row" style="flex-wrap:nowrap"><select id="sOutroImg" data-set="outro.imgId" data-opts="img" style="flex:1"></select>
             <button class="btn icon" data-upload="outro" data-i18n-aria="uploadImg"><svg class="ic"><use href="#i-plus"/></svg></button></div></div>
@@ -567,17 +575,18 @@ const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x
 const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','none'];
 const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
 const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
-const TBG = ['gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
+const TBG = ['black','gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
 const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','none'];
 const LAYOUTS = ['center','left','bottom'];
 const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
 const TFX = ['shadow','glow','outline','none'];
 const EFFECT_POOL = ['kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','swing'];
 const FILTERS = { none:'', bw:'grayscale(1) contrast(1.05)', noir:'grayscale(1) contrast(1.35) brightness(.9)', sepia:'sepia(.85)', vintage:'sepia(.35) contrast(1.1) saturate(.8) brightness(1.05)', warm:'sepia(.22) saturate(1.3) hue-rotate(-8deg)', golden:'sepia(.4) saturate(1.45) brightness(1.05)', cold:'saturate(.85) hue-rotate(14deg) brightness(1.04)', dream:'saturate(1.2) brightness(1.08) contrast(.9)', vivid:'saturate(1.5) contrast(1.08)' };
-const OVERLAYS = ['none','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
-const FRAMES = ['none','polaroid','rounded','cinema','film','vignette'];
-const FONTS = ['Playfair Display','Bricolage Grotesque','Montserrat','Bebas Neue','Lora','Dancing Script','Pacifico'];
-const FONT_W = { 'Playfair Display':800, 'Bricolage Grotesque':800, 'Montserrat':800, 'Bebas Neue':400, 'Lora':700, 'Dancing Script':600, 'Pacifico':400 };
+const OVERLAYS = ['none','sparkle','butterflies','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
+const FRAMES = ['none','soft','floral','polaroid','rounded','cinema','film','vignette'];
+const DECORS = ['none','daisyWreath','floralBorder','roseBorder','heartWreath','leafGarland','goldCard','cornerVines'];
+const FONTS = ['Gochi Hand','Caveat','Amatic SC','Playfair Display','Bricolage Grotesque','Montserrat','Bebas Neue','Lora','Dancing Script','Pacifico'];
+const FONT_W = { 'Gochi Hand':400, 'Caveat':700, 'Amatic SC':700, 'Playfair Display':800, 'Bricolage Grotesque':800, 'Montserrat':800, 'Bebas Neue':400, 'Lora':700, 'Dancing Script':600, 'Pacifico':400 };
 const ASPECTS = { '16:9':[1280,720,1920,1080], '9:16':[720,1280,1080,1920], '1:1':[960,960,1080,1080], '4:3':[960,720,1440,1080] };
 
 const T = (transition, effect, filter, overlay, frame, font, textColor, colors, mg, fr, en) => ({ transition, effect, filter, overlay, frame, font, textColor, colors, text:{ mg, fr, en } });
@@ -707,10 +716,23 @@ Object.assign(TCAT, {
 });
 TCAT.family = TCAT.family.filter(k => !TCAT.wedding.includes(k));
 TCAT.faith = TCAT.faith.filter(k => !TCAT.baptism.includes(k));
+Object.assign(TPL, {
+  weddingFloral: T('fade','kbIn','none','sparkle','floral','Gochi Hand','#ffffff',['#000000','#0b0b0b'], ['Indray andro…','Rado & Mialy','Arahabaina ny mpivady!',''], ['Il était une fois…','Rado & Mialy','Félicitations aux mariés !',''], ['Once upon a time…','Rado & Mialy','Congratulations to the newlyweds!','']),
+  weddingRoses:  T('fade','kbIn','warm','sparkle','soft','Caveat','#ffffff',['#000000','#140f0f'], ['Tantaran’ny fitiavana','Rado & Mialy','Fahasambarana lehibe',''], ['Une histoire d’amour','Rado & Mialy','Un grand bonheur',''], ['A love story','Rado & Mialy','Pure happiness','']),
+  weddingHeart:  T('heart','kbIn','dream','butterflies','floral','Gochi Hand','#ffffff',['#000000','#101010'], ['Velomy ny fitiavana','Rado & Mialy','Ho sambatra mandrakizay',''], ['Vive l’amour','Rado & Mialy','Heureux pour toujours',''], ['Long live love','Rado & Mialy','Happy forever',''])
+});
+Object.assign(TPLX, {
+  weddingFloral:{ tanim:'fade', tbg:'black', cap:'center', capAnim:'fade', fx:'none', decor:'daisyWreath', outroDecor:'leafGarland', countdown:true },
+  weddingRoses:{ tanim:'letters', tbg:'black', cap:'center', capAnim:'fade', fx:'none', decor:'roseBorder', outroDecor:'roseBorder', countdown:true },
+  weddingHeart:{ tanim:'blurIn', tbg:'black', cap:'center', capAnim:'fade', fx:'none', decor:'heartWreath', outroDecor:'goldCard', countdown:true }
+});
+TCAT.wedding.unshift('weddingFloral', 'weddingRoses', 'weddingHeart');
 const TCAT_ORDER = ['wedding', 'baptism', 'fety', 'family', 'faith', 'work', 'style'];
 const I18N = {
   mg: {
     slideTrans:'Transition mankany amin’ny manaraka', applyAll:'Ampiharo amin’ny sary rehetra', appliedAll:'Nampiharina tamin’ny sary rehetra',
+    decorL:'Haingo voninkazo', countdown:'Isa mihemotra 5…1 eo am-piandohana', addText:'Soratra', textSlide:'Pejy soratra', newText:'Soratra vaovao', addChapters:'Ampio pejy toko fanambadiana (4)', chaptersAdded:'Pejy toko 4 voampy',
+    chapters:['Fahazazan’ny ampakarina','Fahazazan’ny mpampakatra','Ny fihaonanay','Fianakaviana sy namana mahafinaritra'],
     tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
@@ -744,7 +766,7 @@ const I18N = {
     helpTitle:'Ahoana ny fampiasana azy?', helpKeysH:'Bokotra fohy', helpTipsH:'Torohevitra',
     helpSteps:[
       ['Ampidiro ny sary sy vidéo','Tsindrio «Ampidiro» na sintony ao amin’ny pejy ireo rakitra avy ao amin’ny finday na ordinateur.'],
-      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 50: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
+      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 53: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
       ['Ampio mozika','Ao amin’ny «Mozika», ampidiro hira iray na maromaro. Azonao atao ny mampifanaraka ny faharetan’ny diaporama amin’ny hira.'],
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
       ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, transition, haingo, sombiny ary soratra sy ny animation-ny.'],
@@ -754,6 +776,8 @@ const I18N = {
   },
   fr: {
     slideTrans:'Transition vers la suivante', applyAll:'Appliquer à toutes les photos', appliedAll:'Appliqué à toutes les photos',
+    decorL:'Décor', countdown:'Compte à rebours 5…1 au début', addText:'Texte', textSlide:'Diapo texte', newText:'Nouveau texte', addChapters:'Ajouter 4 chapitres de mariage', chaptersAdded:'4 chapitres ajoutés',
+    chapters:['L’enfance de la mariée','L’enfance du marié','Notre rencontre','Merci à notre famille et nos amis'],
     tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
@@ -787,7 +811,7 @@ const I18N = {
     helpTitle:'Comment l’utiliser ?', helpKeysH:'Raccourcis', helpTipsH:'Astuces',
     helpSteps:[
       ['Ajoutez vos photos et vidéos','Touchez « Ajouter » ou glissez vos fichiers sur la page, depuis le téléphone ou l’ordinateur.'],
-      ['Choisissez un modèle','Dans « Modèles », 50 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
+      ['Choisissez un modèle','Dans « Modèles », 53 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
       ['Ajoutez la musique','Dans « Musique », ajoutez un ou plusieurs morceaux. Vous pouvez ajuster la durée du diaporama à la musique.'],
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
       ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, sa transition, son ambiance, son cadre, sa légende et son animation.'],
@@ -797,6 +821,8 @@ const I18N = {
   },
   en: {
     slideTrans:'Transition to the next one', applyAll:'Apply to all photos', appliedAll:'Applied to all photos',
+    decorL:'Decoration', countdown:'Countdown 5…1 at the start', addText:'Text', textSlide:'Text slide', newText:'New text', addChapters:'Add 4 wedding chapters', chaptersAdded:'4 chapters added',
+    chapters:['The bride’s childhood','The groom’s childhood','How we met','Thank you, family and friends'],
     tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
@@ -830,7 +856,7 @@ const I18N = {
     helpTitle:'How to use it', helpKeysH:'Shortcuts', helpTipsH:'Tips',
     helpSteps:[
       ['Add your photos and videos','Tap «Add» or drag files onto the page, from your phone or computer.'],
-      ['Pick a template','In «Templates», choose from 50 styles: colours, transitions, effects and frame change at once.'],
+      ['Pick a template','In «Templates», choose from 53 styles: colours, transitions, effects and frame change at once.'],
       ['Add music','In «Music», add one or more tracks. You can match the slideshow length to the music.'],
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
       ['Adjust each photo','Tap a photo in the strip to change its duration, effect, transition, overlay, frame, caption and its animation.'],
@@ -840,11 +866,14 @@ const I18N = {
   }
 };
 const LBL = {
+  decor:{ mg:{none:'Tsy misy',daisyWreath:'Fehiloha voninkazo',floralBorder:'Sisiny voninkazo',roseBorder:'Raozy',heartWreath:'Fo voninkazo',leafGarland:'Ravina volamena',goldCard:'Karatra volamena',cornerVines:'Rantsana misy voninkazo'},
+          fr:{none:'Aucun',daisyWreath:'Couronne de marguerites',floralBorder:'Bordure fleurie',roseBorder:'Bordure de roses',heartWreath:'Cœur de fleurs',leafGarland:'Guirlande dorée',goldCard:'Carte dorée',cornerVines:'Branche fleurie'},
+          en:{none:'None',daisyWreath:'Daisy wreath',floralBorder:'Floral border',roseBorder:'Rose border',heartWreath:'Heart of flowers',leafGarland:'Golden garland',goldCard:'Gold card',cornerVines:'Flowering branch'} },
   tcat:{ mg:{all:'Rehetra',wedding:'Fanambadiana',baptism:'Batisa',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',wedding:'Mariage',baptism:'Baptême',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',wedding:'Wedding',baptism:'Baptism',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
   tbg:{
-    mg:{gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
-    fr:{gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
-    en:{gradient:'Gradient',radial:'Radial glow',animated:'Animated gradient',stripes:'Stripes',dots:'Dots',solid:'Solid',image:'Image',blurPhoto:'Blurred photo'} },
+    mg:{black:'Mainty',gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
+    fr:{black:'Noir',gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
+    en:{black:'Black',gradient:'Gradient',radial:'Radial glow',animated:'Animated gradient',stripes:'Stripes',dots:'Dots',solid:'Solid',image:'Image',blurPhoto:'Blurred photo'} },
   tanim:{
     mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',none:'Tsy misy'},
     fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',none:'Aucune'},
@@ -868,17 +897,17 @@ const LBL = {
     fr:{inherit:'Réglage général',none:'Aucun',bw:'Noir et blanc',noir:'Noir contrasté',sepia:'Sépia',vintage:'Vintage',warm:'Chaud',golden:'Doré',cold:'Froid',dream:'Rêve',vivid:'Éclatant'},
     en:{inherit:'General setting',none:'None',bw:'Black and white',noir:'Noir',sepia:'Sepia',vintage:'Vintage',warm:'Warm',golden:'Golden',cold:'Cool',dream:'Dreamy',vivid:'Vivid'} },
   ov:{
-    mg:{none:'Tsy misy',confetti:'Taratasy miloko',snow:'Oram-panala',hearts:'Fo',petals:'Felam-boninkazo',stars:'Kintana',bubbles:'Bobongolo',bokeh:'Jiro manjavozavo',lightleak:'Hazavana mafana',grain:'Sarimihetsika taloha'},
-    fr:{none:'Aucune',confetti:'Confettis',snow:'Neige',hearts:'Cœurs',petals:'Pétales',stars:'Étoiles',bubbles:'Bulles',bokeh:'Bokeh',lightleak:'Halo de lumière',grain:'Pellicule ancienne'},
-    en:{none:'None',confetti:'Confetti',snow:'Snow',hearts:'Hearts',petals:'Petals',stars:'Stars',bubbles:'Bubbles',bokeh:'Bokeh',lightleak:'Light leak',grain:'Old film'} },
+    mg:{none:'Tsy misy',sparkle:'Kintana mamirapiratra',butterflies:'Lolo manidina',confetti:'Taratasy miloko',snow:'Oram-panala',hearts:'Fo',petals:'Felam-boninkazo',stars:'Kintana',bubbles:'Bobongolo',bokeh:'Jiro manjavozavo',lightleak:'Hazavana mafana',grain:'Sarimihetsika taloha'},
+    fr:{none:'Aucune',sparkle:'Étincelles',butterflies:'Papillons',confetti:'Confettis',snow:'Neige',hearts:'Cœurs',petals:'Pétales',stars:'Étoiles',bubbles:'Bulles',bokeh:'Bokeh',lightleak:'Halo de lumière',grain:'Pellicule ancienne'},
+    en:{none:'None',sparkle:'Sparkles',butterflies:'Butterflies',confetti:'Confetti',snow:'Snow',hearts:'Hearts',petals:'Petals',stars:'Stars',bubbles:'Bubbles',bokeh:'Bokeh',lightleak:'Light leak',grain:'Old film'} },
   frame:{
-    mg:{none:'Tsy misy',polaroid:'Polaroid',rounded:'Boribory zoro',cinema:'Sinema',film:'Sarimihetsika',vignette:'Maizimaizina amin’ny sisiny'},
-    fr:{none:'Aucun',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
-    en:{none:'None',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
+    mg:{none:'Tsy misy',soft:'Sisiny malefaka',floral:'Voninkazo sy lolo',polaroid:'Polaroid',rounded:'Boribory zoro',cinema:'Sinema',film:'Sarimihetsika',vignette:'Maizimaizina amin’ny sisiny'},
+    fr:{none:'Aucun',soft:'Bords adoucis',floral:'Fleurs et papillons',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
+    en:{none:'None',soft:'Soft edges',floral:'Flowers and butterflies',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
   tpl:{
-    mg:{weddingWhite:'Fotsy madio',weddingGold:'Volamena',weddingRustic:'An-tanàna',weddingBoho:'Bohème',weddingBeach:'Amoron-dranomasina',weddingGarden:'An-jaridaina',weddingModern:'Maoderina',weddingVintage:'Taloha',weddingRoyal:'Mpanjaka',weddingChurch:'Am-piangonana',vodiondry:'Vodiondry',baptismBoy:'Zazalahy',baptismGirl:'Zazavavy',baptismDove:'Voromailala',baptismAngel:'Anjely kely',communion:'Komonio voalohany',baptismParty:'Fankalazana',baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
-    fr:{weddingWhite:'Blanc pur',weddingGold:'Or',weddingRustic:'Champêtre',weddingBoho:'Bohème',weddingBeach:'Plage',weddingGarden:'Jardin',weddingModern:'Moderne',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Religieux',vodiondry:'Vodiondry',baptismBoy:'Garçon',baptismGirl:'Fille',baptismDove:'Colombe',baptismAngel:'Petit ange',communion:'Première communion',baptismParty:'Fête de baptême',baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
-    en:{weddingWhite:'Pure white',weddingGold:'Gold',weddingRustic:'Rustic',weddingBoho:'Boho',weddingBeach:'Beach',weddingGarden:'Garden',weddingModern:'Modern',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Church',vodiondry:'Vodiondry',baptismBoy:'Boy',baptismGirl:'Girl',baptismDove:'Dove',baptismAngel:'Little angel',communion:'First communion',baptismParty:'Baptism party',baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
+    mg:{weddingFloral:'Voninkazo sy kintana',weddingRoses:'Raozy',weddingHeart:'Fo voninkazo',weddingWhite:'Fotsy madio',weddingGold:'Volamena',weddingRustic:'An-tanàna',weddingBoho:'Bohème',weddingBeach:'Amoron-dranomasina',weddingGarden:'An-jaridaina',weddingModern:'Maoderina',weddingVintage:'Taloha',weddingRoyal:'Mpanjaka',weddingChurch:'Am-piangonana',vodiondry:'Vodiondry',baptismBoy:'Zazalahy',baptismGirl:'Zazavavy',baptismDove:'Voromailala',baptismAngel:'Anjely kely',communion:'Komonio voalohany',baptismParty:'Fankalazana',baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
+    fr:{weddingFloral:'Fleurs et étoiles',weddingRoses:'Roses',weddingHeart:'Cœur fleuri',weddingWhite:'Blanc pur',weddingGold:'Or',weddingRustic:'Champêtre',weddingBoho:'Bohème',weddingBeach:'Plage',weddingGarden:'Jardin',weddingModern:'Moderne',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Religieux',vodiondry:'Vodiondry',baptismBoy:'Garçon',baptismGirl:'Fille',baptismDove:'Colombe',baptismAngel:'Petit ange',communion:'Première communion',baptismParty:'Fête de baptême',baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
+    en:{weddingFloral:'Flowers and stars',weddingRoses:'Roses',weddingHeart:'Flower heart',weddingWhite:'Pure white',weddingGold:'Gold',weddingRustic:'Rustic',weddingBoho:'Boho',weddingBeach:'Beach',weddingGarden:'Garden',weddingModern:'Modern',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Church',vodiondry:'Vodiondry',baptismBoy:'Boy',baptismGirl:'Girl',baptismDove:'Dove',baptismAngel:'Little angel',communion:'First communion',baptismParty:'Baptism party',baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
 };
 
 const LANGS = ['mg', 'fr', 'en'];
@@ -899,9 +928,9 @@ function defaults() {
     autoplay:true, shuffle:true, keepEnds:false, loop:true,
     musicVol:0.8, videoVol:0.7, fadeAudio:true, duck:true, fitMusic:false,
     font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:'travel',
-    capStyle:'lowerThird', capAnim:'split', textFx:'shadow', bpm:100, beatZoom:false, beatSnap:false,
-    intro:{ on:true, title:tx[0], sub:tx[1], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center' },
-    outro:{ on:true, title:tx[2], sub:tx[3], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center' }
+    capStyle:'lowerThird', capAnim:'split', textFx:'shadow', bpm:100, beatZoom:false, beatSnap:false, countdown:false,
+    intro:{ on:true, title:tx[0], sub:tx[1], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center', decor:'none' },
+    outro:{ on:true, title:tx[2], sub:tx[3], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center', decor:'none' }
   };
 }
 const S = { items:[], music:[], titleImgs:[], settings:defaults() };
@@ -1035,14 +1064,16 @@ async function addMusicFile(f, name) {
 
 /* ---------- order & sequence ---------- */
 function shuffleOrder(prevLast) {
-  const ids = S.items.map(i => i.id);
-  let head = null, tail = null, mid = ids;
-  if (S.settings.keepEnds && ids.length > 2) { head = ids[0]; tail = ids[ids.length - 1]; mid = ids.slice(1, -1); }
-  const a = mid.slice();
-  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-  if (!head && prevLast && a.length > 1 && a[0] === prevLast) [a[0], a[1]] = [a[1], a[0]];
-  order = head ? [head, ...a, tail] : a;
-  seqSeed = (Math.random() * 1e9) | 0;
+  const ids = S.items.map(i => i.id), isT = id => (itemById(id) || {}).kind === 'text', out = ids.slice();
+  let lo = 0, hi = out.length - 1; if (S.settings.keepEnds && out.length > 2) { lo = 1; hi = out.length - 2; }
+  for (let i = lo; i <= hi;) {
+    if (isT(out[i])) { i++; continue; }
+    let j = i; while (j + 1 <= hi && !isT(out[j + 1])) j++;
+    const seg = out.slice(i, j + 1); for (let a = seg.length - 1; a > 0; a--) { const r = Math.floor(Math.random() * (a + 1)); [seg[a], seg[r]] = [seg[r], seg[a]]; }
+    out.splice(i, seg.length, ...seg); i = j + 1;
+  }
+  if (!S.settings.keepEnds && prevLast && out.length > 1 && out[0] === prevLast && !isT(out[0]) && !isT(out[1])) [out[0], out[1]] = [out[1], out[0]];
+  order = out; seqSeed = (Math.random() * 1e9) | 0;
 }
 function syncOrder() {
   const ids = S.items.map(i => i.id);
@@ -1050,7 +1081,7 @@ function syncOrder() {
   const same = order.length === ids.length && ids.every(id => order.includes(id));
   if (!same) shuffleOrder();
 }
-const itemDur = it => it.kind === 'video'
+const itemDur = it => it.kind === 'text' ? (+it.dur || 4) : it.kind === 'video'
   ? Math.max(0.5, (it.trimEnd ?? it.vdur ?? 5) - (it.trimStart || 0))
   : (it.dur ?? S.settings.defDur);
 const musicTotal = () => S.music.reduce((a, m) => a + (m.dur || 0), 0);
@@ -1062,6 +1093,7 @@ function buildSeq() {
   if (st.intro.on && S.items.length) out.push({ type:'intro', dur:clamp(+st.intro.dur || 4, 1, 20) });
   order.map(itemById).filter(Boolean).forEach(it => out.push({ type:'item', item:it, dur:itemDur(it) }));
   if (st.outro.on && S.items.length) out.push({ type:'outro', dur:clamp(+st.outro.dur || 4, 1, 20) });
+  if (st.countdown && S.items.length) out.unshift({ type:'countdown', dur:5 });
   if (st.fitMusic) {
     const M = musicTotal(); const imgs = out.filter(e => e.type === 'item' && e.item.kind === 'image');
     if (M > 0 && imgs.length) {
@@ -1073,7 +1105,7 @@ function buildSeq() {
   }
   if (st.beatSnap) { const bar = 4 * 60 / (st.bpm || 100); out.forEach(e => { if (e.type === 'item' && e.item.kind === 'image') e.dur = Math.max(1, Math.round(e.dur / bar)) * bar; }); }
   out.forEach(e => {
-    if (e.type === 'item') {
+    if (e.type === 'item' && e.item.kind !== 'text') {
       let ef = e.item.effect === 'inherit' ? st.effect : e.item.effect;
       if (e.item.kind === 'video' && e.item.effect === 'inherit') ef = 'none';
       if (ef === 'auto') ef = EFFECT_POOL[Math.floor(rng() * EFFECT_POOL.length)];
@@ -1159,7 +1191,8 @@ function frameOverlay(fr) {
 }
 function drawEntry(e, local, extraFilter) {
   const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), fr = e.frame || st.frame || 'none';
-  if (e.type !== 'item') { drawTitle(e, local); frameOverlay(fr); return; }
+  if (e.type === 'countdown') { drawCountdown(local); return; }
+  if (e.type !== 'item' || e.item.kind === 'text') { drawTitle(e, local); frameOverlay(fr); return; }
   const it = e.item, m = media[it.id];
   ctx.fillStyle = st.bg; ctx.fillRect(0, 0, W, H);
   let src = null, sw = 0, sh = 0;
@@ -1169,8 +1202,19 @@ function drawEntry(e, local, extraFilter) {
   const u = clamp(local / e.dur, 0, 1), mo = motion(e.effect, u, W, H, local);
   if (st.fit !== 'cover') { mo.sc = 1 + (mo.sc - 1) * .3; mo.dx *= .3; mo.dy *= .3; }
   const filt = [FILTERS[e.filter] || '', extraFilter || ''].filter(Boolean).join(' ');
-  if (st.fit === 'blur' || fr === 'polaroid' || fr === 'rounded')
+  if (st.fit === 'blur' || ['polaroid', 'rounded', 'soft', 'floral'].includes(fr))
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, 'cover', { sc:1.15, dx:0, dy:0, ang:0 }, (filt + ` blur(${Math.round(k * .035)}px) brightness(.6)`).trim());
+  if (fr === 'soft' || fr === 'floral') {
+    const fb = fitBox(sw, sh, it.rot, fr === 'soft' ? W * .8 : W * .66, fr === 'soft' ? H * .82 : H * .7), bx = (W - fb.w) / 2, by = (H - fb.h) / 2 - (fr === 'floral' ? H * .04 : 0);
+    if (fr === 'floral') { ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+    ctx.save(); ctx.beginPath(); ctx.rect(bx, by, fb.w, fb.h); ctx.clip();
+    placeImg(src, sw, sh, it.rot, { x:bx, y:by, w:fb.w, h:fb.h }, 'cover', mo, filt);
+    if (fr === 'soft') softEdges(bx, by, fb.w, fb.h, Math.min(fb.w, fb.h) * .1);
+    ctx.restore();
+    if (fr === 'floral') { ctx.strokeStyle = 'rgba(255,255,255,.92)'; ctx.lineWidth = k * .006; ctx.strokeRect(bx, by, fb.w, fb.h); floralAround(bx, by, fb.w, fb.h, local); }
+    if (it.caption) drawCaption(it.caption, local, e.dur, e);
+    return;
+  }
   if (fr === 'polaroid') {
     const rq = ((it.rot || 0) % 180 + 180) % 180 === 90, ar = clamp(rq ? sh / sw : sw / sh, .55, 1.9);
     let ph = H * .66, pw = ph * ar; if (pw > W * .7) { pw = W * .7; ph = pw / ar; }
@@ -1203,6 +1247,167 @@ function drawEntry(e, local, extraFilter) {
   frameOverlay(fr);
   if (it.caption) drawCaption(it.caption, local, e.dur, e);
 }
+/* ---------- hand-drawn decorations (all procedural) ---------- */
+const grow = (local, i, step = .035) => ease(clamp((local - i * step) / .7, 0, 1));
+function leafShape(x, y, len, ang, col, rib) {
+  if (len <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(0, 0);
+  ctx.quadraticCurveTo(len * .5, -len * .3, len, 0); ctx.quadraticCurveTo(len * .5, len * .3, 0, 0); ctx.fill();
+  if (rib) { ctx.strokeStyle = rib; ctx.lineWidth = Math.max(1, len * .04); ctx.beginPath(); ctx.moveTo(len * .05, 0); ctx.lineTo(len * .9, 0); ctx.stroke(); }
+  ctx.restore();
+}
+function petals(x, y, r, n, col, rot, lenK, widK, stroke) {
+  if (r <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.fillStyle = col;
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = Math.max(.8, r * .025); }
+  for (let i = 0; i < n; i++) { ctx.save(); ctx.rotate(i * Math.PI * 2 / n); ctx.beginPath(); ctx.ellipse(0, -r * .52 * lenK, r * widK, r * .5 * lenK, 0, 0, Math.PI * 2); ctx.fill(); if (stroke) ctx.stroke(); ctx.restore(); }
+  ctx.restore();
+}
+function centerDot(x, y, r, c1, c2) { const g = ctx.createRadialGradient(x - r * .3, y - r * .3, 0, x, y, r); g.addColorStop(0, c1); g.addColorStop(1, c2); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+function daisy(x, y, r, rot = 0) { petals(x, y, r, 16, '#ffffff', rot, 1, .16, 'rgba(0,0,0,.12)'); centerDot(x, y, r * .3, '#ffe35a', '#f0a800'); }
+function sunflower(x, y, r, rot = 0) { petals(x, y, r, 20, '#e99a00', rot + .08, 1.05, .13); petals(x, y, r * .92, 20, '#ffcc1f', rot, 1, .12); centerDot(x, y, r * .38, '#7a5420', '#3b260c'); }
+function blossom(x, y, r, col, rot = 0, mid = '#ffd84a') { petals(x, y, r, 5, col, rot, .95, .42, 'rgba(0,0,0,.08)'); centerDot(x, y, r * .2, mid, '#c98a00'); }
+function rose(x, y, r, col = '#f3b49b', dark = '#c97a63') {
+  if (r <= 0) return;
+  const g = ctx.createRadialGradient(x - r * .2, y - r * .2, r * .1, x, y, r); g.addColorStop(0, col); g.addColorStop(1, dark);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = dark; ctx.lineCap = 'round';
+  for (let j = 0; j < 3; j++) { const rr2 = r * (.85 - j * .26); ctx.lineWidth = Math.max(1, r * .07);
+    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + j * .7; ctx.beginPath(); ctx.arc(x, y, rr2, a, a + 1.25); ctx.stroke(); } }
+  ctx.beginPath(); ctx.arc(x + r * .05, y, r * .12, 0, Math.PI * 1.6); ctx.stroke();
+}
+function butterfly(x, y, s, time, col = '#7fd6c8', seed = 0) {
+  const flap = .3 + .7 * Math.abs(Math.sin(time * 7 + seed));
+  ctx.save(); ctx.translate(x, y); ctx.rotate(Math.sin(time * 1.3 + seed) * .25);
+  ctx.fillStyle = col; ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = Math.max(1, s * .04);
+  [[-1, -.35, .55], [1, -.35, .55], [-1, .3, .38], [1, .3, .38]].forEach(([sx, oy, k]) => {
+    ctx.beginPath(); ctx.ellipse(sx * s * .42 * flap, oy * s, s * .45 * k * 1.4 * flap, s * k, sx * .5, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
+  ctx.fillStyle = '#2b2a28'; ctx.beginPath(); ctx.ellipse(0, 0, s * .06, s * .42, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+}
+function glare(x, y, s, a, col = '#ffffff') {
+  if (a <= 0 || s <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a;
+  const g = ctx.createRadialGradient(x, y, 0, x, y, s * 1.3); g.addColorStop(0, col); g.addColorStop(.25, col + '99'); g.addColorStop(1, col + '00');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, s * 1.3, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = col;
+  const ray = (len, w, ang) => { ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.beginPath(); ctx.moveTo(-len, 0); ctx.lineTo(0, -w); ctx.lineTo(len, 0); ctx.lineTo(0, w); ctx.closePath(); ctx.fill(); ctx.restore(); };
+  ray(s * 2.6, s * .09, 0); ray(s * 2.6, s * .09, Math.PI / 2); ray(s * 1.2, s * .07, Math.PI / 4); ray(s * 1.2, s * .07, -Math.PI / 4);
+  ctx.restore();
+}
+function vine(pts, col, w) { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length - 1; i++) { const mx = (pts[i][0] + pts[i + 1][0]) / 2, my = (pts[i][1] + pts[i + 1][1]) / 2; ctx.quadraticCurveTo(pts[i][0], pts[i][1], mx, my); } const l = pts[pts.length - 1]; ctx.lineTo(l[0], l[1]); ctx.stroke(); }
+
+/* layouts: return text overrides when the decor needs them */
+function drawDecor(kind, local) {
+  if (!kind || kind === 'none') return null;
+  const W = cv.width, H = cv.height, k = Math.min(W, H), sway = Math.sin(local * 1.1) * .03;
+  ctx.save();
+  if (kind === 'daisyWreath') {
+    [-1, 1].forEach(side => {
+      const pts = []; for (let i = 0; i <= 8; i++) { const a = (-.62 + i * .155) * Math.PI; pts.push([W / 2 + side * Math.cos(a) * W * .37, H * .5 + Math.sin(a) * H * .43]); }
+      vine(pts, '#3f6b3a', k * .006);
+      pts.forEach(([x, y], i) => { leafShape(x, y, k * .06 * grow(local, i), side * (i % 2 ? .6 : -.9) + (side < 0 ? Math.PI : 0), i % 2 ? '#4f7f42' : '#8a7a3a', 'rgba(255,255,255,.25)'); });
+      pts.forEach(([x, y], i) => { if (i === 0 || i === 8) return; const r = k * (i % 3 === 1 ? .05 : .038) * grow(local, i + 2); if (i % 3 === 1) sunflower(x, y, r * .8, sway); else daisy(x, y, r, sway); });
+      for (let i = 0; i < 4; i++) blossom(W / 2 + side * W * (.22 + i * .06), H * (.88 + (i % 2) * .04), k * .022 * grow(local, 10 + i), '#9cc6ec', i, '#f5f5f5');
+    });
+    [-1, 0, 1].forEach((d, i) => sunflower(W / 2 + d * W * .085, H * .93, k * (d ? .06 : .075) * grow(local, 12 + i), sway));
+    for (let i = 0; i < 6; i++) daisy(W * (.3 + i * .08), H * .1 + Math.sin(i) * H * .02, k * .02 * grow(local, 16 + i));
+  } else if (kind === 'floralBorder' || kind === 'roseBorder') {
+    const rosy = kind === 'roseBorder';
+    [0, 1].forEach(bot => {
+      const y0 = bot ? H * .98 : H * .02;
+      for (let i = 0; i < 14; i++) {
+        const x = (i + .5) / 14 * W, g = grow(local, i + bot * 7), yy = y0 + (bot ? -1 : 1) * (hash(i * 3 + bot) * k * .06);
+        if (!rosy && !bot && i % 2 === 0) { vine([[x, 0], [x + k * .02, H * .08], [x - k * .01, H * .16 * g]], '#3f6b3a', k * .004); leafShape(x, H * .1 * g, k * .04 * g, .8, '#5d8f4a'); leafShape(x, H * .14 * g, k * .035 * g, 2.4, '#5d8f4a'); }
+        leafShape(x, yy, k * .07 * g, (bot ? -1 : 1) * (.4 + hash(i) * .8), rosy ? '#6f9a5a' : '#4f7f42', 'rgba(255,255,255,.2)');
+        leafShape(x, yy, k * .06 * g, (bot ? -1 : 1) * (2.3 + hash(i + 5) * .6), rosy ? '#86ad6b' : '#3f6b3a');
+      }
+      for (let i = 0; i < 12; i++) {
+        const x = (i + .25 + hash(i + bot) * .5) / 12 * W, y = y0 + (bot ? -1 : 1) * k * (.05 + hash(i * 7 + bot) * .07), g = grow(local, i + 3 + bot * 6), r = k * (.04 + hash(i * 11 + bot) * .03) * g;
+        if (rosy) { rose(x, y, r * 1.35, i % 3 ? '#f6c0a8' : '#f19f8a', i % 3 ? '#d58c74' : '#c26b5c'); if (i % 4 === 0) blossom(x + r * 1.4, y, r * .6, '#ffffff', i); }
+        else [() => daisy(x, y, r, sway), () => sunflower(x, y, r * .9, sway), () => rose(x, y, r * .8, '#f6a7a0', '#d26f6a'), () => blossom(x, y, r, '#f39a5a', i, '#fff3c0')][i % 4]();
+      }
+    });
+  } else if (kind === 'heartWreath') {
+    const s = Math.min(W, H) * .022, cx = W / 2, cy = H * .47;
+    for (let i = 0; i < 30; i++) {
+      const t = i / 30 * Math.PI * 2; if (i && i !== 15 && Math.abs(Math.sin(t)) < .3) continue;
+      const x = cx + 16 * Math.pow(Math.sin(t), 3) * s, y = cy - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * s;
+      blossom(x, y, k * (i % 3 ? .03 : .04) * grow(local, i, .025), i % 4 ? '#f7a9b4' : '#f58fa0', i, '#fff0a8');
+    }
+    blossom(cx, cy - 6.5 * s, k * .065 * grow(local, 31), '#fbc3c9', 0, '#3a2a2a');
+    butterfly(cx + 6 * s, cy - 8 * s, k * .045 * grow(local, 33), local, '#8fe0d4', 1);
+    for (let i = 0; i < 14; i++) { const x = (i + .5) / 14 * W, y = H * (.93 + hash(i) * .05), g = grow(local, 20 + i, .02); i % 3 ? blossom(x, y, k * .025 * g, '#9cc6ec', i, '#ffffff') : daisy(x, y, k * .04 * g); leafShape(x, H, k * .06 * g, -1.3 - hash(i) * .5, '#3f6b3a'); }
+    butterfly(W * .25, H * .78, k * .04 * grow(local, 36), local + 1, '#f08a5d', 2); butterfly(W * .78, H * .8, k * .035 * grow(local, 37), local + 2, '#f08a5d', 3);
+  } else if (kind === 'leafGarland') {
+    [H * .13, H * .87].forEach((y, bi) => {
+      const dir = bi ? -1 : 1;
+      ctx.strokeStyle = 'rgba(255,255,240,.85)'; ctx.lineWidth = Math.max(1, k * .003);
+      [y, y + dir * k * .012].forEach(yy => { ctx.beginPath(); ctx.moveTo(W * .06, yy); ctx.lineTo(W * .06 + W * .88 * grow(local, 0), yy); ctx.stroke(); });
+      for (let i = 0; i < 18; i++) {
+        const x = W * (.1 + i * .046), g = grow(local, i + 2, .03), up = (i % 2 ? 1 : -1);
+        leafShape(x, y, k * .055 * g, -Math.PI / 2 * dir + up * .55, '#ece27a', 'rgba(120,110,30,.6)');
+        if (i % 3 === 0) { blossom(x, y - dir * k * .02, k * .018 * g, '#fff8d0', i, '#f2d24a'); glare(x + k * .01, y - dir * k * .05, k * .012, g * (.5 + .5 * Math.sin(local * 3 + i))); }
+      }
+    });
+  } else if (kind === 'goldCard') {
+    const cols = ['#3aa38f', '#7cc36a', '#3b7fb4', '#2f8a5e'];
+    for (let i = 0; i < 22; i++) { const a = i / 22 * Math.PI * 2, rx = W * .36, ry = H * .36, x = W / 2 + Math.cos(a) * rx * (1 + hash(i) * .12), y = H / 2 + Math.sin(a) * ry * (1 + hash(i + 4) * .15);
+      leafShape(x, y, k * (.1 + hash(i * 2) * .07) * grow(local, i, .02), a + (hash(i) - .5), cols[i % 4], 'rgba(255,255,255,.35)'); }
+    for (let i = 0; i < 8; i++) { const a = (i + .5) / 8 * Math.PI * 2; blossom(W / 2 + Math.cos(a) * W * .34, H / 2 + Math.sin(a) * H * .38, k * .035 * grow(local, 22 + i), '#f39a3c', i, '#fff3c0'); }
+    const g = grow(local, 4), cw = W * .54 * g, ch = H * .5 * g;
+    ctx.fillStyle = '#ffffff'; ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = k * .03; ctx.fillRect(W / 2 - cw / 2, H / 2 - ch / 2, cw, ch); ctx.shadowColor = 'transparent';
+    ctx.strokeStyle = '#cfa64a'; ctx.lineWidth = k * .008; ctx.strokeRect(W / 2 - cw / 2 + k * .015, H / 2 - ch / 2 + k * .015, cw - k * .03, ch - k * .03);
+    ctx.restore(); return { color:'#2f5d8a', maxW:W * .46, fx:'none' };
+  } else if (kind === 'cornerVines') {
+    ctx.save(); ctx.translate(W / 2, H / 2); ctx.rotate(-.045); ctx.strokeStyle = '#b5707e'; ctx.lineWidth = k * .005; const g0 = grow(local, 0);
+    ctx.strokeRect(-W * .32 * g0, -H * .3 * g0, W * .64 * g0, H * .6 * g0); ctx.restore();
+    vine([[W * .12, H * .22], [W * .2, H * .3], [W * .3, H * .24], [W * .38, H * .27]], '#8a5a4a', k * .005);
+    for (let i = 0; i < 4; i++) leafShape(W * (.18 + i * .05), H * (.27 + (i % 2) * .02), k * .03 * grow(local, i), -.6 + i, '#7a4a3a');
+    petals(W * .18, H * .3, k * .07 * grow(local, 4), 14, '#ffd84a', sway, 1, .13); centerDot(W * .18, H * .3, k * .018, '#f0a800', '#c07800');
+    blossom(W * .8, H * .76, k * .055 * grow(local, 6), '#f7a9b4', 0, '#ffffff');
+    butterfly(W * .12, H * .86, k * .06 * grow(local, 8), local, '#8fe0d4', 4);
+  }
+  ctx.restore(); return null;
+}
+
+/* photo frames with decoration */
+function fitBox(sw, sh, rot, aw, ah) { const sq = ((rot || 0) % 180 + 180) % 180 === 90, ar = sq ? sh / sw : sw / sh; let w = aw, h = w / ar; if (h > ah) { h = ah; w = h * ar; } return { w, h }; }
+function softEdges(x, y, w, h, f) {
+  const strip = (x0, y0, x1, y1, rx, ry, rw, rh) => { const g = ctx.createLinearGradient(x0, y0, x1, y1); g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = g; ctx.fillRect(rx, ry, rw, rh); };
+  strip(x, 0, x + f, 0, x, y, f, h); strip(x + w, 0, x + w - f, 0, x + w - f, y, f, h);
+  strip(0, y, 0, y + f, x, y, w, f); strip(0, y + h, 0, y + h - f, x, y + h - f, w, f);
+}
+function floralAround(x, y, w, h, local) {
+  const W = cv.width, H = cv.height, k = Math.min(W, H), sway = Math.sin(local * 1.1) * .03;
+  for (let i = 0; i < 16; i++) { const px = (i + .5) / 16 * W, g = grow(local, i, .025), py = H * (.95 + hash(i) * .04);
+    leafShape(px, H, k * .08 * g, -1.2 - hash(i + 2) * .7, i % 2 ? '#4f7f42' : '#6f9a5a');
+    [() => daisy(px, py, k * .04 * g, sway), () => blossom(px, py, k * .028 * g, '#9cc6ec', i, '#ffffff'), () => blossom(px, py, k * .03 * g, '#f7a9b4', i), () => sunflower(px, py, k * .032 * g, sway)][i % 4](); }
+  [[x - k * .02, y + h * .55, -1], [x + w + k * .02, y + h * .45, 1]].forEach(([fx, fy, s], j) => {
+    for (let i = 0; i < 5; i++) leafShape(fx, fy + i * k * .06, k * .09 * grow(local, 18 + i), s > 0 ? -.9 + i * .25 : Math.PI + .9 - i * .25, '#7fae5e', 'rgba(255,255,255,.3)');
+    petals(fx, fy - k * .02, k * .08 * grow(local, 24 + j), 6, '#f4f1dc', sway + j, 1.1, .28, 'rgba(120,140,80,.35)'); centerDot(fx, fy - k * .02, k * .015, '#f3e27a', '#c9b13a');
+  });
+  butterfly(x + w * .12, y - k * .01, k * .045 * grow(local, 28), local, '#9be3c6', 1);
+  butterfly(x + w * .9, y + h * .2, k * .04 * grow(local, 29), local + 1.3, '#f6dfa4', 2);
+}
+
+/* countdown leader 5 → 1 */
+function drawCountdown(local) {
+  const W = cv.width, H = cv.height, k = Math.min(W, H), cx = W / 2, cy = H / 2, n = Math.max(1, 5 - Math.floor(local)), f = local % 1;
+  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.hypot(W, H) * .6); g.addColorStop(0, '#d2d2d2'); g.addColorStop(1, '#6a6a6a'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(255,255,255,.16)'; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, Math.hypot(W, H), -Math.PI / 2, -Math.PI / 2 + f * Math.PI * 2); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = '#151515'; ctx.lineWidth = Math.max(2, k * .006); ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+  ctx.strokeStyle = '#ffffff'; ctx.lineWidth = k * .022; ctx.beginPath(); ctx.arc(cx, cy, k * .44, 0, Math.PI * 2); ctx.stroke();
+  ctx.lineWidth = k * .006; ctx.globalAlpha = .6; ctx.beginPath(); ctx.arc(cx, cy, k * .37, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+  if (n === 1) { ctx.save(); ctx.strokeStyle = '#e9c65a'; ctx.lineCap = 'round';
+    for (let b = 0; b < 3; b++) { const bx = [cx, W * .15, W * .85][b], by = [cy, H * .2, H * .25][b], L = k * (b ? .25 : .7) * ease(f);
+      for (let i = 0; i < 28; i++) { const a = i / 28 * Math.PI * 2 + b; ctx.globalAlpha = .9 * (1 - f * .5); ctx.lineWidth = k * (.012 + hash(i + b) * .015); ctx.beginPath(); ctx.moveTo(bx + Math.cos(a) * L * .25, by + Math.sin(a) * L * .25); ctx.lineTo(bx + Math.cos(a) * L, by + Math.sin(a) * L); ctx.stroke(); } }
+    ctx.restore(); }
+  ctx.save(); ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = k * .02;
+  ctx.font = `800 ${k * .5}px "Montserrat", "Arial Black", sans-serif`; ctx.fillText(String(n), cx, cy + k * .02); ctx.restore();
+  for (let i = 0; i < 34; i++) { const x = hash(i) * W, y = (hash(i + 40) * H + local * k * .03 * (1 + hash(i + 9))) % H; glare(x, y, k * (.006 + hash(i + 3) * .012), .35 + .65 * Math.abs(Math.sin(local * 2.5 + i)), i % 3 ? '#fff6d8' : '#f2c94c'); }
+}
+
 /* text animation state for a block that appears at `local` seconds and leaves at `dur` */
 function textAnim(anim, local, dur, delay = 0) {
   const tl = local - delay, a = clamp(tl / .9, 0, 1), ea = ease(a);
@@ -1257,6 +1462,7 @@ function drawTitleBg(d, local, e) {
   const st = S.settings, W = cv.width, H = cv.height, base = Math.min(W, H), c0 = st.colors[0], c1 = st.colors[1];
   const bg = d.bg || 'gradient', time = local;
   const imgOf = id => { const m = id && media[id]; return m && m.kind === 'image' && m.el && m.el.naturalWidth ? m.el : null; };
+  if (bg === 'black') { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); return; }
   if ((bg === 'image' || bg === 'blurPhoto')) {
     let im = bg === 'image' ? imgOf(d.imgId) : null;
     if (!im) { const its = S.items.filter(i => i.kind === 'image'); const pick = e.type === 'intro' ? its[0] : its[its.length - 1]; im = imgOf(d.imgId) || (pick && imgOf(pick.id)); }
@@ -1293,11 +1499,12 @@ function drawTitleBg(d, local, e) {
 }
 function drawTitle(e, local) {
   const st = S.settings, W = cv.width, H = cv.height, base = Math.min(W, H);
-  const d = e.type === 'intro' ? st.intro : st.outro, dur = e.dur;
+  const d = e.type === 'item' ? e.item : e.type === 'intro' ? st.intro : st.outro, dur = e.dur;
   drawTitleBg(d, local, e);
+  const deco = drawDecor(d.decor, local) || {}, keepFx = st.textFx; if (deco.fx) st.textFx = deco.fx;
   const lay = d.layout || 'center', align = lay === 'left' ? 'left' : 'center';
-  const fs = base * (st.font === 'Bebas Neue' ? .15 : .1); ctx.font = fontStr(fs); ctx.textBaseline = 'middle'; ctx.fillStyle = st.textColor;
-  const maxW = W * (lay === 'left' ? .78 : .84), lines = wrap(d.title || '', maxW).slice(0, 3), lh = fs * 1.14;
+  const fs = base * (st.font === 'Bebas Neue' ? .15 : .1); ctx.font = fontStr(fs); ctx.textBaseline = 'middle'; ctx.fillStyle = deco.color || st.textColor;
+  const maxW = deco.maxW || W * (lay === 'left' ? .78 : .84), lines = wrap(d.title || '', maxW).slice(0, 3), lh = fs * 1.14;
   const subFs = base * .042, hasSub = !!(d.sub && d.sub.trim());
   const blockH = lines.length * lh + (hasSub ? subFs * 2.2 : 0);
   const x = lay === 'left' ? W * .09 : W / 2;
@@ -1313,7 +1520,7 @@ function drawTitle(e, local) {
     an2.alpha *= .92; fxText(d.sub.toUpperCase(), x, y - lh / 2 + subFs * 1.3, subFs, align, an2, 1);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
-  ctx.restore();
+  ctx.restore(); st.textFx = keepFx;
 }
 function drawCaption(text, local, dur, e) {
   const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), style = (e && e.capStyle) || st.capStyle || 'gradient';
@@ -1379,6 +1586,16 @@ function drawOverlay(time, kind) {
     const ox = hash(f) * 180, oy = hash(f + 3) * 180; ctx.translate(-ox, -oy); ctx.fillRect(0, 0, W + 180, H + 180); ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = .05 + .06 * hash(f + 9); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
     for (let s = 0; s < 2; s++) { if (hash(f + s * 17) > .55) { ctx.globalAlpha = .18; ctx.fillStyle = '#f2ead8'; ctx.fillRect(hash(Math.floor(time * 6) + s * 5) * W, 0, 1.4 * u, H); } }
+    ctx.restore(); return;
+  }
+  if (k === 'sparkle') {
+    for (let i = 0; i < 34; i++) { const x = hash(i) * W, y = hash(i + 50) * H + Math.sin(time * .3 + i) * 10 * u, tw = Math.abs(Math.sin(time * (1.2 + hash(i + 7) * 2) + i * 1.7));
+      glare(x, y, (4 + hash(i + 3) * 10) * u, tw * .95, ['#ffffff', '#fff3c4', '#bfe9ff', '#ffd0e8'][i % 4]); }
+    ctx.restore(); return;
+  }
+  if (k === 'butterflies') {
+    for (let i = 0; i < 5; i++) { const p = (time * (.04 + hash(i) * .03) + hash(i + 9)) % 1, x = p * (W + 120 * u) - 60 * u, y = H * (.2 + hash(i + 4) * .6) + Math.sin(time * 1.5 + i * 2) * 40 * u;
+      butterfly(x, y, (16 + hash(i + 2) * 12) * u, time + i, ['#8fe0d4', '#f6dfa4', '#f08a5d', '#c9b7f2', '#9be3c6'][i], i); }
     ctx.restore(); return;
   }
   if (k === 'lightleak') {
@@ -1639,11 +1856,12 @@ function renderStrip() {
   strip.innerHTML = S.items.map((it, i) => {
     const m = media[it.id], th = m && m.thumb;
     return `<div class="clip${sel === it.id ? ' is-sel' : ''}${it.id === lastLiveIdx ? ' is-live' : ''}" data-id="${it.id}" role="button" tabindex="0" aria-label="${esc((i + 1) + '. ' + it.name)}">
-      <div class="clip-img">${th ? `<img src="${th}" alt="" draggable="false">` : icon(it.kind === 'video' ? 'film' : 'image')}</div>
-      <div class="clip-meta"><span>${i + 1}</span>${it.kind === 'video' ? icon('film') : ''}${it.caption ? icon('type') : ''}<span class="clip-d">${fmtS(itemDur(it))}</span></div>
+      <div class="clip-img${it.kind === 'text' ? ' clip-txt' : ''}">${it.kind === 'text' ? `<span>${esc(it.title || '…')}</span>` : th ? `<img src="${th}" alt="" draggable="false">` : icon(it.kind === 'video' ? 'film' : 'image')}</div>
+      <div class="clip-meta"><span>${i + 1}</span>${it.kind === 'video' ? icon('film') : it.kind === 'text' ? icon('type') : ''}${it.caption ? icon('type') : ''}<span class="clip-d">${fmtS(itemDur(it))}</span></div>
       ${it.sample ? `<span class="clip-tag">${esc(t('sample'))}</span>` : ''}</div>`;
-  }).join('') + `<button class="clip-add" id="addTile">${icon('plus')}<span>${esc(t('add'))}</span></button>`;
+  }).join('') + `<button class="clip-add" id="addTile">${icon('plus')}<span>${esc(t('add'))}</span></button><button class="clip-add txt" id="addText">${icon('type')}<span>+ ${esc(t('addText'))}</span></button>`;
   $('#addTile').onclick = () => $('#fMedia').click();
+  $('#addText').onclick = () => addTextSlide();
   $$('.clip', strip).forEach(c => {
     c.onclick = () => select(c.dataset.id);
     c.onkeydown = ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); select(c.dataset.id); } if (ev.key === 'Delete') { sel = c.dataset.id; removeSel(); } };
@@ -1655,7 +1873,7 @@ function renderStrip() {
   fillImgOptions();
   if (!sortable && window.Sortable) {
     sortable = Sortable.create(strip, { animation:160, draggable:'.clip', filter:'.clip-add', delay:120, delayOnTouchOnly:true,
-      onMove: ev => !(ev.related && ev.related.classList.contains('clip-add') && ev.willInsertAfter),
+      onMove: ev => !(ev.related && ev.related.classList.contains('clip-add')),
       onEnd: () => { const ids = $$('.clip', strip).map(c => c.dataset.id); S.items.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id)); buildSeq(); renderStrip(); commit(); } });
   }
   updateSteps();
@@ -1666,10 +1884,61 @@ function select(id) {
   if (!playing) { const i = seq.findIndex(e => e.item && e.item.id === id); if (i >= 0) seekTo(entryCleanStart(i)); }
 }
 function opts(kind, list, cur) { return list.map(k => `<option value="${k}"${k === cur ? ' selected' : ''}>${esc(k === 'inherit' ? lbl('eff', 'inherit') : lbl(kind, k))}</option>`).join(''); }
+function newTextItem(title, decor) {
+  return { id:uid(), kind:'text', name:'text', title:title || t('newText'), sub:'', decor:decor || 'floralBorder', bg:'black', imgId:null, anim:'fade', layout:'center', dur:4,
+    effect:'none', filter:'none', trans:'inherit', overlay:'inherit', frame:'inherit', capStyle:'inherit', capAnim:'inherit', caption:'' };
+}
+function addTextSlide() {
+  const it = newTextItem(), i = sel ? S.items.findIndex(x => x.id === sel) : -1;
+  S.items.splice(i >= 0 ? i + 1 : S.items.length, 0, it); sel = it.id;
+  buildSeq(); renderStrip(); showTab('media'); renderMediaPanel(); commit();
+  if (!playing) { const k = seq.findIndex(x => x.item === it); if (k >= 0) seekTo(seq[k].start + 1.2); }
+}
+function addChapters() {
+  const L = I18N[lang].chapters, decs = ['floralBorder', 'roseBorder', 'heartWreath', 'goldCard'];
+  const media = S.items.filter(i => i.kind !== 'text');
+  const at = [0, .25, .5, .75].map(f => media[Math.min(media.length - 1, Math.floor(f * media.length))]).filter(Boolean);
+  L.forEach((title, n) => { const anchor = at[n] || null, it = newTextItem(title, decs[n]); const i = anchor ? S.items.indexOf(anchor) : S.items.length; S.items.splice(i, 0, it); });
+  buildSeq(); renderStrip(); renderMediaPanel(); commit(); toast(t('chaptersAdded'));
+}
+function renderTextPanel(el, it) {
+  const i = S.items.indexOf(it);
+  el.innerHTML = `<div class="sel-head"><div class="th clip-txt" style="display:grid;place-items:center"><span>${esc(it.title)}</span></div>
+      <div style="min-width:0"><div class="sel-name">${esc(t('textSlide'))}</div><div class="sel-kind">${i + 1} / ${S.items.length}</div></div></div>
+    <fieldset class="grp">
+      <div class="field"><label class="field-l" for="xT">${esc(t('titleL'))}</label><input type="text" id="xT" maxlength="90" value="${esc(it.title)}"></div>
+      <div class="field"><label class="field-l" for="xS">${esc(t('subL'))}</label><input type="text" id="xS" maxlength="90" value="${esc(it.sub)}"></div>
+      <div class="field"><label class="field-l" for="xDe">${esc(t('decorL'))}</label><select id="xDe">${opts('decor', DECORS, it.decor)}</select></div>
+      <div class="field"><label class="field-l" for="xBg">${esc(t('tbgL'))}</label><select id="xBg">${opts('tbg', TBG.filter(b => b !== 'image'), it.bg)}</select></div>
+      <div class="field"><label class="field-l" for="xAn">${esc(t('tanimL'))}</label><select id="xAn">${opts('tanim', TANIM, it.anim)}</select></div>
+      <div class="field"><label class="field-l" for="xLa">${esc(t('layoutL'))}</label><select id="xLa">${opts('layout', LAYOUTS, it.layout)}</select></div>
+      <div class="field"><label class="field-l" for="xDu"><span>${esc(t('slideDur'))}</span><span class="mono" id="oXDu">${fmtS(it.dur || 4)}</span></label><input type="range" id="xDu" min="2" max="12" step="0.5" value="${it.dur || 4}"></div>
+      <div class="field"><label class="field-l" for="xTr">${esc(t('slideTrans'))}</label><select id="xTr">${opts('trans', ['inherit', ...TRANS], it.trans || 'inherit')}</select></div>
+      <div class="field"><label class="field-l" for="xOv">${esc(t('overlay'))}</label><select id="xOv">${opts('ov', ['inherit', ...OVERLAYS], it.overlay || 'inherit')}</select></div>
+    </fieldset>
+    <div class="row">
+      <button class="btn mini" id="xL" ${i === 0 ? 'disabled' : ''}>${icon('left')}<span>${esc(t('moveL'))}</span></button>
+      <button class="btn mini" id="xR" ${i === S.items.length - 1 ? 'disabled' : ''}><span>${esc(t('moveR'))}</span>${icon('right')}</button>
+      <button class="btn mini" id="xDup">${icon('copy')}<span>${esc(t('duplicate'))}</span></button>
+      <button class="btn mini danger" id="xDel">${icon('trash')}<span>${esc(t('remove'))}</span></button>
+    </div>`;
+  const show = () => { if (!playing) { const k = seq.findIndex(x => x.item === it); if (k >= 0) seekTo(seq[k].start + Math.min(1.6, seq[k].dur * .5)); } };
+  const upd = (fn, strip) => { fn(); buildSeq(); if (strip) renderStrip(); dirty = true; show(); commitSoon(); };
+  $('#xT').oninput = e => upd(() => { it.title = e.target.value; }, true);
+  $('#xS').oninput = e => upd(() => { it.sub = e.target.value; });
+  [['#xDe', 'decor'], ['#xBg', 'bg'], ['#xAn', 'anim'], ['#xLa', 'layout'], ['#xTr', 'trans'], ['#xOv', 'overlay']].forEach(([q, f]) => { $(q).onchange = e => upd(() => { it[f] = e.target.value; }); });
+  $('#xDu').oninput = e => upd(() => { it.dur = +e.target.value; $('#oXDu').textContent = fmtS(it.dur); }, true);
+  const move = d => { const j = i + d; if (j < 0 || j >= S.items.length) return; [S.items[i], S.items[j]] = [S.items[j], S.items[i]]; buildSeq(); renderStrip(); renderMediaPanel(); commit(); };
+  $('#xL').onclick = () => move(-1); $('#xR').onclick = () => move(1);
+  $('#xDup').onclick = () => { const c = JSON.parse(JSON.stringify(it)); c.id = uid(); S.items.splice(i + 1, 0, c); sel = c.id; buildSeq(); renderStrip(); renderMediaPanel(); commit(); };
+  $('#xDel').onclick = removeSel;
+  show();
+}
 function renderMediaPanel() {
   const el = $('#tb-media'); const it = sel && itemById(sel);
+  if (it && it.kind === 'text') { renderTextPanel(el, it); return; }
   if (!it) {
-    const imgs = S.items.filter(i => i.kind === 'image').length, vids = S.items.length - imgs;
+    const imgs = S.items.filter(i => i.kind === 'image').length, vids = S.items.filter(i => i.kind === 'video').length;
     el.innerHTML = `<div class="stats">
         <div class="stat"><b>${S.items.length}</b><span>${esc(t('statItems'))}</span></div>
         <div class="stat"><b>${fmtT(total).slice(0, 5)}</b><span>${esc(t('statDur'))}</span></div>
@@ -1781,6 +2050,7 @@ function applyTpl(k) {
   const x = TPLX[k] || {};
   Object.assign(st, { capStyle:x.cap || 'gradient', capAnim:x.capAnim || 'rise', textFx:x.fx || 'shadow' });
   ['intro', 'outro'].forEach(w => { st[w].anim = x.tanim || 'rise'; if (st[w].bg !== 'image') st[w].bg = x.tbg || 'gradient'; });
+  st.intro.decor = x.decor || 'none'; st.outro.decor = x.outroDecor || x.decor || 'none'; st.countdown = !!x.countdown;
   loadFont(p.font); fillSettingsUI(); seqSeed = (Math.random() * 1e9) | 0; buildSeq(); seekTo(0); renderTpls(); renderStrip(); commit();
   toast(t('tplApplied').replace('{n}', lbl('tpl', k)));
 }
@@ -1798,7 +2068,7 @@ function fillOptions() {
     const k = s.dataset.opts; const cur = getPath(S.settings, s.dataset.set);
     if (k === 'font') s.innerHTML = FONTS.map(f => `<option value="${f}"${f === cur ? ' selected' : ''}>${f}</option>`).join('');
     else if (k === 'img') s.innerHTML = imgOptions(cur);
-    else s.innerHTML = opts(k, ({ trans:TRANS, eff:EFFECTS, fil:Object.keys(FILTERS), frame:FRAMES, ov:OVERLAYS, tbg:TBG, tanim:TANIM, layout:LAYOUTS, cap:CAPS, fx:TFX })[k] || [], cur);
+    else s.innerHTML = opts(k, ({ decor:DECORS, trans:TRANS, eff:EFFECTS, fil:Object.keys(FILTERS), frame:FRAMES, ov:OVERLAYS, tbg:TBG, tanim:TANIM, layout:LAYOUTS, cap:CAPS, fx:TFX })[k] || [], cur);
   });
 }
 function imgOptions(cur) {
@@ -1829,7 +2099,7 @@ function onSetting(key) {
   });
   buildSeq(); fillSettingsUI(); dirty = true;
   ['intro', 'outro'].forEach(w => { if (key.startsWith(w + '.') && !playing) { const i = seq.findIndex(x => x.type === w); if (i >= 0) seekTo(seq[i].start + Math.min(1.4, seq[i].dur * .45)); } });
-  if (['shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
+  if (['countdown','shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
   renderMusicStats(); commitSoon();
 }
 function bindSettings() {
@@ -1856,7 +2126,7 @@ function commit() {
   lastSnap = s; updUndo(); saveSoon();
 }
 function applySnap(s) {
-  const o = JSON.parse(s); S.items = o.items.filter(i => media[i.id]); S.music = o.music.filter(m => media[m.id]); S.titleImgs = (o.titleImgs || []).filter(x => media[x.id]); S.settings = o.settings;
+  const o = JSON.parse(s); S.items = o.items.filter(i => i.kind === 'text' || media[i.id]); S.music = o.music.filter(m => media[m.id]); S.titleImgs = (o.titleImgs || []).filter(x => media[x.id]); S.settings = o.settings;
   if (sel && !itemById(sel)) sel = null; mus.dataset.id = '';
   setPreviewSize(); fillOptions(); fillSettingsUI(); buildSeq(); renderAll(); saveSoon();
 }
@@ -2107,6 +2377,7 @@ function bindEvents() {
   $('#fMedia').onchange = e => { importFiles([...e.target.files]); e.target.value = ''; };
   $('#fMusic').onchange = async e => { const fs = [...e.target.files]; e.target.value = ''; for (const f of fs) { try { await addMusicFile(f); } catch (er) { toast(t('fileErr').replace('{f}', f.name), 'err'); } } buildSeq(); renderMusic(); renderStrip(); commit(); };
   $('#bAddMusic').onclick = () => $('#fMusic').click();
+  $('#bChapters').onclick = addChapters;
   let upFor = 'intro';
   $$('[data-upload]').forEach(b => b.onclick = () => { upFor = b.dataset.upload; $('#fTitleImg').click(); });
   $('#fTitleImg').onchange = async e => {
@@ -2153,7 +2424,7 @@ async function boot() {
       if (p && Array.isArray(p.items)) {
         const keys = new Set([...p.items.map(i => i.id), ...(p.music || []).map(m => m.id), ...(p.titleImgs || []).map(x => x.id)]);
         for (const id of keys) { const r = await DB.get('blobs', id); if (r && r.blob) await registerMedia(id, r.blob, r.kind, r.name, false); }
-        S.items = p.items.filter(i => media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
+        S.items = p.items.filter(i => i.kind === 'text' || media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
         S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
         const dft = defaults(), ps = p.settings || {}; if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; } S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
         const all = await DB.keys('blobs'); (all || []).filter(k => !keys.has(k)).forEach(k => DB.del('blobs', k).catch(() => {}));
