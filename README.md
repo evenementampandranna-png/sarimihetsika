@@ -13,6 +13,7 @@ Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les
 |---|---|---|
 | Média | Sary (JPG, PNG, WEBP, GIF, HEIC amin'ny Safari) sy vidéo (MP4, MOV, WEBM), fanintonana sy fametrahana | Photos et vidéos, glisser-déposer |
 | Effets | Effets mihetsika 16, sivana loko 9 | 16 effets de mouvement, 9 filtres |
+| Kisendrasendra ho azy | Effet, transition ary animation soratra miova ho azy isaky ny slide sy isaky ny mihodina (azo vonoina) | Effets, transitions et animations de texte tirés au hasard à chaque diapo et chaque boucle |
 | Isaky ny slide | Effet, sivana, transition, haingo mihetsika, sombiny, endrika soratra ary animation azo safidiana ho an'ny sary tsirairay; «Ampiharo amin'ny rehetra» | Chaque photo a ses propres effet, filtre, transition, ambiance, cadre, style et animation de légende |
 | Transitions | 19 karazana (fo, varavarana, jalousie...) + kisendrasendra | 19 transitions (cœur, portes, store…) + aléatoire |
 | Mozika | Hira maromaro, fade, fampihenana rehefa misy vidéo, mozika santionany | Playlist, fondu, ducking, musique d'exemple |

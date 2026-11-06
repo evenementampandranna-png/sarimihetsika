@@ -372,6 +372,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
         <fieldset class="grp">
           <legend data-i18n="grpOrder"></legend>
           <label class="sw"><input type="checkbox" id="sAutoplay" data-set="autoplay"><span class="sw-ui"></span><span data-i18n="autoplay"></span></label>
+          <label class="sw"><input type="checkbox" id="sAutoFx" data-set="autoFx"><span class="sw-ui"></span><span data-i18n="autoFx"></span></label>
           <label class="sw"><input type="checkbox" id="sCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
           <label class="sw"><input type="checkbox" id="sShuffle" data-set="shuffle"><span class="sw-ui"></span><span data-i18n="shuffleLong"></span></label>
           <label class="sw"><input type="checkbox" id="sKeepEnds" data-set="keepEnds"><span class="sw-ui"></span><span data-i18n="keepEnds"></span></label>
@@ -449,6 +450,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="tIntroT"><span data-i18n="introT"></span></label><input type="text" id="tIntroT" data-set="intro.title" maxlength="80"></div>
           <div class="field"><label class="field-l" for="tIntroS"><span data-i18n="introS"></span></label><input type="text" id="tIntroS" data-set="intro.sub" maxlength="80"></div>
           <div class="field"><label class="field-l" for="tOutroT"><span data-i18n="outroT"></span></label><input type="text" id="tOutroT" data-set="outro.title" maxlength="80"></div>
+          <label class="sw"><input type="checkbox" id="tAutoFx" data-set="autoFx"><span class="sw-ui"></span><span data-i18n="autoFx"></span></label>
           <label class="sw"><input type="checkbox" id="tKeep" data-set="keepText"><span class="sw-ui"></span><span data-i18n="keepText"></span></label>
           <label class="sw"><input type="checkbox" id="tCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
           <div class="row"><button class="btn mini" id="bChapters"><svg class="ic"><use href="#i-type"/></svg><span data-i18n="addChapters"></span></button></div>
@@ -577,6 +579,7 @@ const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
 const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
 const TBG = ['black','gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
 const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','none'];
+const TANIM_POOL = ['rise','fade','zoom','letters','blurIn','bounce','split','type'];
 const LAYOUTS = ['center','left','bottom'];
 const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
 const TFX = ['shadow','glow','outline','none'];
@@ -733,6 +736,7 @@ const I18N = {
     slideTrans:'Transition mankany amin’ny manaraka', applyAll:'Ampiharo amin’ny sary rehetra', appliedAll:'Nampiharina tamin’ny sary rehetra',
     decorL:'Haingo voninkazo', countdown:'Isa mihemotra 5…1 eo am-piandohana', addText:'Soratra', textSlide:'Pejy soratra', newText:'Soratra vaovao', addChapters:'Ampio pejy toko fanambadiana (4)', chaptersAdded:'Pejy toko 4 voampy',
     chapters:['Fahazazan’ny ampakarina','Fahazazan’ny mpampakatra','Ny fihaonanay','Fianakaviana sy namana mahafinaritra'],
+    autoFx:'Effets sy animation kisendrasendra ho azy', autoFxNote:'Miova isaky ny slide sy isaky ny mihodina ny effet, transition ary animation soratra.',
     tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
@@ -778,6 +782,7 @@ const I18N = {
     slideTrans:'Transition vers la suivante', applyAll:'Appliquer à toutes les photos', appliedAll:'Appliqué à toutes les photos',
     decorL:'Décor', countdown:'Compte à rebours 5…1 au début', addText:'Texte', textSlide:'Diapo texte', newText:'Nouveau texte', addChapters:'Ajouter 4 chapitres de mariage', chaptersAdded:'4 chapitres ajoutés',
     chapters:['L’enfance de la mariée','L’enfance du marié','Notre rencontre','Merci à notre famille et nos amis'],
+    autoFx:'Effets et animations aléatoires automatiques', autoFxNote:'Effet, transition et animation du texte changent à chaque diapo et à chaque boucle.',
     tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
@@ -823,6 +828,7 @@ const I18N = {
     slideTrans:'Transition to the next one', applyAll:'Apply to all photos', appliedAll:'Applied to all photos',
     decorL:'Decoration', countdown:'Countdown 5…1 at the start', addText:'Text', textSlide:'Text slide', newText:'New text', addChapters:'Add 4 wedding chapters', chaptersAdded:'4 chapters added',
     chapters:['The bride’s childhood','The groom’s childhood','How we met','Thank you, family and friends'],
+    autoFx:'Random effects and animations automatically', autoFxNote:'Effect, transition and text animation change on every slide and every loop.',
     tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
@@ -925,7 +931,7 @@ function defaults() {
   return {
     aspect:'16:9', fit:'blur', fitV:2, keepText:false, bg:'#0b0a10', frame:p.frame,
     transition:p.transition, tDur:0.9, defDur:4, effect:p.effect, filter:p.filter, overlay:p.overlay,
-    autoplay:true, shuffle:true, keepEnds:false, loop:true,
+    autoplay:true, autoFx:true, shuffle:true, keepEnds:false, loop:true,
     musicVol:0.8, videoVol:0.7, fadeAudio:true, duck:true, fitMusic:false,
     font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:'travel',
     capStyle:'lowerThird', capAnim:'split', textFx:'shadow', bpm:100, beatZoom:false, beatSnap:false, countdown:false,
@@ -1104,16 +1110,20 @@ function buildSeq() {
     }
   }
   if (st.beatSnap) { const bar = 4 * 60 / (st.bpm || 100); out.forEach(e => { if (e.type === 'item' && e.item.kind === 'image') e.dur = Math.max(1, Math.round(e.dur / bar)) * bar; }); }
+  const pick = a => a[Math.floor(rng() * a.length)], AUTO = st.autoFx !== false;
   out.forEach(e => {
     if (e.type === 'item' && e.item.kind !== 'text') {
       let ef = e.item.effect === 'inherit' ? st.effect : e.item.effect;
       if (e.item.kind === 'video' && e.item.effect === 'inherit') ef = 'none';
-      if (ef === 'auto') ef = EFFECT_POOL[Math.floor(rng() * EFFECT_POOL.length)];
+      if (AUTO && e.item.effect === 'inherit' && e.item.kind === 'image') ef = 'auto';
+      if (ef === 'auto') ef = pick(EFFECT_POOL);
       e.effect = ef; e.filter = e.item.filter === 'inherit' ? st.filter : e.item.filter;
     } else { e.effect = 'none'; e.filter = 'none'; }
     const own = (f, g) => e.type === 'item' && e.item[f] && e.item[f] !== 'inherit' ? e.item[f] : g;
     e.overlay = own('overlay', st.overlay); e.frame = own('frame', st.frame); e.capStyle = own('capStyle', st.capStyle); e.capAnim = own('capAnim', st.capAnim);
-    const tr = own('trans', st.transition);
+    if (AUTO && !(e.type === 'item' && e.item.capAnim && e.item.capAnim !== 'inherit')) e.capAnim = pick(TANIM_POOL);
+    if (AUTO && e.type !== 'countdown') e.tanim = pick(TANIM_POOL);
+    const tr = AUTO && !(e.type === 'item' && e.item.trans && e.item.trans !== 'inherit') ? 'random' : own('trans', st.transition);
     e.trans = tr === 'random' ? TRANS_POOL[Math.floor(rng() * TRANS_POOL.length)] : tr;
   });
   let s = 0;
@@ -1509,14 +1519,14 @@ function drawTitle(e, local) {
   const blockH = lines.length * lh + (hasSub ? subFs * 2.2 : 0);
   const x = lay === 'left' ? W * .09 : W / 2;
   let y = lay === 'bottom' ? H - H * .12 - blockH + lh / 2 : H / 2 - blockH / 2 + lh / 2;
-  const an = textAnim(d.anim || 'rise', local, dur);
+  const A = e.tanim || d.anim || 'rise', an = textAnim(A, local, dur);
   ctx.save();
   if (lay === 'left') { ctx.save(); ctx.globalAlpha *= an.alpha; ctx.fillRect(W * .09 - base * .03, y - lh / 2, base * .008, blockH * ease(clamp(local / .8, 0, 1))); ctx.restore(); }
   lines.forEach((l, i) => { fxText(l, x, y, fs, align, an, i % 2 ? 1 : -1); y += lh; });
   if (hasSub) {
     ctx.font = `500 ${subFs}px "DM Sans", system-ui, sans-serif`;
     if ('letterSpacing' in ctx) ctx.letterSpacing = (subFs * .12) + 'px';
-    const an2 = textAnim(d.anim === 'letters' || d.anim === 'type' ? 'fade' : (d.anim || 'rise'), local, dur, .35);
+    const an2 = textAnim(A === 'letters' || A === 'type' ? 'fade' : A, local, dur, .35);
     an2.alpha *= .92; fxText(d.sub.toUpperCase(), x, y - lh / 2 + subFs * 1.3, subFs, align, an2, 1);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
@@ -1799,6 +1809,7 @@ function frame(now) {
       if (exporting) { playhead = total; finishExport(); }
       else if (S.settings.loop && total > 0) {
         if (S.settings.shuffle) { shuffleOrder(order[order.length - 1]); buildSeq(); renderStrip(); }
+        else if (S.settings.autoFx !== false) { seqSeed = (Math.random() * 1e9) | 0; buildSeq(); }
         playhead = 0;
       } else { playhead = total; pause(); }
     }
@@ -2099,7 +2110,7 @@ function onSetting(key) {
   });
   buildSeq(); fillSettingsUI(); dirty = true;
   ['intro', 'outro'].forEach(w => { if (key.startsWith(w + '.') && !playing) { const i = seq.findIndex(x => x.type === w); if (i >= 0) seekTo(seq[i].start + Math.min(1.4, seq[i].dur * .45)); } });
-  if (['countdown','shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
+  if (['autoFx','countdown','shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
   renderMusicStats(); commitSoon();
 }
 function bindSettings() {
@@ -2426,7 +2437,8 @@ async function boot() {
         for (const id of keys) { const r = await DB.get('blobs', id); if (r && r.blob) await registerMedia(id, r.blob, r.kind, r.name, false); }
         S.items = p.items.filter(i => i.kind === 'text' || media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
         S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
-        const dft = defaults(), ps = p.settings || {}; if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; } S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
+        const dft = defaults(), ps = p.settings || {}; if (ps.autoFx === undefined) ps.autoFx = true;
+        if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; } S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
         const all = await DB.keys('blobs'); (all || []).filter(k => !keys.has(k)).forEach(k => DB.del('blobs', k).catch(() => {}));
       }
     } catch (e) { restored = false; }
