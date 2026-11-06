@@ -3,7 +3,7 @@
 Application web pour créer des diaporamas animés à partir de photos et vidéos : effets, transitions, musique, lecture aléatoire et export vidéo.
 Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les fichiers de l'utilisateur ne quittent jamais son appareil.
 
-**Fiteny / Langues :** malagasy, français.
+**Fiteny / Langues / Languages :** malagasy, français, English (bokotra MG / FR / EN eo ambony).
 
 ---
 
@@ -12,14 +12,17 @@ Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les
 | | Malagasy | Français |
 |---|---|---|
 | Média | Sary (JPG, PNG, WEBP, GIF, HEIC amin'ny Safari) sy vidéo (MP4, MOV, WEBM), fanintonana sy fametrahana | Photos et vidéos, glisser-déposer |
-| Effets | Zoom (Ken Burns), panoramique, sivana loko 6 | Zoom, panoramique, 6 filtres |
-| Transitions | 13 karazana + kisendrasendra | 13 transitions + aléatoire |
+| Effets | Effets mihetsika 10, sivana loko 9 | 10 effets de mouvement, 9 filtres |
+| Transitions | 19 karazana (fo, varavarana, jalousie...) + kisendrasendra | 19 transitions (cœur, portes, store…) + aléatoire |
 | Mozika | Hira maromaro, fade, fampihenana rehefa misy vidéo, mozika santionany | Playlist, fondu, ducking, musique d'exemple |
 | Kisendrasendra | Filaharana vaovao isaky ny mihodina, tsy misy averina | Nouvel ordre à chaque boucle, sans répétition |
-| Modely | 8 (Dia, Tsingerin-taona, Fanambadiana, Fahatsiarovana, Fety, Orinasa, Krismasy, 26 Jona) | 8 modèles |
+| Modely | 18 (Dia, Tsingerin-taona, Fanambadiana, Fahatsiarovana, Fety, Orinasa, Krismasy, 26 Jona, Fitiavana, Taloha, Néon, Tsotra, Zava-boahary, Fanatanjahantena, Diplaoma, Fiangonana, Ankizy, Sinema) | 18 modèles |
+| Sombiny | Polaroid, zoro boribory, sinema, sarimihetsika, vignette, ambadika manjavozavo | Cadres Polaroid, arrondi, cinéma, pellicule, vignettage, fond flou |
+| Haingo | Confetti, oram-panala, fo, felana, kintana, bobongolo, bokeh, hazavana, sarimihetsika taloha | 9 ambiances animées |
+| Mandeha ho azy | Manomboka ho azy rehefa misokatra ny pejy; tsindrio indray mandeha raha te handre ny mozika | Lecture automatique à l'ouverture |
 | Soratra | Pejy fanombohana sy famaranana, soratra isaky ny sary, endri-tsoratra 7 | Titres, légendes, 7 polices |
 | Avoaka | Vidéo MP4 (Chrome/Edge/Safari) na WebM (Firefox), 720p / 1080p, 16:9 · 9:16 · 1:1 · 4:3 | Export MP4 ou WebM |
-| Hafa | Tahiry ho azy, Foanana/Averina, écran feno, mandeha tsy misy internet (PWA) | Sauvegarde auto, annuler/rétablir, plein écran, hors ligne |
+| Hafa | Torolalana (bokotra ?), tahiry ho azy, Foanana/Averina, écran feno, mandeha tsy misy internet (PWA) | Sauvegarde auto, annuler/rétablir, plein écran, hors ligne |
 
 Raccourcis clavier : `Espace` lecture/pause · `←` `→` précédent/suivant · `F` plein écran · `S` aléatoire · `Ctrl+Z` / `Ctrl+Y`.
 
