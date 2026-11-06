@@ -20,7 +20,9 @@ Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les
 | Sombiny | Polaroid, zoro boribory, sinema, sarimihetsika, vignette, ambadika manjavozavo | Cadres Polaroid, arrondi, cinéma, pellicule, vignettage, fond flou |
 | Haingo | Confetti, oram-panala, fo, felana, kintana, bobongolo, bokeh, hazavana, sarimihetsika taloha | 9 ambiances animées |
 | Mandeha ho azy | Manomboka ho azy rehefa misokatra ny pejy; tsindrio indray mandeha raha te handre ny mozika | Lecture automatique à l'ouverture |
-| Soratra | Pejy fanombohana sy famaranana, soratra isaky ny sary, endri-tsoratra 7 | Titres, légendes, 7 polices |
+| Pejy fanombohana / famaranana | Soratra, sary ambadika (sarinao na sary vaovao), endrika ambadika 8, animation 10, toerana 3, faharetana 2–12 s | Ouverture et fin entièrement modifiables : texte, image de fond, 8 fonds, 10 animations, position, durée |
+| Soratra | Endrika soratra 6 (boaty, tsipika ambany, etikety…), effet soratra 4, endri-tsoratra 7 | 6 styles de légende, 4 effets de texte, 7 polices |
+| Teknika mandroso | Zoom araka ny gadona (BPM), faharetana mifanaraka amin'ny gadona, transitions glitch sy piksely, fakan-tsary an-tanana | Zoom sur le tempo, durées calées sur le BPM, glitch, pixels, caméra à l'épaule |
 | Avoaka | Vidéo MP4 (Chrome/Edge/Safari) na WebM (Firefox), 720p / 1080p, 16:9 · 9:16 · 1:1 · 4:3 | Export MP4 ou WebM |
 | Hafa | Torolalana (bokotra ?), tahiry ho azy, Foanana/Averina, écran feno, mandeha tsy misy internet (PWA) | Sauvegarde auto, annuler/rétablir, plein écran, hors ligne |
 

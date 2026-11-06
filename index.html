@@ -403,6 +403,13 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="sFrame"><span data-i18n="frameL"></span></label><select id="sFrame" data-set="frame" data-opts="frame"></select></div>
           <div class="field"><label class="field-l" for="sBg"><span data-i18n="bg"></span></label><div class="colors"><input type="color" id="sBg" data-set="bg"></div></div>
         </fieldset>
+        <fieldset class="grp">
+          <legend data-i18n="grpAdv"></legend>
+          <div class="field"><label class="field-l" for="sBpm"><span data-i18n="bpm"></span><output data-out="bpm"></output></label><input type="range" id="sBpm" data-set="bpm" min="60" max="180" step="1"></div>
+          <label class="sw"><input type="checkbox" id="sBeatZoom" data-set="beatZoom"><span class="sw-ui"></span><span data-i18n="beatZoom"></span></label>
+          <label class="sw"><input type="checkbox" id="sBeatSnap" data-set="beatSnap"><span class="sw-ui"></span><span data-i18n="beatSnap"></span></label>
+          <p class="note" data-i18n="advNote"></p>
+        </fieldset>
       </div>
 
       <div class="tab-body" id="tb-music" role="tabpanel" hidden>
@@ -443,16 +450,36 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <label class="sw"><input type="checkbox" id="sIntroOn" data-set="intro.on"><span class="sw-ui"></span><span data-i18n="show"></span></label>
           <div class="field"><label class="field-l" for="sIntroT"><span data-i18n="titleL"></span></label><input type="text" id="sIntroT" data-set="intro.title" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sIntroS"><span data-i18n="subL"></span></label><input type="text" id="sIntroS" data-set="intro.sub" maxlength="80"></div>
+          <div class="field"><label class="field-l" for="sIntroBg"><span data-i18n="tbgL"></span></label><select id="sIntroBg" data-set="intro.bg" data-opts="tbg"></select></div>
+          <div class="field"><label class="field-l" for="sIntroImg"><span data-i18n="imgL"></span></label>
+            <div class="row" style="flex-wrap:nowrap"><select id="sIntroImg" data-set="intro.imgId" data-opts="img" style="flex:1"></select>
+            <button class="btn icon" data-upload="intro" data-i18n-aria="uploadImg"><svg class="ic"><use href="#i-plus"/></svg></button></div></div>
+          <div class="field"><label class="field-l" for="sIntroAnim"><span data-i18n="tanimL"></span></label><select id="sIntroAnim" data-set="intro.anim" data-opts="tanim"></select></div>
+          <div class="field"><label class="field-l" for="sIntroLay"><span data-i18n="layoutL"></span></label><select id="sIntroLay" data-set="intro.layout" data-opts="layout"></select></div>
+          <div class="field"><label class="field-l" for="sIntroDur"><span data-i18n="slideDur"></span><output data-out="intro.dur"></output></label><input type="range" id="sIntroDur" data-set="intro.dur" min="2" max="12" step="0.5"></div>
         </fieldset>
         <fieldset class="grp">
           <legend data-i18n="outro"></legend>
           <label class="sw"><input type="checkbox" id="sOutroOn" data-set="outro.on"><span class="sw-ui"></span><span data-i18n="show"></span></label>
           <div class="field"><label class="field-l" for="sOutroT"><span data-i18n="titleL"></span></label><input type="text" id="sOutroT" data-set="outro.title" maxlength="80"></div>
           <div class="field"><label class="field-l" for="sOutroS"><span data-i18n="subL"></span></label><input type="text" id="sOutroS" data-set="outro.sub" maxlength="80"></div>
+          <div class="field"><label class="field-l" for="sOutroBg"><span data-i18n="tbgL"></span></label><select id="sOutroBg" data-set="outro.bg" data-opts="tbg"></select></div>
+          <div class="field"><label class="field-l" for="sOutroImg"><span data-i18n="imgL"></span></label>
+            <div class="row" style="flex-wrap:nowrap"><select id="sOutroImg" data-set="outro.imgId" data-opts="img" style="flex:1"></select>
+            <button class="btn icon" data-upload="outro" data-i18n-aria="uploadImg"><svg class="ic"><use href="#i-plus"/></svg></button></div></div>
+          <div class="field"><label class="field-l" for="sOutroAnim"><span data-i18n="tanimL"></span></label><select id="sOutroAnim" data-set="outro.anim" data-opts="tanim"></select></div>
+          <div class="field"><label class="field-l" for="sOutroLay"><span data-i18n="layoutL"></span></label><select id="sOutroLay" data-set="outro.layout" data-opts="layout"></select></div>
+          <div class="field"><label class="field-l" for="sOutroDur"><span data-i18n="slideDur"></span><output data-out="outro.dur"></output></label><input type="range" id="sOutroDur" data-set="outro.dur" min="2" max="12" step="0.5"></div>
+        </fieldset>
+        <fieldset class="grp">
+          <legend data-i18n="capGroup"></legend>
+          <div class="field"><label class="field-l" for="sCapStyle"><span data-i18n="capStyleL"></span></label><select id="sCapStyle" data-set="capStyle" data-opts="cap"></select></div>
+          <div class="field"><label class="field-l" for="sCapAnim"><span data-i18n="capAnimL"></span></label><select id="sCapAnim" data-set="capAnim" data-opts="tanim"></select></div>
         </fieldset>
         <fieldset class="grp">
           <legend data-i18n="grpStyle"></legend>
           <div class="field"><label class="field-l" for="sFont"><span data-i18n="font"></span></label><select id="sFont" data-set="font" data-opts="font"></select></div>
+          <div class="field"><label class="field-l" for="sTextFx"><span data-i18n="textFxL"></span></label><select id="sTextFx" data-set="textFx" data-opts="fx"></select></div>
           <div class="field"><label class="field-l" for="sTextColor"><span data-i18n="textColor"></span></label><div class="colors"><input type="color" id="sTextColor" data-set="textColor"></div></div>
           <div class="field"><span class="field-l" data-i18n="colors"></span><div class="colors"><input type="color" id="sC0" data-set="colors.0" aria-label="1"><input type="color" id="sC1" data-set="colors.1" aria-label="2"></div></div>
         </fieldset>
@@ -463,6 +490,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
 
 <input type="file" id="fMedia" multiple accept="image/*,video/*,.heic,.heif" hidden>
 <input type="file" id="fMusic" multiple accept="audio/*" hidden>
+<input type="file" id="fTitleImg" accept="image/*,.heic,.heif" hidden>
 <div class="drop" id="drop" hidden><span data-i18n="dropHere"></span></div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
@@ -528,10 +556,15 @@ function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Ma
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 
 /* ---------- vocab ---------- */
-const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','none'];
+const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','none'];
 const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
-const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','panL','panR','panU','panD','drift','pulse'];
-const EFFECT_POOL = ['kbIn','kbOut','kbRot','panL','panR','panU','panD','drift'];
+const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
+const TBG = ['gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
+const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','none'];
+const LAYOUTS = ['center','left','bottom'];
+const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
+const TFX = ['shadow','glow','outline','none'];
+const EFFECT_POOL = ['kbIn','kbOut','kbRot','panL','panR','panU','panD','drift','swing'];
 const FILTERS = { none:'', bw:'grayscale(1) contrast(1.05)', noir:'grayscale(1) contrast(1.35) brightness(.9)', sepia:'sepia(.85)', vintage:'sepia(.35) contrast(1.1) saturate(.8) brightness(1.05)', warm:'sepia(.22) saturate(1.3) hue-rotate(-8deg)', golden:'sepia(.4) saturate(1.45) brightness(1.05)', cold:'saturate(.85) hue-rotate(14deg) brightness(1.04)', dream:'saturate(1.2) brightness(1.08) contrast(.9)', vivid:'saturate(1.5) contrast(1.08)' };
 const OVERLAYS = ['none','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
 const FRAMES = ['none','polaroid','rounded','cinema','film','vignette'];
@@ -561,8 +594,31 @@ const TPL = {
   movie:       T('fadeblack','drift','none','grain','cinema','Montserrat','#ffffff',['#000000','#1c1c1c'], ['Ny tantaranay','','Farany',''], ['Notre histoire','','Fin',''], ['Our story','','The end',''])
 };
 
+const TPLX = {
+  travel:{ tanim:'rise', tbg:'gradient', cap:'lowerThird', capAnim:'split', fx:'shadow' },
+  anniv:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'shadow' },
+  wedding:{ tanim:'letters', tbg:'radial', cap:'tag', capAnim:'fade', fx:'glow' },
+  memorial:{ tanim:'blurIn', tbg:'radial', cap:'center', capAnim:'fade', fx:'shadow' },
+  party:{ tanim:'zoom', tbg:'stripes', cap:'box', capAnim:'zoom', fx:'outline' },
+  business:{ tanim:'split', tbg:'animated', cap:'lowerThird', capAnim:'split', fx:'none' },
+  christmas:{ tanim:'letters', tbg:'radial', cap:'box', capAnim:'rise', fx:'glow' },
+  independence:{ tanim:'zoom', tbg:'stripes', cap:'box', capAnim:'rise', fx:'outline' },
+  romance:{ tanim:'letters', tbg:'animated', cap:'tag', capAnim:'fade', fx:'glow' },
+  retro:{ tanim:'type', tbg:'dots', cap:'center', capAnim:'type', fx:'shadow' },
+  neon:{ tanim:'glow', tbg:'animated', cap:'outline', capAnim:'glow', fx:'glow' },
+  minimal:{ tanim:'fade', tbg:'solid', cap:'box', capAnim:'fade', fx:'none' },
+  nature:{ tanim:'blurIn', tbg:'blurPhoto', cap:'lowerThird', capAnim:'rise', fx:'shadow' },
+  sport:{ tanim:'split', tbg:'stripes', cap:'outline', capAnim:'zoom', fx:'outline' },
+  graduation:{ tanim:'letters', tbg:'radial', cap:'tag', capAnim:'rise', fx:'glow' },
+  church:{ tanim:'blurIn', tbg:'radial', cap:'center', capAnim:'fade', fx:'glow' },
+  kids:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'outline' },
+  movie:{ tanim:'type', tbg:'blurPhoto', cap:'lowerThird', capAnim:'type', fx:'shadow' }
+};
 const I18N = {
   mg: {
+    tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
+    capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
+    grpAdv:'Teknika mandroso', bpm:'Gadon’ny mozika (BPM)', beatZoom:'Zoom kely isaky ny gadona', beatSnap:'Ampifanaraho amin’ny gadona ny faharetan’ny sary', advNote:'Ny BPM no isan’ny gadona isa-minitra amin’ny hira (hira malaza matetika: 90–130).', fromPhotos:'Avy amin’ny sarinao', uploaded:'Sary nampidirina',
     brandTag:'Studio diaporama', step1:'Ampidiro ny sary', step2:'Safidio ny modely', step3:'Ampio mozika', step4:'Jereo & avoahy',
     undo:'Foanana', redo:'Averina', newProj:'Vaovao', confirmNew:'Hamafiso?', export:'Avoahy ho vidéo', theme:'Loko mazava na maizina', help:'Torolalana', howTo:'Ahoana?',
     tip:'Tongasoa! Mandeha ho azy ny diaporama santionany. Ampidiro ny sarinao, safidio modely, ampio mozika.', tipClose:'Azoko',
@@ -597,10 +653,13 @@ const I18N = {
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
       ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, sivana na soratra.'],
       ['Avoahy ho vidéo','Tsindrio «Avoahy ho vidéo» hahazoana rakitra MP4 hozaraina amin’ny WhatsApp, Facebook na YouTube.']],
-    helpTips:['Voatahiry ho azy ao amin’ny navigateur-nao ny asanao.','Ovay ny fiteny amin’ny MG / FR / EN eo ambony.','Ao amin’ny finday: «Ajouter à l’écran d’accueil» dia lasa application izy.'],
+    helpTips:['Ao amin’ny «Soratra» no anovana ny pejy fanombohana sy famaranana: soratra, sary ambadika, animation ary faharetana.','Voatahiry ho azy ao amin’ny navigateur-nao ny asanao.','Ovay ny fiteny amin’ny MG / FR / EN eo ambony.','Ao amin’ny finday: «Ajouter à l’écran d’accueil» dia lasa application izy.'],
     keys:[['Espace','Alefa / ajanony'],['2× clic','Écran feno / miala'],['← →','Teo aloha / manaraka'],['F','Écran feno'],['S','Kisendrasendra'],['Ctrl+Z','Foanana']]
   },
   fr: {
+    tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
+    capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
+    grpAdv:'Techniques avancées', bpm:'Tempo de la musique (BPM)', beatZoom:'Petit zoom à chaque temps', beatSnap:'Caler la durée des photos sur le tempo', advNote:'Le BPM est le nombre de temps par minute du morceau (chansons courantes : 90–130).', fromPhotos:'Vos photos', uploaded:'Images ajoutées',
     brandTag:'Studio de diaporama', step1:'Ajouter les médias', step2:'Choisir un modèle', step3:'Ajouter la musique', step4:'Lire et exporter',
     undo:'Annuler', redo:'Rétablir', newProj:'Nouveau', confirmNew:'Confirmer ?', export:'Exporter en vidéo', theme:'Thème clair ou sombre', help:'Mode d’emploi', howTo:'Comment faire ?',
     tip:'Bienvenue ! Le diaporama d’exemple défile tout seul. Ajoutez vos photos, choisissez un modèle, ajoutez une musique.', tipClose:'Compris',
@@ -635,10 +694,13 @@ const I18N = {
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
       ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, son filtre ou sa légende.'],
       ['Exportez en vidéo','« Exporter en vidéo » crée un fichier MP4 à partager sur WhatsApp, Facebook ou YouTube.']],
-    helpTips:['Votre travail est sauvegardé automatiquement dans le navigateur.','Changez de langue avec MG / FR / EN en haut.','Sur téléphone : « Ajouter à l’écran d’accueil » pour l’utiliser comme une application.'],
+    helpTips:['Dans « Textes », modifiez l’ouverture et la fin : texte, image de fond, animation et durée.','Votre travail est sauvegardé automatiquement dans le navigateur.','Changez de langue avec MG / FR / EN en haut.','Sur téléphone : « Ajouter à l’écran d’accueil » pour l’utiliser comme une application.'],
     keys:[['Espace','Lecture / pause'],['Double-clic','Plein écran / quitter'],['← →','Précédent / suivant'],['F','Plein écran'],['S','Aléatoire'],['Ctrl+Z','Annuler']]
   },
   en: {
+    tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
+    capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
+    grpAdv:'Advanced techniques', bpm:'Music tempo (BPM)', beatZoom:'Small zoom on every beat', beatSnap:'Snap photo durations to the tempo', advNote:'BPM is the number of beats per minute in the track (most songs: 90–130).', fromPhotos:'Your photos', uploaded:'Added images',
     brandTag:'Slideshow studio', step1:'Add photos', step2:'Pick a template', step3:'Add music', step4:'Play & export',
     undo:'Undo', redo:'Redo', newProj:'New', confirmNew:'Confirm?', export:'Export video', theme:'Light or dark theme', help:'How to use', howTo:'How does it work?',
     tip:'Welcome! The sample slideshow plays on its own. Add your photos, pick a template, add music.', tipClose:'Got it',
@@ -673,19 +735,33 @@ const I18N = {
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
       ['Adjust each photo','Tap a photo in the strip to change its duration, effect, filter or caption.'],
       ['Export a video','«Export video» makes an MP4 file to share on WhatsApp, Facebook or YouTube.']],
-    helpTips:['Your work is saved automatically in this browser.','Switch language with MG / FR / EN at the top.','On a phone: «Add to Home Screen» to use it like an app.'],
+    helpTips:['In «Text», change the opening and closing slides: wording, background image, animation and duration.','Your work is saved automatically in this browser.','Switch language with MG / FR / EN at the top.','On a phone: «Add to Home Screen» to use it like an app.'],
     keys:[['Space','Play / pause'],['Double-click','Full screen on / off'],['← →','Previous / next'],['F','Full screen'],['S','Shuffle'],['Ctrl+Z','Undo']]
   }
 };
 const LBL = {
+  tbg:{
+    mg:{gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
+    fr:{gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
+    en:{gradient:'Gradient',radial:'Radial glow',animated:'Animated gradient',stripes:'Stripes',dots:'Dots',solid:'Solid',image:'Image',blurPhoto:'Blurred photo'} },
+  tanim:{
+    mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',none:'Tsy misy'},
+    fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',none:'Aucune'},
+    en:{rise:'Gentle rise',fade:'Fade',zoom:'Zoom',type:'Typewriter',letters:'Letter by letter',blurIn:'Blur to sharp',bounce:'Bounce',glow:'Flickering neon',split:'From the sides',none:'None'} },
+  layout:{ mg:{center:'Afovoany',left:'Ankavia',bottom:'Ambany'}, fr:{center:'Centré',left:'À gauche',bottom:'En bas'}, en:{center:'Centred',left:'Left',bottom:'Bottom'} },
+  cap:{
+    mg:{gradient:'Aloka ambany',box:'Boaty',lowerThird:'Tsipika ambany',tag:'Etikety soratra tanana',center:'Lehibe afovoany',outline:'Misy sisiny'},
+    fr:{gradient:'Ombre en bas',box:'Encadré',lowerThird:'Bandeau',tag:'Étiquette manuscrite',center:'Grand, centré',outline:'Contour'},
+    en:{gradient:'Bottom shade',box:'Box',lowerThird:'Lower third',tag:'Handwritten tag',center:'Large, centred',outline:'Outline'} },
+  fx:{ mg:{shadow:'Aloka',glow:'Mamirapiratra',outline:'Misy sisiny',none:'Tsy misy'}, fr:{shadow:'Ombre',glow:'Lueur',outline:'Contour',none:'Aucun'}, en:{shadow:'Shadow',glow:'Glow',outline:'Outline',none:'None'} },
   trans:{
-    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy'},
-    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune'},
-    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None'} },
+    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy',glitch:'Glitch',pixelate:'Piksely'},
+    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels'},
+    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate'} },
   eff:{
-    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo'},
-    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration'},
-    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe'} },
+    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona'},
+    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement'},
+    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing'} },
   fil:{
     mg:{inherit:'Araka ny ankapobeny',none:'Tsy misy',bw:'Fotsy sy mainty',noir:'Mainty mafy',sepia:'Sépia',vintage:'Taloha',warm:'Mafana',golden:'Volamena',cold:'Mangatsiaka',dream:'Nofinofy',vivid:'Mamirapiratra'},
     fr:{inherit:'Réglage général',none:'Aucun',bw:'Noir et blanc',noir:'Noir contrasté',sepia:'Sépia',vintage:'Vintage',warm:'Chaud',golden:'Doré',cold:'Froid',dream:'Rêve',vivid:'Éclatant'},
@@ -722,16 +798,18 @@ function defaults() {
     autoplay:true, shuffle:true, keepEnds:false, loop:true,
     musicVol:0.8, videoVol:0.7, fadeAudio:true, duck:true, fitMusic:false,
     font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:'travel',
-    intro:{ on:true, title:tx[0], sub:tx[1] }, outro:{ on:true, title:tx[2], sub:tx[3] }
+    capStyle:'lowerThird', capAnim:'split', textFx:'shadow', bpm:100, beatZoom:false, beatSnap:false,
+    intro:{ on:true, title:tx[0], sub:tx[1], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center' },
+    outro:{ on:true, title:tx[2], sub:tx[3], bg:'gradient', imgId:null, dur:4, anim:'rise', layout:'center' }
   };
 }
-const S = { items:[], music:[], settings:defaults() };
+const S = { items:[], music:[], titleImgs:[], settings:defaults() };
 const media = {};            // id -> {blob,url,kind,name,el,thumb,gain}
 let order = [], seq = [], total = 0, seqSeed = 12345;
 let playhead = 0, musicClock = 0, playing = false, exporting = false, dirty = true, curL = null, sel = null;
 let actx = null, master = null, recDest = null, musicGain = null, duckCur = 1, audioUnlocked = false, justUnlocked = false;
 const mus = new Audio(); mus.preload = 'auto';
-const cv = $('#cv'), ctx = cv.getContext('2d');
+const cv = $('#cv'); let ctx = cv.getContext('2d');
 const itemById = id => S.items.find(i => i.id === id);
 const newItem = (id, kind, name, extra = {}) => Object.assign({ id, kind, name, dur:null, trimStart:0, trimEnd:null, vdur:null, effect:'inherit', filter:'inherit', caption:'', rot:0, mute:false, sample:false }, extra);
 
@@ -753,7 +831,7 @@ let dbOK = false, saveErrShown = false, saveT = null;
 function saveSoon() { clearTimeout(saveT); saveT = setTimeout(save, 700); }
 async function save() {
   if (!dbOK || exporting) return;
-  try { await DB.put('kv', 'project', { v:1, items:S.items, music:S.music, settings:S.settings }); const s = $('#saved'); s.classList.add('on'); clearTimeout(s._t); s._t = setTimeout(() => s.classList.remove('on'), 1400); } catch (e) {}
+  try { await DB.put('kv', 'project', { v:2, items:S.items, music:S.music, titleImgs:S.titleImgs, settings:S.settings }); const s = $('#saved'); s.classList.add('on'); clearTimeout(s._t); s._t = setTimeout(() => s.classList.remove('on'), 1400); } catch (e) {}
 }
 async function persistBlob(id, blob, kind, name) {
   if (!dbOK) return;
@@ -880,9 +958,9 @@ function buildSeq() {
   syncOrder();
   const st = S.settings, rng = mulberry(seqSeed);
   const out = [];
-  if (st.intro.on && S.items.length) out.push({ type:'intro', dur:4 });
+  if (st.intro.on && S.items.length) out.push({ type:'intro', dur:clamp(+st.intro.dur || 4, 1, 20) });
   order.map(itemById).filter(Boolean).forEach(it => out.push({ type:'item', item:it, dur:itemDur(it) }));
-  if (st.outro.on && S.items.length) out.push({ type:'outro', dur:4 });
+  if (st.outro.on && S.items.length) out.push({ type:'outro', dur:clamp(+st.outro.dur || 4, 1, 20) });
   if (st.fitMusic) {
     const M = musicTotal(); const imgs = out.filter(e => e.type === 'item' && e.item.kind === 'image');
     if (M > 0 && imgs.length) {
@@ -892,6 +970,7 @@ function buildSeq() {
       if (k > 0) imgs.forEach(e => e.dur = clamp(e.dur * k, 1.2, 60));
     }
   }
+  if (st.beatSnap) { const bar = 4 * 60 / (st.bpm || 100); out.forEach(e => { if (e.type === 'item' && e.item.kind === 'image') e.dur = Math.max(1, Math.round(e.dur / bar)) * bar; }); }
   out.forEach(e => {
     if (e.type === 'item') {
       let ef = e.item.effect === 'inherit' ? st.effect : e.item.effect;
@@ -932,7 +1011,7 @@ function rr(x, y, w, h, r) {
   ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
   ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
 }
-function motion(effect, u, W, H) {
+function motion(effect, u, W, H, local = 0) {
   let sc = 1, dx = 0, dy = 0, ang = 0;
   switch (effect) {
     case 'kbIn': sc = 1 + .14 * u; break;
@@ -944,7 +1023,11 @@ function motion(effect, u, W, H) {
     case 'panD': sc = 1.12; dy = (u - .5) * .08 * H; break;
     case 'drift': sc = 1.14; dx = (u - .5) * .06 * W; dy = (.5 - u) * .05 * H; break;
     case 'pulse': sc = 1.05 + .035 * Math.sin(u * Math.PI * 2); break;
+    case 'handheld': sc = 1.07; dx = (Math.sin(local * 1.3) * .006 + Math.sin(local * 3.1 + 1) * .003) * W; dy = (Math.sin(local * 1.7 + 2) * .005 + Math.sin(local * 2.6) * .003) * H; ang = Math.sin(local * .9) * .006; break;
+    case 'punch': sc = 1.02 + .16 * Math.pow(1 - ease(clamp(u * 2.5, 0, 1)), 2) + .04 * u; break;
+    case 'swing': sc = 1.09; ang = Math.sin(u * Math.PI * 2) * .025; dx = Math.sin(u * Math.PI * 2) * .015 * W; break;
   }
+  if (S.settings.beatZoom) { const ph = (renderTime * (S.settings.bpm || 100) / 60) % 1; sc *= 1 + .035 * Math.exp(-ph * 7); }
   return { sc, dx, dy, ang };
 }
 function placeImg(src, sw, sh, rotDeg, box, mode, mo, filter) {
@@ -976,7 +1059,7 @@ function drawEntry(e, local, extraFilter) {
   if (m && it.kind === 'image' && m.el && m.el.complete && m.el.naturalWidth) { src = m.el; sw = m.el.naturalWidth; sh = m.el.naturalHeight; }
   if (m && it.kind === 'video' && m.el && m.el.readyState >= 2 && m.el.videoWidth) { src = m.el; sw = m.el.videoWidth; sh = m.el.videoHeight; }
   if (!src) return;
-  const u = clamp(local / e.dur, 0, 1), mo = motion(e.effect, u, W, H);
+  const u = clamp(local / e.dur, 0, 1), mo = motion(e.effect, u, W, H, local);
   const filt = [FILTERS[e.filter] || '', extraFilter || ''].filter(Boolean).join(' ');
   if (st.fit === 'blur' || fr === 'polaroid' || fr === 'rounded')
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, 'cover', { sc:1.15, dx:0, dy:0, ang:0 }, (filt + ` blur(${Math.round(k * .035)}px) brightness(.6)`).trim());
@@ -1010,40 +1093,153 @@ function drawEntry(e, local, extraFilter) {
   frameOverlay(fr);
   if (it.caption) drawCaption(it.caption, local, e.dur);
 }
+/* text animation state for a block that appears at `local` seconds and leaves at `dur` */
+function textAnim(anim, local, dur, delay = 0) {
+  const tl = local - delay, a = clamp(tl / .9, 0, 1), ea = ease(a);
+  const out = clamp((dur - local) / .45, 0, 1);
+  const st = { alpha:out, dx:0, dy:0, scale:1, blur:0, chars:1, letters:false, tl, flicker:1 };
+  switch (anim) {
+    case 'none': break;
+    case 'fade': st.alpha *= a; break;
+    case 'zoom': st.alpha *= a; st.scale = 1.3 - .3 * ea; break;
+    case 'type': st.chars = clamp(tl / 1.6, 0, 1); break;
+    case 'letters': st.letters = true; break;
+    case 'blurIn': st.alpha *= a; st.blur = (1 - ea) * 18; break;
+    case 'bounce': { const b = clamp(tl / .8, 0, 1); const c = 1.70158 * 1.6; st.scale = b <= 0 ? 0.001 : 1 + (c + 1) * Math.pow(b - 1, 3) + c * Math.pow(b - 1, 2); st.alpha *= clamp(tl / .15, 0, 1); break; }
+    case 'glow': st.alpha *= a; st.flicker = tl < 1.1 ? (hash(Math.floor(tl * 22)) > .35 ? 1 : .25) : 1; break;
+    case 'split': st.alpha *= a; st.dx = (1 - ea); break;
+    default: st.alpha *= a; st.dy = (1 - ea); // rise
+  }
+  return st;
+}
+/* draw one string with the global text effect; x is the anchor for `align` */
+function fxText(str, x, y, fs, align, an, side) {
+  const fx = S.settings.textFx || 'shadow';
+  const full = ctx.measureText(str).width;
+  const x0 = align === 'center' ? x - full / 2 : align === 'right' ? x - full : x;
+  const shown = an && an.chars < 1 ? str.slice(0, Math.ceil(str.length * an.chars)) : str;
+  ctx.save(); ctx.textAlign = 'left';
+  if (an) {
+    ctx.globalAlpha *= an.alpha * an.flicker;
+    if (an.dx) ctx.translate(an.dx * (side || 1) * cv.width * .25, 0);
+    if (an.dy) ctx.translate(0, an.dy * fs * .9);
+    if (an.blur) ctx.filter = `blur(${an.blur.toFixed(1)}px)`;
+    if (an.scale !== 1) { ctx.translate(x0 + full / 2, y); ctx.scale(an.scale, an.scale); ctx.translate(-(x0 + full / 2), -y); }
+  }
+  const paint = (s, px) => {
+    if (fx === 'shadow') { ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = fs * .18; ctx.shadowOffsetY = fs * .04; }
+    if (fx === 'glow') { ctx.shadowColor = S.settings.textColor; ctx.shadowBlur = fs * .55; }
+    if (fx === 'outline') { ctx.lineJoin = 'round'; ctx.lineWidth = Math.max(2, fs * .09); ctx.strokeStyle = 'rgba(0,0,0,.85)'; ctx.strokeText(s, px, y); }
+    ctx.fillText(s, px, y);
+    if (fx === 'glow') { ctx.shadowBlur = fs * .2; ctx.fillText(s, px, y); }
+  };
+  if (an && an.letters) {
+    let px = x0;
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i], w = ctx.measureText(ch).width, lt = clamp((an.tl - i * .045) / .4, 0, 1);
+      if (lt > 0) { ctx.save(); ctx.globalAlpha *= lt; ctx.translate(0, (1 - ease(lt)) * fs * .45); paint(ch, px); ctx.restore(); }
+      px += w;
+    }
+  } else paint(shown, x0);
+  ctx.restore();
+}
+function drawTitleBg(d, local, e) {
+  const st = S.settings, W = cv.width, H = cv.height, base = Math.min(W, H), c0 = st.colors[0], c1 = st.colors[1];
+  const bg = d.bg || 'gradient', time = local;
+  const imgOf = id => { const m = id && media[id]; return m && m.kind === 'image' && m.el && m.el.naturalWidth ? m.el : null; };
+  if ((bg === 'image' || bg === 'blurPhoto')) {
+    let im = bg === 'image' ? imgOf(d.imgId) : null;
+    if (!im) { const its = S.items.filter(i => i.kind === 'image'); const pick = e.type === 'intro' ? its[0] : its[its.length - 1]; im = imgOf(d.imgId) || (pick && imgOf(pick.id)); }
+    if (im) {
+      const blur = bg === 'blurPhoto' ? ` blur(${Math.round(base * .03)}px)` : '';
+      placeImg(im, im.naturalWidth, im.naturalHeight, 0, { x:0, y:0, w:W, h:H }, 'cover', { sc:(bg === 'blurPhoto' ? 1.15 : 1) + .08 * clamp(local / (e.dur || 4), 0, 1), dx:0, dy:0, ang:0 }, `brightness(.72)${blur}`);
+      const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(0,0,0,.15)'); g.addColorStop(1, 'rgba(0,0,0,.5)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      return;
+    }
+  }
+  if (bg === 'solid') { ctx.fillStyle = c0; ctx.fillRect(0, 0, W, H); }
+  else if (bg === 'radial') {
+    const g = ctx.createRadialGradient(W / 2, H * .45, 0, W / 2, H * .45, Math.hypot(W, H) * .6); g.addColorStop(0, c1); g.addColorStop(1, c0); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  } else if (bg === 'animated') {
+    const a = time * .35, r = Math.hypot(W, H) / 2, cx = W / 2, cy = H / 2;
+    const g = ctx.createLinearGradient(cx - Math.cos(a) * r, cy - Math.sin(a) * r, cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+    g.addColorStop(0, c0); g.addColorStop(.5 + .25 * Math.sin(time * .7), c1); g.addColorStop(1, c0); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  } else if (bg === 'stripes') {
+    ctx.fillStyle = c0; ctx.fillRect(0, 0, W, H); ctx.save(); ctx.globalAlpha = .28; ctx.fillStyle = c1;
+    const sw = base * .06, off = (time * base * .03) % (sw * 2);
+    ctx.translate(W / 2, H / 2); ctx.rotate(-Math.PI / 5); const R = Math.hypot(W, H);
+    for (let x = -R - off; x < R; x += sw * 2) ctx.fillRect(x, -R, sw, R * 2);
+    ctx.restore();
+  } else if (bg === 'dots') {
+    ctx.fillStyle = c0; ctx.fillRect(0, 0, W, H); ctx.fillStyle = c1; ctx.globalAlpha = .4;
+    const gap = base * .055, r = gap * .14, oy = (time * gap * .4) % gap;
+    for (let y = -gap; y < H + gap; y += gap) for (let x = 0; x < W + gap; x += gap) { ctx.beginPath(); ctx.arc(x + ((Math.round((y + oy) / gap)) % 2 ? gap / 2 : 0), y + oy, r, 0, Math.PI * 2); ctx.fill(); }
+    ctx.globalAlpha = 1;
+  } else {
+    const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, c0); g.addColorStop(1, c1); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  }
+  const v = ctx.createRadialGradient(W / 2, H / 2, base * .2, W / 2, H / 2, Math.hypot(W, H) * .6);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.35)'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+}
 function drawTitle(e, local) {
   const st = S.settings, W = cv.width, H = cv.height, base = Math.min(W, H);
-  const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, st.colors[0]); g.addColorStop(1, st.colors[1]);
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  const v = ctx.createRadialGradient(W / 2, H / 2, base * .2, W / 2, H / 2, Math.hypot(W, H) * .6);
-  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.38)'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
-  const d = e.type === 'intro' ? st.intro : st.outro; const a = clamp(local / .9, 0, 1); const s = 1.06 - .06 * ease(a);
-  ctx.save(); ctx.globalAlpha *= a; ctx.translate(W / 2, H / 2); ctx.scale(s, s);
-  ctx.fillStyle = st.textColor; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = base * .02;
-  const fs = base * (st.font === 'Bebas Neue' ? .15 : .1); ctx.font = fontStr(fs);
-  const lines = wrap(d.title || '', W * .84).slice(0, 3); const lh = fs * 1.14;
+  const d = e.type === 'intro' ? st.intro : st.outro, dur = e.dur;
+  drawTitleBg(d, local, e);
+  const lay = d.layout || 'center', align = lay === 'left' ? 'left' : 'center';
+  const fs = base * (st.font === 'Bebas Neue' ? .15 : .1); ctx.font = fontStr(fs); ctx.textBaseline = 'middle'; ctx.fillStyle = st.textColor;
+  const maxW = W * (lay === 'left' ? .78 : .84), lines = wrap(d.title || '', maxW).slice(0, 3), lh = fs * 1.14;
   const subFs = base * .042, hasSub = !!(d.sub && d.sub.trim());
-  const blockH = lines.length * lh + (hasSub ? subFs * 2.2 : 0); let y = -blockH / 2 + lh / 2;
-  lines.forEach(l => { ctx.fillText(l, 0, y); y += lh; });
+  const blockH = lines.length * lh + (hasSub ? subFs * 2.2 : 0);
+  const x = lay === 'left' ? W * .09 : W / 2;
+  let y = lay === 'bottom' ? H - H * .12 - blockH + lh / 2 : H / 2 - blockH / 2 + lh / 2;
+  const an = textAnim(d.anim || 'rise', local, dur);
+  ctx.save();
+  if (lay === 'left') { ctx.save(); ctx.globalAlpha *= an.alpha; ctx.fillRect(W * .09 - base * .03, y - lh / 2, base * .008, blockH * ease(clamp(local / .8, 0, 1))); ctx.restore(); }
+  lines.forEach((l, i) => { fxText(l, x, y, fs, align, an, i % 2 ? 1 : -1); y += lh; });
   if (hasSub) {
     ctx.font = `500 ${subFs}px "DM Sans", system-ui, sans-serif`;
     if ('letterSpacing' in ctx) ctx.letterSpacing = (subFs * .12) + 'px';
-    ctx.globalAlpha *= .9; ctx.fillText(d.sub.toUpperCase(), 0, y + subFs * .55 - lh / 2 + subFs);
+    const an2 = textAnim(d.anim === 'letters' || d.anim === 'type' ? 'fade' : (d.anim || 'rise'), local, dur, .35);
+    an2.alpha *= .92; fxText(d.sub.toUpperCase(), x, y - lh / 2 + subFs * 1.3, subFs, align, an2, 1);
     if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
   ctx.restore();
 }
 function drawCaption(text, local, dur) {
-  const W = cv.width, H = cv.height, st = S.settings;
-  const a = clamp(local / .6, 0, 1) * clamp((dur - local) / .45, 0, 1); if (a <= 0) return;
-  const fs = Math.min(W, H) * .052;
-  ctx.save(); ctx.globalAlpha *= a;
-  const g = ctx.createLinearGradient(0, H * .6, 0, H); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.62)');
-  ctx.fillStyle = g; ctx.fillRect(0, H * .6, W, H * .4);
-  ctx.font = fontStr(fs); ctx.fillStyle = st.textColor; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-  ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = fs * .3;
-  const lines = wrap(text, W * .86).slice(0, 2); let y = H - fs * 1.05 - (lines.length - 1) * fs * 1.15;
-  lines.forEach(l => { ctx.fillText(l, W / 2, y); y += fs * 1.15; });
+  const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), style = st.capStyle || 'gradient';
+  const an = textAnim(st.capAnim || 'rise', local, dur, .15); if (an.alpha <= 0 && !an.letters) return;
+  const big = style === 'center', fs = k * (big ? .085 : .052);
+  ctx.save(); ctx.font = fontStr(fs); ctx.textBaseline = 'middle'; ctx.fillStyle = st.textColor;
+  const lines = wrap(text, W * (big ? .8 : .78)).slice(0, 2), lh = fs * 1.15;
+  const bodyA = clamp(local / .5, 0, 1) * clamp((dur - local) / .45, 0, 1);
+  if (style === 'gradient') {
+    ctx.save(); ctx.globalAlpha = bodyA; const g = ctx.createLinearGradient(0, H * .6, 0, H); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.62)'); ctx.fillStyle = g; ctx.fillRect(0, H * .6, W, H * .4); ctx.restore();
+    let y = H - fs * 1.05 - (lines.length - 1) * lh; lines.forEach(l => { fxText(l, W / 2, y, fs, 'center', an, 1); y += lh; });
+  } else if (style === 'box') {
+    const w = Math.max(...lines.map(l => ctx.measureText(l).width)) + fs * 1.2, h = lines.length * lh + fs * .7, x = (W - w) / 2, y0 = H - h - k * .06;
+    ctx.save(); ctx.globalAlpha = bodyA; ctx.fillStyle = 'rgba(10,8,14,.62)'; rr(x, y0, w, h, fs * .4); ctx.fill(); ctx.restore();
+    let y = y0 + fs * .35 + lh / 2; lines.forEach(l => { fxText(l, W / 2, y, fs, 'center', an, 1); y += lh; });
+  } else if (style === 'lowerThird') {
+    const w = Math.max(...lines.map(l => ctx.measureText(l).width)) + fs * 1.6, h = lines.length * lh + fs * .6, y0 = H - h - k * .08;
+    const slide = ease(clamp(local / .6, 0, 1)) * clamp((dur - local) / .45, 0, 1);
+    ctx.save(); ctx.fillStyle = 'rgba(10,8,14,.7)'; ctx.fillRect(0, y0, w * slide, h); ctx.fillStyle = st.colors[1]; ctx.fillRect(0, y0, fs * .28, h * slide); ctx.restore();
+    let y = y0 + fs * .3 + lh / 2; lines.forEach(l => { fxText(l, fs * .8, y, fs, 'left', an, -1); y += lh; });
+  } else if (style === 'tag') {
+    ctx.font = `600 ${fs * 1.05}px "Dancing Script", "Segoe Script", cursive`;
+    const w = Math.max(...lines.map(l => ctx.measureText(l).width)) + fs * 1.4, h = lines.length * lh + fs * .7;
+    ctx.save(); ctx.translate(k * .07, H - h - k * .07); ctx.rotate(-.04); ctx.globalAlpha = bodyA;
+    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = fs * .4; ctx.fillStyle = '#fbf6ea'; ctx.fillRect(0, 0, w, h); ctx.shadowColor = 'transparent';
+    ctx.fillStyle = 'rgba(244,165,58,.55)'; ctx.fillRect(w / 2 - fs * .9, -fs * .25, fs * 1.8, fs * .5);
+    ctx.globalAlpha = 1; ctx.fillStyle = '#2b2430'; const keep = st.textFx; st.textFx = 'none';
+    let y = fs * .35 + lh / 2; lines.forEach(l => { fxText(l, fs * .7, y, fs, 'left', an, -1); y += lh; }); st.textFx = keep;
+    ctx.restore();
+  } else if (style === 'outline') {
+    const keep = st.textFx; st.textFx = 'outline';
+    let y = H - fs * 1.1 - (lines.length - 1) * lh; lines.forEach(l => { fxText(l.toUpperCase(), W / 2, y, fs, 'center', an, 1); y += lh; }); st.textFx = keep;
+  } else {
+    let y = H / 2 - (lines.length - 1) * lh / 2;
+    lines.forEach(l => { fxText(l, W / 2, y, fs, 'center', an, 1); y += lh; });
+  }
   ctx.restore();
 }
 function heartPath(x, y, s) {
@@ -1167,6 +1363,17 @@ function drawTrans(A, la, B, lb, p, kind) {
       ctx.save(); ctx.beginPath(); ctx.rect(W / 2 + p * W / 2, 0, W / 2, H); ctx.clip(); ctx.translate(p * W / 2, 0); drawEntry(A, la); ctx.restore(); break;
     case 'spin':
       drawEntry(B, lb); ctx.save(); ctx.globalAlpha = 1 - p; ctx.translate(W / 2, H / 2); ctx.rotate(p * Math.PI * 1.2); const z = Math.max(.02, 1 - .9 * p); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); drawEntry(A, la); ctx.restore(); break;
+    case 'pixelate': {
+      const o = drawToOff(p < .5 ? A : B, p < .5 ? la : lb), amt = 1 - Math.abs(p * 2 - 1), blk = Math.max(1, Math.round(1 + amt * 46 * W / 1280));
+      const tw = Math.max(1, Math.round(W / blk)), th = Math.max(1, Math.round(H / blk)); tinyCv.width = tw; tinyCv.height = th;
+      const tc = tinyCv.getContext('2d'); tc.imageSmoothingEnabled = true; tc.drawImage(o, 0, 0, tw, th);
+      ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(tinyCv, 0, 0, W, H); ctx.restore(); break; }
+    case 'glitch': {
+      const o = drawToOff(p < .5 ? A : B, p < .5 ? la : lb), amt = 1 - Math.abs(p * 2 - 1), f = Math.floor(p * 40);
+      ctx.drawImage(o, 0, 0);
+      for (let i = 0; i < 14; i++) { const y = hash(f * 13 + i) * H, h = (4 + hash(f * 7 + i) * 50) * H / 720, dx = (hash(f * 3 + i * 5) - .5) * W * .12 * amt; ctx.drawImage(o, 0, y, W, h, dx, y, W, h); }
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .28 * amt; ctx.drawImage(o, 8 * amt * W / 1280, 0); ctx.globalAlpha = .18 * amt; ctx.drawImage(o, -8 * amt * W / 1280, 0); ctx.restore();
+      if (hash(f) > .6) { ctx.fillStyle = `rgba(255,255,255,${.12 * amt})`; ctx.fillRect(0, hash(f + 1) * H, W, 3 * H / 720); } break; }
     case 'split':
       drawEntry(A, la); ctx.save(); ctx.beginPath(); ctx.rect(W / 2 - p * W / 2, 0, p * W, H); ctx.clip(); drawEntry(B, lb); ctx.restore(); break;
     default: drawEntry(B, lb);
@@ -1176,7 +1383,11 @@ function drawEmpty() {
   const W = cv.width, H = cv.height; ctx.fillStyle = '#0b0a10'; ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 2; ctx.setLineDash([10, 10]); ctx.strokeRect(W * .08, H * .1, W * .84, H * .8); ctx.setLineDash([]);
 }
+let renderTime = 0, offCv = null, tinyCv = null;
+function offscreen() { if (!offCv) { offCv = document.createElement('canvas'); tinyCv = document.createElement('canvas'); } if (offCv.width !== cv.width || offCv.height !== cv.height) { offCv.width = cv.width; offCv.height = cv.height; } return offCv; }
+function drawToOff(E, l) { const o = offscreen(), oc = o.getContext('2d'), keep = ctx; ctx = oc; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.filter = 'none'; try { drawEntry(E, l); } finally { ctx = keep; } return o; }
 function render(time) {
+  renderTime = time;
   ctx.globalAlpha = 1; ctx.filter = 'none'; ctx.setTransform(1, 0, 0, 1, 0, 0);
   if (!seq.length) { drawEmpty(); return null; }
   const L = locate(clamp(time, 0, Math.max(0, total - .001)));
@@ -1331,6 +1542,7 @@ function renderStrip() {
   $('#stripMeta').textContent = `${items} ${t('statItems')} · ${fmtT(total)}`;
   $('#stripHint').textContent = S.items.length ? t(S.settings.shuffle ? 'hintShuffle' : 'hintOrder') : '';
   $('#stageEmpty').hidden = S.items.length > 0;
+  fillImgOptions();
   if (!sortable && window.Sortable) {
     sortable = Sortable.create(strip, { animation:160, draggable:'.clip', filter:'.clip-add', delay:120, delayOnTouchOnly:true,
       onMove: ev => !(ev.related && ev.related.classList.contains('clip-add') && ev.willInsertAfter),
@@ -1443,6 +1655,9 @@ function applyTpl(k) {
   const p = TPL[k], st = S.settings, tx = p.text[lang];
   Object.assign(st, { transition:p.transition, effect:p.effect, filter:p.filter, overlay:p.overlay, frame:p.frame, font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:k });
   st.intro.title = tx[0]; st.intro.sub = tx[1]; st.outro.title = tx[2]; st.outro.sub = tx[3];
+  const x = TPLX[k] || {};
+  Object.assign(st, { capStyle:x.cap || 'gradient', capAnim:x.capAnim || 'rise', textFx:x.fx || 'shadow' });
+  ['intro', 'outro'].forEach(w => { st[w].anim = x.tanim || 'rise'; if (st[w].bg !== 'image') st[w].bg = x.tbg || 'gradient'; });
   loadFont(p.font); fillSettingsUI(); seqSeed = (Math.random() * 1e9) | 0; buildSeq(); seekTo(0); renderTpls(); renderStrip(); commit();
   toast(t('tplApplied').replace('{n}', lbl('tpl', k)));
 }
@@ -1454,17 +1669,25 @@ function updateSteps() {
 /* ---------- settings binding ---------- */
 const getPath = (o, p) => p.split('.').reduce((a, k) => a == null ? a : a[k], o);
 const setPath = (o, p, v) => { const ks = p.split('.'); let a = o; ks.slice(0, -1).forEach(k => a = a[k]); a[ks[ks.length - 1]] = v; };
-const OUT = { defDur:v => fmtS(v), tDur:v => fmtS(v), musicVol:v => Math.round(v * 100) + ' %', videoVol:v => Math.round(v * 100) + ' %' };
+const OUT = { 'intro.dur':v => fmtS(+v), 'outro.dur':v => fmtS(+v), bpm:v => v + ' BPM', defDur:v => fmtS(v), tDur:v => fmtS(v), musicVol:v => Math.round(v * 100) + ' %', videoVol:v => Math.round(v * 100) + ' %' };
 function fillOptions() {
   $$('select[data-opts]').forEach(s => {
     const k = s.dataset.opts; const cur = getPath(S.settings, s.dataset.set);
     if (k === 'font') s.innerHTML = FONTS.map(f => `<option value="${f}"${f === cur ? ' selected' : ''}>${f}</option>`).join('');
-    else s.innerHTML = opts(k, k === 'trans' ? TRANS : k === 'eff' ? EFFECTS : k === 'fil' ? Object.keys(FILTERS) : k === 'frame' ? FRAMES : OVERLAYS, cur);
+    else if (k === 'img') s.innerHTML = imgOptions(cur);
+    else s.innerHTML = opts(k, ({ trans:TRANS, eff:EFFECTS, fil:Object.keys(FILTERS), frame:FRAMES, ov:OVERLAYS, tbg:TBG, tanim:TANIM, layout:LAYOUTS, cap:CAPS, fx:TFX })[k] || [], cur);
   });
 }
+function imgOptions(cur) {
+  const o = (v, l) => `<option value="${v}"${v === (cur || '') ? ' selected' : ''}>${esc(l)}</option>`;
+  const ups = S.titleImgs.filter(x => media[x.id]), its = S.items.filter(i => i.kind === 'image');
+  return o('', t('none')) + (ups.length ? `<optgroup label="${esc(t('uploaded'))}">${ups.map(x => o(x.id, x.name)).join('')}</optgroup>` : '')
+    + (its.length ? `<optgroup label="${esc(t('fromPhotos'))}">${its.map(i => o(i.id, (S.items.indexOf(i) + 1) + '. ' + (i.caption || i.name))).join('')}</optgroup>` : '');
+}
+function fillImgOptions() { $$('select[data-opts="img"]').forEach(s => s.innerHTML = imgOptions(getPath(S.settings, s.dataset.set))); }
 function fillSettingsUI() {
-  $$('[data-set]').forEach(el => { const v = getPath(S.settings, el.dataset.set); if (el.type === 'checkbox') el.checked = !!v; else if (el.value !== String(v)) el.value = v; });
-  $$('[data-out]').forEach(o => { const k = o.dataset.out; o.textContent = OUT[k] ? OUT[k](S.settings[k]) : S.settings[k]; });
+  $$('[data-set]').forEach(el => { const v = getPath(S.settings, el.dataset.set) ?? ''; if (el.type === 'checkbox') el.checked = !!v; else if (el.value !== String(v)) el.value = v; });
+  $$('[data-out]').forEach(o => { const k = o.dataset.out, v = getPath(S.settings, k); o.textContent = OUT[k] ? OUT[k](v) : v; });
   $$('[data-seg]').forEach(g => $$('button', g).forEach(b => b.setAttribute('aria-pressed', String(S.settings[g.dataset.seg] === b.dataset.val))));
   $('#bShuffle').setAttribute('aria-pressed', String(S.settings.shuffle));
   $('#bLoop').setAttribute('aria-pressed', String(S.settings.loop));
@@ -1475,15 +1698,22 @@ function onSetting(key) {
   if (key === 'shuffle' || key === 'keepEnds') { if (st.shuffle) shuffleOrder(); }
   if (key === 'aspect') setPreviewSize();
   if (key === 'font') loadFont(st.font);
+  ['intro', 'outro'].forEach(w => {
+    const d = st[w];
+    if (key === w + '.imgId' && d.imgId && d.bg !== 'image') d.bg = 'image';
+    if (key === w + '.bg' && d.bg === 'image' && !d.imgId) { const f = S.items.find(i => i.kind === 'image'); if (f) d.imgId = f.id; }
+  });
   buildSeq(); fillSettingsUI(); dirty = true;
-  if (['shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','transition'].includes(key)) renderStrip();
+  ['intro', 'outro'].forEach(w => { if (key.startsWith(w + '.') && !playing) { const i = seq.findIndex(x => x.type === w); if (i >= 0) seekTo(seq[i].start + Math.min(1.4, seq[i].dur * .45)); } });
+  if (['shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
   renderMusicStats(); commitSoon();
 }
 function bindSettings() {
   $$('[data-set]').forEach(el => {
     const ev = el.type === 'checkbox' || el.tagName === 'SELECT' ? 'change' : 'input';
     el.addEventListener(ev, () => {
-      const v = el.type === 'checkbox' ? el.checked : el.type === 'range' ? parseFloat(el.value) : el.value;
+      let v = el.type === 'checkbox' ? el.checked : el.type === 'range' ? parseFloat(el.value) : el.value;
+      if (el.dataset.opts === 'img' && !v) v = null;
       setPath(S.settings, el.dataset.set, v); onSetting(el.dataset.set);
     });
   });
@@ -1494,7 +1724,7 @@ function setPreviewSize() { const a = ASPECTS[S.settings.aspect] || ASPECTS['16:
 
 /* ---------- history ---------- */
 let hist = [], fut = [], lastSnap = null, commitT = null;
-const snap = () => JSON.stringify({ items:S.items, music:S.music, settings:S.settings });
+const snap = () => JSON.stringify({ items:S.items, music:S.music, titleImgs:S.titleImgs, settings:S.settings });
 function commitSoon() { clearTimeout(commitT); commitT = setTimeout(commit, 400); }
 function commit() {
   clearTimeout(commitT); const s = snap(); if (s === lastSnap) return;
@@ -1502,7 +1732,7 @@ function commit() {
   lastSnap = s; updUndo(); saveSoon();
 }
 function applySnap(s) {
-  const o = JSON.parse(s); S.items = o.items.filter(i => media[i.id]); S.music = o.music.filter(m => media[m.id]); S.settings = o.settings;
+  const o = JSON.parse(s); S.items = o.items.filter(i => media[i.id]); S.music = o.music.filter(m => media[m.id]); S.titleImgs = (o.titleImgs || []).filter(x => media[x.id]); S.settings = o.settings;
   if (sel && !itemById(sel)) sel = null; mus.dataset.id = '';
   setPreviewSize(); fillOptions(); fillSettingsUI(); buildSeq(); renderAll(); saveSoon();
 }
@@ -1709,7 +1939,7 @@ async function newProject(btn) {
     setTimeout(() => { btn._armed = false; btn.classList.remove('warn'); $('span', btn).textContent = t('newProj'); $('span', btn).classList.add('lbl-hide'); }, 3500); return; }
   btn._armed = false; btn.classList.remove('warn'); $('span', btn).textContent = t('newProj'); $('span', btn).classList.add('lbl-hide');
   pause(); commit();
-  S.items = []; S.music = []; S.settings = defaults(); sel = null; order = []; mus.dataset.id = '';
+  S.items = []; S.music = []; S.titleImgs = []; S.settings = defaults(); sel = null; order = []; mus.dataset.id = '';
   if (dbOK) { try { await DB.clear('blobs'); } catch (e) {} }
   setPreviewSize(); buildSeq(); seekTo(0); renderAll(); commit(); toast(t('cleared'));
 }
@@ -1753,6 +1983,16 @@ function bindEvents() {
   $('#fMedia').onchange = e => { importFiles([...e.target.files]); e.target.value = ''; };
   $('#fMusic').onchange = async e => { const fs = [...e.target.files]; e.target.value = ''; for (const f of fs) { try { await addMusicFile(f); } catch (er) { toast(t('fileErr').replace('{f}', f.name), 'err'); } } buildSeq(); renderMusic(); renderStrip(); commit(); };
   $('#bAddMusic').onclick = () => $('#fMusic').click();
+  let upFor = 'intro';
+  $$('[data-upload]').forEach(b => b.onclick = () => { upFor = b.dataset.upload; $('#fTitleImg').click(); });
+  $('#fTitleImg').onchange = async e => {
+    const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+    try {
+      const blob = await prepImage(f), id = uid(); const ok = await registerMedia(id, blob, 'image', f.name); if (!ok) throw 0;
+      S.titleImgs.push({ id, name:f.name.replace(/\.[^.]+$/, '') }); const d = S.settings[upFor]; d.imgId = id; d.bg = 'image';
+      fillImgOptions(); onSetting(upFor + '.imgId'); commit();
+    } catch (er) { toast(t('fileErr').replace('{f}', f.name), 'err'); }
+  };
   $('#bSampleMusic').onclick = makeSampleMusic;
   $('#tipClose').onclick = () => { $('#tipWrap').hidden = true; ls.set('sm.tip', 1); };
   let dragN = 0; const hasFiles = e => e.dataTransfer && [...(e.dataTransfer.types || [])].includes('Files');
@@ -1787,10 +2027,11 @@ async function boot() {
     try {
       const p = await DB.get('kv', 'project');
       if (p && Array.isArray(p.items)) {
-        const keys = new Set([...p.items.map(i => i.id), ...(p.music || []).map(m => m.id)]);
+        const keys = new Set([...p.items.map(i => i.id), ...(p.music || []).map(m => m.id), ...(p.titleImgs || []).map(x => x.id)]);
         for (const id of keys) { const r = await DB.get('blobs', id); if (r && r.blob) await registerMedia(id, r.blob, r.kind, r.name, false); }
         S.items = p.items.filter(i => media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
-        S.settings = Object.assign(defaults(), p.settings || {}); restored = true;
+        S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
+        const dft = defaults(), ps = p.settings || {}; S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
         const all = await DB.keys('blobs'); (all || []).filter(k => !keys.has(k)).forEach(k => DB.del('blobs', k).catch(() => {}));
       }
     } catch (e) { restored = false; }
