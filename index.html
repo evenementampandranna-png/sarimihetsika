@@ -614,20 +614,20 @@ function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Ma
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 
 /* ---------- vocab ---------- */
-const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','none'];
+const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','heartsCover','heartRow','heartFlash','none'];
 const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
-const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
+const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','heartbeat','handheld','punch','swing'];
 const TBG = ['black','gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
-const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','none'];
-const TANIM_POOL = ['rise','fade','zoom','letters','blurIn','bounce','split','type'];
+const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','heartbeat','float','none'];
+const TANIM_POOL = ['rise','fade','zoom','letters','blurIn','bounce','split','type','float'];
 const LAYOUTS = ['center','left','bottom'];
 const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
 const TFX = ['shadow','glow','outline','none'];
 const EFFECT_POOL = ['kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','swing'];
 const FILTERS = { none:'', bw:'grayscale(1) contrast(1.05)', noir:'grayscale(1) contrast(1.35) brightness(.9)', sepia:'sepia(.85)', vintage:'sepia(.35) contrast(1.1) saturate(.8) brightness(1.05)', warm:'sepia(.22) saturate(1.3) hue-rotate(-8deg)', golden:'sepia(.4) saturate(1.45) brightness(1.05)', cold:'saturate(.85) hue-rotate(14deg) brightness(1.04)', dream:'saturate(1.2) brightness(1.08) contrast(.9)', vivid:'saturate(1.5) contrast(1.08)' };
-const OVERLAYS = ['none','sparkle','butterflies','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
-const FRAMES = ['none','soft','floral','polaroid','rounded','cinema','film','vignette'];
-const DECORS = ['none','daisyWreath','floralBorder','roseBorder','heartWreath','leafGarland','goldCard','cornerVines'];
+const OVERLAYS = ['none','heartsRain','heartBalloons','heartBurst','heartBokeh','rosePetals','loveWords','doves','cupid','sparkle','butterflies','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
+const FRAMES = ['none','heart','soft','floral','polaroid','rounded','cinema','film','vignette'];
+const DECORS = ['none','heartFrame','heartGarland','ringsDecor','loveLetter','daisyWreath','floralBorder','roseBorder','heartWreath','leafGarland','goldCard','cornerVines'];
 const FONTS = ['Gochi Hand','Caveat','Amatic SC','Playfair Display','Bricolage Grotesque','Montserrat','Bebas Neue','Lora','Dancing Script','Pacifico'];
 const FONT_W = { 'Gochi Hand':400, 'Caveat':700, 'Amatic SC':700, 'Playfair Display':800, 'Bricolage Grotesque':800, 'Montserrat':800, 'Bebas Neue':400, 'Lora':700, 'Dancing Script':600, 'Pacifico':400 };
 const ASPECTS = { '16:9':[1280,720,1920,1080], '9:16':[720,1280,1080,1920], '1:1':[960,960,1080,1080], '4:3':[960,720,1440,1080] };
@@ -770,7 +770,31 @@ Object.assign(TPLX, {
   weddingHeart:{ tanim:'blurIn', tbg:'black', cap:'center', capAnim:'fade', fx:'none', decor:'heartWreath', outroDecor:'goldCard', countdown:true }
 });
 TCAT.wedding.unshift('weddingFloral', 'weddingRoses', 'weddingHeart');
-const TCAT_ORDER = ['wedding', 'baptism', 'fety', 'family', 'faith', 'work', 'style'];
+Object.assign(TPL, {
+  loveRain:    T('heartsCover','heartbeat','dream','heartsRain','heart','Pacifico','#ffffff',['#5a0f2e','#ff5c8a'], ['Tiako ianao','Ho anao irery','Mandrakizay',''], ['Je t’aime','Rien que pour toi','Pour toujours',''], ['I love you','Only for you','Forever','']),
+  loveBalloons:T('heartRow','kbIn','warm','heartBalloons','soft','Dancing Script','#ffffff',['#9c5b6e','#e8b9c4'], ['Fitiavana be dia be','Rado & Mialy','Velomy ny fitiavana',''], ['Tout notre amour','Rado & Mialy','Vive l’amour',''], ['All our love','Rado & Mialy','Long live love','']),
+  loveLetter:  T('fade','kbIn','warm','loveWords','rounded','Dancing Script','#fff6f3',['#4a1a2c','#b5476b'], ['Taratasy fitiavana','Ho anao, ry malala','Anao mandrakizay',''], ['Lettre d’amour','Pour toi, mon cœur','À toi pour toujours',''], ['A love letter','For you, my darling','Yours forever','']),
+  loveRings:   T('heartFlash','kbIn','golden','heartBokeh','polaroid','Playfair Display','#fff4d6',['#1a1014','#8c6a2f'], ['Ny peratray','Rado & Mialy','Fanekena mandrakizay',''], ['Nos alliances','Rado & Mialy','Une promesse éternelle',''], ['Our rings','Rado & Mialy','A promise forever','']),
+  loveRoses:   T('fade','kbRot','warm','rosePetals','heart','Playfair Display','#ffffff',['#3d0010','#a4133c'], ['Raozy ho anao','Fitiavana mena','Tiako ianao',''], ['Des roses pour toi','Un amour passionné','Je t’aime',''], ['Roses for you','A passionate love','I love you','']),
+  loveCupid:   T('heartsCover','punch','vivid','cupid','rounded','Pacifico','#ffffff',['#d6336c','#ffb3c1'], ['Voatifitry ny fitiavana','','Tiako ianao!',''], ['Touché par Cupidon','','Je t’aime !',''], ['Struck by Cupid','','I love you!','']),
+  loveDoves:   T('fade','drift','dream','doves','soft','Lora','#ffffff',['#4f6f99','#d9cbb4'], ['Fitiavana sy fiadanana','Rado & Mialy','Ho sambatra mandrakizay',''], ['Amour et paix','Rado & Mialy','Heureux pour toujours',''], ['Love and peace','Rado & Mialy','Happy forever','']),
+  loveNeon:    T('heartFlash','heartbeat','vivid','heartBurst','heart','Bebas Neue','#ff8fb1',['#0d0016','#5a0035'], ['Love','Tiako ianao','Forever',''], ['Love','Je t’aime','Pour toujours',''], ['Love','I love you','Forever','']),
+  loveStory:   T('heartRow','pulse','dream','heartBokeh','floral','Caveat','#ffffff',['#2a0d1e','#e75480'], ['Ny tantaran’ny fitiavanay','Rado & Mialy','Misaotra nanatrika',''], ['Notre histoire d’amour','Rado & Mialy','Merci d’être là',''], ['Our love story','Rado & Mialy','Thank you for being here',''])
+});
+Object.assign(TPLX, {
+  loveRain:{ tanim:'heartbeat', tbg:'animated', cap:'tag', capAnim:'float', fx:'glow', decor:'heartFrame', outroDecor:'heartGarland' },
+  loveBalloons:{ tanim:'float', tbg:'radial', cap:'tag', capAnim:'float', fx:'shadow', decor:'heartGarland', outroDecor:'heartGarland' },
+  loveLetter:{ tanim:'letters', tbg:'radial', cap:'tag', capAnim:'type', fx:'shadow', decor:'loveLetter', outroDecor:'heartFrame' },
+  loveRings:{ tanim:'blurIn', tbg:'radial', cap:'box', capAnim:'fade', fx:'glow', decor:'ringsDecor', outroDecor:'ringsDecor' },
+  loveRoses:{ tanim:'heartbeat', tbg:'black', cap:'center', capAnim:'fade', fx:'glow', decor:'roseBorder', outroDecor:'heartWreath' },
+  loveCupid:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'outline', decor:'heartGarland', outroDecor:'heartFrame' },
+  loveDoves:{ tanim:'blurIn', tbg:'radial', cap:'center', capAnim:'float', fx:'glow', decor:'ringsDecor', outroDecor:'heartFrame' },
+  loveNeon:{ tanim:'glow', tbg:'black', cap:'outline', capAnim:'heartbeat', fx:'glow', decor:'heartFrame', outroDecor:'heartFrame' },
+  loveStory:{ tanim:'float', tbg:'black', cap:'center', capAnim:'float', fx:'none', decor:'heartWreath', outroDecor:'heartGarland', countdown:true }
+});
+TCAT.love = ['loveRain', 'loveBalloons', 'loveLetter', 'loveRings', 'loveRoses', 'loveCupid', 'loveDoves', 'loveNeon', 'loveStory', 'romance', 'valentine'];
+TCAT.fety = TCAT.fety.filter(k => k !== 'valentine'); TCAT.family = TCAT.family.filter(k => k !== 'romance');
+const TCAT_ORDER = ['love', 'wedding', 'baptism', 'fety', 'family', 'faith', 'work', 'style'];
 const I18N = {
   mg: {
     slideTrans:'Transition mankany amin’ny manaraka', applyAll:'Ampiharo amin’ny sary rehetra', appliedAll:'Nampiharina tamin’ny sary rehetra',
@@ -811,7 +835,7 @@ const I18N = {
     helpTitle:'Ahoana ny fampiasana azy?', helpKeysH:'Bokotra fohy', helpTipsH:'Torohevitra',
     helpSteps:[
       ['Ampidiro ny sary sy vidéo','Tsindrio «Ampidiro» na sintony ao amin’ny pejy ireo rakitra avy ao amin’ny finday na ordinateur.'],
-      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 53: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
+      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 62: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
       ['Ampio mozika','Ao amin’ny «Mozika», ampidiro hira iray na maromaro. Azonao atao ny mampifanaraka ny faharetan’ny diaporama amin’ny hira.'],
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
       ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, transition, haingo, sombiny ary soratra sy ny animation-ny.'],
@@ -858,7 +882,7 @@ const I18N = {
     helpTitle:'Comment l’utiliser ?', helpKeysH:'Raccourcis', helpTipsH:'Astuces',
     helpSteps:[
       ['Ajoutez vos photos et vidéos','Touchez « Ajouter » ou glissez vos fichiers sur la page, depuis le téléphone ou l’ordinateur.'],
-      ['Choisissez un modèle','Dans « Modèles », 53 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
+      ['Choisissez un modèle','Dans « Modèles », 62 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
       ['Ajoutez la musique','Dans « Musique », ajoutez un ou plusieurs morceaux. Vous pouvez ajuster la durée du diaporama à la musique.'],
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
       ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, sa transition, son ambiance, son cadre, sa légende et son animation.'],
@@ -905,7 +929,7 @@ const I18N = {
     helpTitle:'How to use it', helpKeysH:'Shortcuts', helpTipsH:'Tips',
     helpSteps:[
       ['Add your photos and videos','Tap «Add» or drag files onto the page, from your phone or computer.'],
-      ['Pick a template','In «Templates», choose from 53 styles: colours, transitions, effects and frame change at once.'],
+      ['Pick a template','In «Templates», choose from 62 styles: colours, transitions, effects and frame change at once.'],
       ['Add music','In «Music», add one or more tracks. You can match the slideshow length to the music.'],
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
       ['Adjust each photo','Tap a photo in the strip to change its duration, effect, transition, overlay, frame, caption and its animation.'],
@@ -915,18 +939,18 @@ const I18N = {
   }
 };
 const LBL = {
-  decor:{ mg:{none:'Tsy misy',daisyWreath:'Fehiloha voninkazo',floralBorder:'Sisiny voninkazo',roseBorder:'Raozy',heartWreath:'Fo voninkazo',leafGarland:'Ravina volamena',goldCard:'Karatra volamena',cornerVines:'Rantsana misy voninkazo'},
-          fr:{none:'Aucun',daisyWreath:'Couronne de marguerites',floralBorder:'Bordure fleurie',roseBorder:'Bordure de roses',heartWreath:'Cœur de fleurs',leafGarland:'Guirlande dorée',goldCard:'Carte dorée',cornerVines:'Branche fleurie'},
-          en:{none:'None',daisyWreath:'Daisy wreath',floralBorder:'Floral border',roseBorder:'Rose border',heartWreath:'Heart of flowers',leafGarland:'Golden garland',goldCard:'Gold card',cornerVines:'Flowering branch'} },
-  tcat:{ mg:{all:'Rehetra',wedding:'Fanambadiana',baptism:'Batisa',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',wedding:'Mariage',baptism:'Baptême',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',wedding:'Wedding',baptism:'Baptism',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
+  decor:{ mg:{heartFrame:'Fo lehibe',heartGarland:'Rojom-po',ringsDecor:'Peratra fanambadiana',loveLetter:'Taratasy fitiavana',none:'Tsy misy',daisyWreath:'Fehiloha voninkazo',floralBorder:'Sisiny voninkazo',roseBorder:'Raozy',heartWreath:'Fo voninkazo',leafGarland:'Ravina volamena',goldCard:'Karatra volamena',cornerVines:'Rantsana misy voninkazo'},
+          fr:{heartFrame:'Grand cœur',heartGarland:'Guirlande de cœurs',ringsDecor:'Alliances',loveLetter:'Lettre d’amour',none:'Aucun',daisyWreath:'Couronne de marguerites',floralBorder:'Bordure fleurie',roseBorder:'Bordure de roses',heartWreath:'Cœur de fleurs',leafGarland:'Guirlande dorée',goldCard:'Carte dorée',cornerVines:'Branche fleurie'},
+          en:{heartFrame:'Big heart',heartGarland:'Heart garland',ringsDecor:'Wedding rings',loveLetter:'Love letter',none:'None',daisyWreath:'Daisy wreath',floralBorder:'Floral border',roseBorder:'Rose border',heartWreath:'Heart of flowers',leafGarland:'Golden garland',goldCard:'Gold card',cornerVines:'Flowering branch'} },
+  tcat:{ mg:{all:'Rehetra',love:'Fitiavana',wedding:'Fanambadiana',baptism:'Batisa',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',love:'Amour',wedding:'Mariage',baptism:'Baptême',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',love:'Love',wedding:'Wedding',baptism:'Baptism',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
   tbg:{
     mg:{black:'Mainty',gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
     fr:{black:'Noir',gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
     en:{black:'Black',gradient:'Gradient',radial:'Radial glow',animated:'Animated gradient',stripes:'Stripes',dots:'Dots',solid:'Solid',image:'Image',blurPhoto:'Blurred photo'} },
   tanim:{
-    mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',none:'Tsy misy'},
-    fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',none:'Aucune'},
-    en:{rise:'Gentle rise',fade:'Fade',zoom:'Zoom',type:'Typewriter',letters:'Letter by letter',blurIn:'Blur to sharp',bounce:'Bounce',glow:'Flickering neon',split:'From the sides',none:'None'} },
+    mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',heartbeat:'Mitempo toy ny fo',float:'Mitsingevaheva',none:'Tsy misy'},
+    fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',heartbeat:'Battement de cœur',float:'Flottement',none:'Aucune'},
+    en:{rise:'Gentle rise',fade:'Fade',zoom:'Zoom',type:'Typewriter',letters:'Letter by letter',blurIn:'Blur to sharp',bounce:'Bounce',glow:'Flickering neon',split:'From the sides',heartbeat:'Heartbeat',float:'Float',none:'None'} },
   layout:{ mg:{center:'Afovoany',left:'Ankavia',bottom:'Ambany'}, fr:{center:'Centré',left:'À gauche',bottom:'En bas'}, en:{center:'Centred',left:'Left',bottom:'Bottom'} },
   cap:{
     mg:{gradient:'Aloka ambany',box:'Boaty',lowerThird:'Tsipika ambany',tag:'Etikety soratra tanana',center:'Lehibe afovoany',outline:'Misy sisiny'},
@@ -934,29 +958,29 @@ const LBL = {
     en:{gradient:'Bottom shade',box:'Box',lowerThird:'Lower third',tag:'Handwritten tag',center:'Large, centred',outline:'Outline'} },
   fx:{ mg:{shadow:'Aloka',glow:'Mamirapiratra',outline:'Misy sisiny',none:'Tsy misy'}, fr:{shadow:'Ombre',glow:'Lueur',outline:'Contour',none:'Aucun'}, en:{shadow:'Shadow',glow:'Glow',outline:'Outline',none:'None'} },
   trans:{
-    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy',glitch:'Glitch',pixelate:'Piksely'},
-    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels'},
-    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate'} },
+    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy',glitch:'Glitch',pixelate:'Piksely',heartsCover:'Fo manarona',heartRow:'Andalana fo',heartFlash:'Tselatra fo'},
+    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels',heartsCover:'Cœurs qui recouvrent',heartRow:'Rangée de cœurs',heartFlash:'Éclair de cœur'},
+    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate',heartsCover:'Hearts cover',heartRow:'Row of hearts',heartFlash:'Heart flash'} },
   eff:{
-    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona',spiral:'Mihodina miditra',tilt:'Mitongilana dia mahitsy',riseUp:'Miakatra moramora'},
-    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement',spiral:'Spirale',tilt:'Redressement',riseUp:'Montée'},
-    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing',spiral:'Spiral',tilt:'Straighten',riseUp:'Rise'} },
+    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',heartbeat:'Fo mitempo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona',spiral:'Mihodina miditra',tilt:'Mitongilana dia mahitsy',riseUp:'Miakatra moramora'},
+    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',heartbeat:'Battement de cœur',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement',spiral:'Spirale',tilt:'Redressement',riseUp:'Montée'},
+    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',heartbeat:'Heartbeat',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing',spiral:'Spiral',tilt:'Straighten',riseUp:'Rise'} },
   fil:{
     mg:{inherit:'Araka ny ankapobeny',none:'Tsy misy',bw:'Fotsy sy mainty',noir:'Mainty mafy',sepia:'Sépia',vintage:'Taloha',warm:'Mafana',golden:'Volamena',cold:'Mangatsiaka',dream:'Nofinofy',vivid:'Mamirapiratra'},
     fr:{inherit:'Réglage général',none:'Aucun',bw:'Noir et blanc',noir:'Noir contrasté',sepia:'Sépia',vintage:'Vintage',warm:'Chaud',golden:'Doré',cold:'Froid',dream:'Rêve',vivid:'Éclatant'},
     en:{inherit:'General setting',none:'None',bw:'Black and white',noir:'Noir',sepia:'Sepia',vintage:'Vintage',warm:'Warm',golden:'Golden',cold:'Cool',dream:'Dreamy',vivid:'Vivid'} },
   ov:{
-    mg:{none:'Tsy misy',sparkle:'Kintana mamirapiratra',butterflies:'Lolo manidina',confetti:'Taratasy miloko',snow:'Oram-panala',hearts:'Fo',petals:'Felam-boninkazo',stars:'Kintana',bubbles:'Bobongolo',bokeh:'Jiro manjavozavo',lightleak:'Hazavana mafana',grain:'Sarimihetsika taloha'},
-    fr:{none:'Aucune',sparkle:'Étincelles',butterflies:'Papillons',confetti:'Confettis',snow:'Neige',hearts:'Cœurs',petals:'Pétales',stars:'Étoiles',bubbles:'Bulles',bokeh:'Bokeh',lightleak:'Halo de lumière',grain:'Pellicule ancienne'},
-    en:{none:'None',sparkle:'Sparkles',butterflies:'Butterflies',confetti:'Confetti',snow:'Snow',hearts:'Hearts',petals:'Petals',stars:'Stars',bubbles:'Bubbles',bokeh:'Bokeh',lightleak:'Light leak',grain:'Old film'} },
+    mg:{none:'Tsy misy',heartsRain:'Oram-po',heartBalloons:'Balaonina fo',heartBurst:'Fo mipoaka',heartBokeh:'Fo mamirapiratra',rosePetals:'Felam-raozy',loveWords:'Teny fitiavana',doves:'Voromailala',cupid:'Zana-tsipìkan’i Cupidon',sparkle:'Kintana mamirapiratra',butterflies:'Lolo manidina',confetti:'Taratasy miloko',snow:'Oram-panala',hearts:'Fo',petals:'Felam-boninkazo',stars:'Kintana',bubbles:'Bobongolo',bokeh:'Jiro manjavozavo',lightleak:'Hazavana mafana',grain:'Sarimihetsika taloha'},
+    fr:{none:'Aucune',heartsRain:'Pluie de cœurs',heartBalloons:'Ballons cœurs',heartBurst:'Explosion de cœurs',heartBokeh:'Cœurs lumineux',rosePetals:'Pétales de rose',loveWords:'Mots d’amour',doves:'Colombes',cupid:'Flèche de Cupidon',sparkle:'Étincelles',butterflies:'Papillons',confetti:'Confettis',snow:'Neige',hearts:'Cœurs',petals:'Pétales',stars:'Étoiles',bubbles:'Bulles',bokeh:'Bokeh',lightleak:'Halo de lumière',grain:'Pellicule ancienne'},
+    en:{none:'None',heartsRain:'Heart rain',heartBalloons:'Heart balloons',heartBurst:'Heart burst',heartBokeh:'Glowing hearts',rosePetals:'Rose petals',loveWords:'Love words',doves:'Doves',cupid:'Cupid’s arrow',sparkle:'Sparkles',butterflies:'Butterflies',confetti:'Confetti',snow:'Snow',hearts:'Hearts',petals:'Petals',stars:'Stars',bubbles:'Bubbles',bokeh:'Bokeh',lightleak:'Light leak',grain:'Old film'} },
   frame:{
-    mg:{none:'Tsy misy',soft:'Sisiny malefaka',floral:'Voninkazo sy lolo',polaroid:'Polaroid',rounded:'Boribory zoro',cinema:'Sinema',film:'Sarimihetsika',vignette:'Maizimaizina amin’ny sisiny'},
-    fr:{none:'Aucun',soft:'Bords adoucis',floral:'Fleurs et papillons',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
-    en:{none:'None',soft:'Soft edges',floral:'Flowers and butterflies',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
+    mg:{none:'Tsy misy',heart:'Ao anaty fo',soft:'Sisiny malefaka',floral:'Voninkazo sy lolo',polaroid:'Polaroid',rounded:'Boribory zoro',cinema:'Sinema',film:'Sarimihetsika',vignette:'Maizimaizina amin’ny sisiny'},
+    fr:{none:'Aucun',heart:'Dans un cœur',soft:'Bords adoucis',floral:'Fleurs et papillons',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
+    en:{none:'None',heart:'Inside a heart',soft:'Soft edges',floral:'Flowers and butterflies',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
   tpl:{
-    mg:{weddingFloral:'Voninkazo sy kintana',weddingRoses:'Raozy',weddingHeart:'Fo voninkazo',weddingWhite:'Fotsy madio',weddingGold:'Volamena',weddingRustic:'An-tanàna',weddingBoho:'Bohème',weddingBeach:'Amoron-dranomasina',weddingGarden:'An-jaridaina',weddingModern:'Maoderina',weddingVintage:'Taloha',weddingRoyal:'Mpanjaka',weddingChurch:'Am-piangonana',vodiondry:'Vodiondry',baptismBoy:'Zazalahy',baptismGirl:'Zazavavy',baptismDove:'Voromailala',baptismAngel:'Anjely kely',communion:'Komonio voalohany',baptismParty:'Fankalazana',baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
-    fr:{weddingFloral:'Fleurs et étoiles',weddingRoses:'Roses',weddingHeart:'Cœur fleuri',weddingWhite:'Blanc pur',weddingGold:'Or',weddingRustic:'Champêtre',weddingBoho:'Bohème',weddingBeach:'Plage',weddingGarden:'Jardin',weddingModern:'Moderne',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Religieux',vodiondry:'Vodiondry',baptismBoy:'Garçon',baptismGirl:'Fille',baptismDove:'Colombe',baptismAngel:'Petit ange',communion:'Première communion',baptismParty:'Fête de baptême',baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
-    en:{weddingFloral:'Flowers and stars',weddingRoses:'Roses',weddingHeart:'Flower heart',weddingWhite:'Pure white',weddingGold:'Gold',weddingRustic:'Rustic',weddingBoho:'Boho',weddingBeach:'Beach',weddingGarden:'Garden',weddingModern:'Modern',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Church',vodiondry:'Vodiondry',baptismBoy:'Boy',baptismGirl:'Girl',baptismDove:'Dove',baptismAngel:'Little angel',communion:'First communion',baptismParty:'Baptism party',baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
+    mg:{loveRain:'Oram-po',loveBalloons:'Balaonina fo',loveLetter:'Taratasy fitiavana',loveRings:'Peratra',loveRoses:'Raozy mena',loveCupid:'Zana-tsipìka',loveDoves:'Voromailala',loveNeon:'Fo néon',loveStory:'Tantaran’ny fitiavana',weddingFloral:'Voninkazo sy kintana',weddingRoses:'Raozy',weddingHeart:'Fo voninkazo',weddingWhite:'Fotsy madio',weddingGold:'Volamena',weddingRustic:'An-tanàna',weddingBoho:'Bohème',weddingBeach:'Amoron-dranomasina',weddingGarden:'An-jaridaina',weddingModern:'Maoderina',weddingVintage:'Taloha',weddingRoyal:'Mpanjaka',weddingChurch:'Am-piangonana',vodiondry:'Vodiondry',baptismBoy:'Zazalahy',baptismGirl:'Zazavavy',baptismDove:'Voromailala',baptismAngel:'Anjely kely',communion:'Komonio voalohany',baptismParty:'Fankalazana',baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
+    fr:{loveRain:'Pluie de cœurs',loveBalloons:'Ballons cœurs',loveLetter:'Lettre d’amour',loveRings:'Alliances',loveRoses:'Roses rouges',loveCupid:'Cupidon',loveDoves:'Colombes',loveNeon:'Cœur néon',loveStory:'Histoire d’amour',weddingFloral:'Fleurs et étoiles',weddingRoses:'Roses',weddingHeart:'Cœur fleuri',weddingWhite:'Blanc pur',weddingGold:'Or',weddingRustic:'Champêtre',weddingBoho:'Bohème',weddingBeach:'Plage',weddingGarden:'Jardin',weddingModern:'Moderne',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Religieux',vodiondry:'Vodiondry',baptismBoy:'Garçon',baptismGirl:'Fille',baptismDove:'Colombe',baptismAngel:'Petit ange',communion:'Première communion',baptismParty:'Fête de baptême',baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
+    en:{loveRain:'Heart rain',loveBalloons:'Heart balloons',loveLetter:'Love letter',loveRings:'Rings',loveRoses:'Red roses',loveCupid:'Cupid',loveDoves:'Doves',loveNeon:'Neon heart',loveStory:'Love story',weddingFloral:'Flowers and stars',weddingRoses:'Roses',weddingHeart:'Flower heart',weddingWhite:'Pure white',weddingGold:'Gold',weddingRustic:'Rustic',weddingBoho:'Boho',weddingBeach:'Beach',weddingGarden:'Garden',weddingModern:'Modern',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Church',vodiondry:'Vodiondry',baptismBoy:'Boy',baptismGirl:'Girl',baptismDove:'Dove',baptismAngel:'Little angel',communion:'First communion',baptismParty:'Baptism party',baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
 };
 
 const LANGS = ['mg', 'fr', 'en'];
@@ -1217,6 +1241,7 @@ function motion(effect, u, W, H, local = 0) {
     case 'panD': sc = 1.12; dy = (u - .5) * .08 * H; break;
     case 'drift': sc = 1.14; dx = (u - .5) * .06 * W; dy = (.5 - u) * .05 * H; break;
     case 'pulse': sc = 1.05 + .035 * Math.sin(u * Math.PI * 2); break;
+    case 'heartbeat': sc = 1.04 + .05 * beat(local); break;
     case 'spiral': sc = 1.04 + .14 * u; ang = (u - .5) * .12; break;
     case 'tilt': sc = 1.1 - .05 * u; ang = .035 * (1 - ease(u)); break;
     case 'riseUp': sc = 1.08; dy = (1 - ease(u)) * .06 * H - .02 * H; break;
@@ -1260,8 +1285,16 @@ function drawEntry(e, local, extraFilter) {
   const u = clamp(local / e.dur, 0, 1), mo = motion(e.effect, u, W, H, local);
   if (st.fit !== 'cover') { mo.sc = 1 + (mo.sc - 1) * .3; mo.dx *= .3; mo.dy *= .3; }
   const filt = [FILTERS[e.filter] || '', extraFilter || ''].filter(Boolean).join(' ');
-  if (st.fit === 'blur' || ['polaroid', 'rounded', 'soft', 'floral'].includes(fr))
+  if (st.fit === 'blur' || ['polaroid', 'rounded', 'soft', 'floral', 'heart'].includes(fr))
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, 'cover', { sc:1.15, dx:0, dy:0, ang:0 }, (filt + ` blur(${Math.round(k * .035)}px) brightness(.6)`).trim());
+  if (fr === 'heart') {
+    const hs = H * .9, cy = H * .5;
+    ctx.save(); ctx.shadowColor = 'rgba(255,77,109,.8)'; ctx.shadowBlur = k * .05; ctx.fillStyle = '#ffffff'; heartC(W / 2, cy, hs * 1.03); ctx.fill(); ctx.restore();
+    ctx.save(); heartC(W / 2, cy, hs); ctx.clip();
+    placeImg(src, sw, sh, it.rot, { x:W / 2 - hs * .5, y:cy - hs * .5, w:hs, h:hs }, 'cover', mo, filt); ctx.restore();
+    if (it.caption) drawCaption(it.caption, local, e.dur, e);
+    return;
+  }
   if (fr === 'soft' || fr === 'floral') {
     const fb = fitBox(sw, sh, it.rot, fr === 'soft' ? W * .8 : W * .66, fr === 'soft' ? H * .82 : H * .7), bx = (W - fb.w) / 2, by = (H - fb.h) / 2 - (fr === 'floral' ? H * .04 : 0);
     if (fr === 'floral') { ctx.save(); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
@@ -1358,6 +1391,7 @@ function vine(pts, col, w) { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineC
 /* layouts: return text overrides when the decor needs them */
 function drawDecor(kind, local) {
   if (!kind || kind === 'none') return null;
+  if (['heartGarland', 'ringsDecor', 'loveLetter', 'heartFrame'].includes(kind)) { ctx.save(); const r = loveDecor(kind, local); ctx.restore(); return r; }
   const W = cv.width, H = cv.height, k = Math.min(W, H), sway = Math.sin(local * 1.1) * .03;
   ctx.save();
   if (kind === 'daisyWreath') {
@@ -1466,6 +1500,124 @@ function drawCountdown(local) {
   for (let i = 0; i < 34; i++) { const x = hash(i) * W, y = (hash(i + 40) * H + local * k * .03 * (1 + hash(i + 9))) % H; glare(x, y, k * (.006 + hash(i + 3) * .012), .35 + .65 * Math.abs(Math.sin(local * 2.5 + i)), i % 3 ? '#fff6d8' : '#f2c94c'); }
 }
 
+/* ---------- love animations ---------- */
+const LOVE_COLS = ['#ff4d6d', '#ff8fab', '#ffb3c6', '#c9184a', '#ffffff', '#ffccd5'];
+const beat = t => { const f = ((t % 1) + 1) % 1; return Math.exp(-Math.pow(f - .1, 2) / .002) + .6 * Math.exp(-Math.pow(f - .32, 2) / .002); };
+function heartSub(x, y, s) { // heart whose top-centre dip is at (x, y), height s, no beginPath
+  ctx.moveTo(x, y + s * .3);
+  ctx.bezierCurveTo(x, y, x - s * .5, y, x - s * .5, y + s * .3);
+  ctx.bezierCurveTo(x - s * .5, y + s * .6, x, y + s * .8, x, y + s);
+  ctx.bezierCurveTo(x, y + s * .8, x + s * .5, y + s * .6, x + s * .5, y + s * .3);
+  ctx.bezierCurveTo(x + s * .5, y, x, y, x, y + s * .3); ctx.closePath();
+}
+const heartC = (cx, cy, s) => { ctx.beginPath(); heartSub(cx, cy - s * .5, s); };
+function fillHeart(cx, cy, s, col, rot = 0) {
+  if (s <= 0) return; ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot);
+  const g = ctx.createLinearGradient(-s * .4, -s * .5, s * .4, s * .5); g.addColorStop(0, col); g.addColorStop(1, shade(col, -.25));
+  ctx.fillStyle = g; heartC(0, 0, s); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.beginPath(); ctx.ellipse(-s * .2, -s * .18, s * .09, s * .05, -.6, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+}
+function shade(hex, k) { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = n >> 8 & 255, b = n & 255; const f = v => Math.max(0, Math.min(255, Math.round(k < 0 ? v * (1 + k) : v + (255 - v) * k))); return '#' + [f(r), f(g), f(b)].map(v => v.toString(16).padStart(2, '0')).join(''); }
+function dove(x, y, s, time, dir = 1) {
+  const flap = Math.sin(time * 9) * .7;
+  ctx.save(); ctx.translate(x, y); ctx.scale(dir, 1); ctx.fillStyle = '#ffffff'; ctx.strokeStyle = 'rgba(0,0,0,.12)'; ctx.lineWidth = Math.max(1, s * .03);
+  ctx.beginPath(); ctx.ellipse(0, 0, s * .55, s * .18, -.08, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.arc(s * .5, -s * .12, s * .13, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#f2b24a'; ctx.beginPath(); ctx.moveTo(s * .62, -s * .13); ctx.lineTo(s * .74, -s * .09); ctx.lineTo(s * .62, -s * .06); ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  [[-1, .9], [1, 1]].forEach(([side, k]) => { ctx.beginPath(); ctx.moveTo(-s * .1, 0); ctx.bezierCurveTo(-s * .2, -s * .7 * flap * side * k - s * .1, s * .3, -s * .9 * flap * side * k, s * .2, -s * .05); ctx.closePath(); ctx.globalAlpha *= side < 0 ? .8 : 1; ctx.fill(); ctx.stroke(); });
+  ctx.beginPath(); ctx.moveTo(-s * .5, 0); ctx.lineTo(-s * .85, -s * .12); ctx.lineTo(-s * .8, s * .1); ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function cupidArrow(x, y, s, ang) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.strokeStyle = '#d4a15a'; ctx.lineWidth = Math.max(2, s * .05); ctx.beginPath(); ctx.moveTo(-s, 0); ctx.lineTo(s * .55, 0); ctx.stroke();
+  ctx.fillStyle = '#ffffff'; [-1, 1].forEach(d => { ctx.beginPath(); ctx.moveTo(-s, 0); ctx.lineTo(-s * 1.2, d * s * .16); ctx.lineTo(-s * .85, d * s * .02); ctx.closePath(); ctx.fill(); });
+  ctx.translate(s * .7, 0); ctx.rotate(Math.PI / 2); fillHeart(0, 0, s * .4, '#ff4d6d');
+  ctx.restore();
+}
+function rings(cx, cy, r, local) {
+  const g = ctx.createLinearGradient(cx - r * 2, cy - r, cx + r * 2, cy + r); g.addColorStop(0, '#fff1b8'); g.addColorStop(.5, '#d4a530'); g.addColorStop(1, '#8a6417');
+  ctx.save(); ctx.strokeStyle = g; ctx.lineWidth = r * .22; ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = r * .3;
+  ctx.beginPath(); ctx.arc(cx - r * .55, cy, r, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx + r * .55, cy, r, 0, Math.PI * 2); ctx.stroke();
+  ctx.shadowColor = 'transparent'; ctx.fillStyle = '#e8f6ff'; ctx.beginPath(); const dx = cx - r * .55, dy = cy - r * 1.12;
+  ctx.moveTo(dx, dy - r * .28); ctx.lineTo(dx + r * .2, dy - r * .1); ctx.lineTo(dx, dy + r * .12); ctx.lineTo(dx - r * .2, dy - r * .1); ctx.closePath(); ctx.fill();
+  ctx.restore(); glare(dx, dy - r * .1, r * .18, .5 + .5 * Math.abs(Math.sin(local * 2.2)));
+}
+function drawLoveOverlay(k, time) {
+  const W = cv.width, H = cv.height, u = Math.min(W, H) / 720;
+  if (k === 'heartsRain') {
+    for (let i = 0; i < 40; i++) { const r1 = hash(i), r2 = hash(i + 91), r3 = hash(i + 7), r4 = hash(i + 33), prog = (r1 + time * (.05 + .06 * r2)) % 1;
+      const x = (((r3 + Math.sin(time * (.6 + r3) + i) * .03) % 1) + 1) % 1 * W; ctx.globalAlpha = .65 + .3 * r4; fillHeart(x, prog * (H + 60 * u) - 30 * u, (10 + r4 * 18) * u, LOVE_COLS[i % 4], Math.sin(time + i) * .4); }
+  } else if (k === 'heartBalloons') {
+    const pal = ['#f7b8c4', '#f6e3b4', '#ffffff', '#ff8fab', '#d9c2f0'];
+    for (let i = 0; i < 9; i++) { const prog = (hash(i) + time * (.025 + hash(i + 5) * .02)) % 1, s = (40 + hash(i + 2) * 30) * u, x = W * (.06 + hash(i + 11) * .88) + Math.sin(time * .8 + i) * 12 * u, y = H + s * 2 - prog * (H + s * 4);
+      ctx.globalAlpha = .9; ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = Math.max(1, u * 1.2); ctx.beginPath(); ctx.moveTo(x, y + s * .5); ctx.bezierCurveTo(x - 10 * u, y + s * 1.1, x + 10 * u, y + s * 1.6, x + Math.sin(time * 2 + i) * 8 * u, y + s * 2.4); ctx.stroke();
+      fillHeart(x, y, s, pal[i % pal.length], Math.sin(time * .9 + i) * .12); }
+  } else if (k === 'heartBurst') {
+    for (let b = 0; b < 3; b++) { const ph = (time / 1.8 + b / 3) % 1, seed = Math.floor(time / 1.8 + b / 3) * 7 + b, cx = W * (.15 + hash(seed) * .7), cy = H * (.2 + hash(seed + 3) * .6), R = (90 + hash(seed + 5) * 90) * u;
+      for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2 + seed, d = ease(ph) * R; ctx.globalAlpha = (1 - ph) * .95; fillHeart(cx + Math.cos(a) * d, cy + Math.sin(a) * d - ph * 20 * u, (8 + hash(i + seed) * 12) * u * (1 - ph * .4), LOVE_COLS[(i + b) % 4], a); } }
+  } else if (k === 'heartBokeh') {
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < 18; i++) { const x = hash(i) * W + Math.sin(time * .2 + i) * 40 * u, y = hash(i + 30) * H + Math.cos(time * .16 + i) * 30 * u, s = (50 + hash(i + 4) * 90) * u;
+      ctx.globalAlpha = .1 + .12 * Math.abs(Math.sin(time * .6 + i)); ctx.shadowColor = LOVE_COLS[i % 3]; ctx.shadowBlur = s * .5; ctx.fillStyle = LOVE_COLS[i % 3]; heartC(x, y, s); ctx.fill(); }
+    ctx.shadowColor = 'transparent';
+  } else if (k === 'rosePetals') {
+    const pc = ['#c9184a', '#a4133c', '#ff4d6d', '#800f2f'];
+    for (let i = 0; i < 38; i++) { const r2 = hash(i + 91), r3 = hash(i + 7), r4 = hash(i + 33), prog = (hash(i) + time * (.04 + .05 * r2)) % 1, x = (((r3 + Math.sin(time * (.7 + r3) + i) * .04) % 1) + 1) % 1 * W, y = prog * (H + 40 * u) - 20 * u;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(time * (1 + r4) + i); ctx.scale(1, .35 + .65 * Math.abs(Math.cos(time * 2 + i))); ctx.globalAlpha = .9;
+      const s = (8 + r4 * 9) * u, g = ctx.createRadialGradient(-s * .3, -s * .3, 0, 0, 0, s * 1.2); g.addColorStop(0, shade(pc[i % 4], .25)); g.addColorStop(1, pc[i % 4]);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(0, -s); ctx.bezierCurveTo(s * 1.1, -s * .9, s * .9, s * .8, 0, s); ctx.bezierCurveTo(-s * .9, s * .8, -s * 1.1, -s * .9, 0, -s); ctx.fill(); ctx.restore(); }
+  } else if (k === 'loveWords') {
+    const words = ['Tiako ianao', 'Je t’aime', 'I love you', '♥', 'Love', 'Mon amour', 'Malala', '♥'];
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (let i = 0; i < 14; i++) { const prog = (hash(i) + time * (.03 + hash(i + 6) * .025)) % 1, x = W * (.05 + hash(i + 12) * .9) + Math.sin(time * .7 + i) * 18 * u, y = H * (1.05 - prog * 1.15), fs = (18 + hash(i + 3) * 22) * u;
+      ctx.globalAlpha = Math.sin(prog * Math.PI) * .85; ctx.fillStyle = LOVE_COLS[i % 3 === 0 ? 4 : i % 3]; ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = fs * .3;
+      ctx.font = `600 ${fs}px "Dancing Script", "Segoe Script", cursive`; ctx.fillText(words[i % words.length], x, y); }
+    ctx.shadowColor = 'transparent';
+  } else if (k === 'doves') {
+    for (let i = 0; i < 4; i++) { const prog = (time * (.05 + hash(i) * .03) + hash(i + 8)) % 1, dir = i % 2 ? -1 : 1, x = dir > 0 ? prog * (W + 160 * u) - 80 * u : W + 80 * u - prog * (W + 160 * u), y = H * (.15 + hash(i + 3) * .45) + Math.sin(time * 1.2 + i) * 25 * u;
+      ctx.globalAlpha = .95; dove(x, y, (45 + hash(i + 1) * 25) * u, time + i, dir); }
+  } else if (k === 'cupid') {
+    const ph = (time / 3.2) % 1, n = Math.floor(time / 3.2), y0 = H * (.2 + hash(n) * .5), x = -150 * u + ph * (W + 300 * u), y = y0 - ph * H * .15, ang = -Math.atan2(H * .15, W + 300 * u);
+    for (let j = 1; j <= 10; j++) { const tp = ph - j * .018; if (tp < 0) break; ctx.globalAlpha = .7 * (1 - j / 11); fillHeart(-150 * u + tp * (W + 300 * u) - 60 * u, y0 - tp * H * .15 + Math.sin(j) * 8 * u, (8 + j) * u, LOVE_COLS[j % 3]); }
+    ctx.globalAlpha = 1; cupidArrow(x, y, 70 * u, ang);
+    for (let i = 0; i < 10; i++) { ctx.globalAlpha = .25 + .25 * Math.sin(time * 2 + i); fillHeart(hash(i + 40) * W, hash(i + 60) * H, (6 + hash(i) * 8) * u, LOVE_COLS[i % 4]); }
+  }
+}
+function loveDecor(kind, local) {
+  const W = cv.width, H = cv.height, k = Math.min(W, H);
+  if (kind === 'heartGarland') {
+    [0, 1].forEach(row => { const y0 = row ? H * .2 : H * .04, sag = H * .1;
+      ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = Math.max(1, k * .003); ctx.beginPath(); ctx.moveTo(-10, y0); ctx.quadraticCurveTo(W / 2, y0 + sag * 2, W + 10, y0); ctx.stroke();
+      for (let i = 0; i < 11; i++) { const tt = (i + .5) / 11, x = tt * W, y = y0 + sag * 2 * 2 * tt * (1 - tt) * .5 * 2, g = grow(local, i + row * 6, .05), sw = Math.sin(local * 2 + i) * .15;
+        if (row && (i % 2)) continue; ctx.strokeStyle = 'rgba(255,255,255,.6)'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + k * .03); ctx.stroke(); fillHeart(x, y + k * .06, k * .06 * g, LOVE_COLS[(i + row) % 4], sw); } });
+    for (let i = 0; i < 12; i++) fillHeart((i + .5) / 12 * W, H * .94, k * .03 * grow(local, 14 + i), LOVE_COLS[i % 3], Math.sin(local + i) * .2);
+  } else if (kind === 'ringsDecor') {
+    rings(W / 2, H * .22, k * .07 * grow(local, 0), local);
+    for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; ctx.globalAlpha = .55 + .4 * Math.sin(local * 2 + i); fillHeart(W / 2 + Math.cos(a) * W * .42, H * .55 + Math.sin(a) * H * .38, k * (.025 + hash(i) * .02) * grow(local, 3 + i, .03), LOVE_COLS[i % 4], a); }
+    ctx.globalAlpha = 1;
+  } else if (kind === 'loveLetter') {
+    const g = grow(local, 0), ew = W * .26 * g, eh = ew * .62, ex = W / 2 - ew / 2, ey = H * .9 - eh;
+    ctx.fillStyle = '#f8e3d6'; ctx.fillRect(ex, ey, ew, eh); ctx.strokeStyle = 'rgba(120,60,60,.35)'; ctx.lineWidth = k * .003; ctx.strokeRect(ex, ey, ew, eh);
+    ctx.fillStyle = '#efcdbb'; ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(W / 2, ey + eh * .55); ctx.lineTo(ex + ew, ey); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ex, ey + eh); ctx.lineTo(W / 2, ey + eh * .45); ctx.lineTo(ex + ew, ey + eh); ctx.stroke();
+    fillHeart(W / 2, ey + eh * .5, k * .05 * g, '#c9184a');
+    for (let i = 0; i < 9; i++) { const ph = (local * .35 + i / 9) % 1; ctx.globalAlpha = Math.sin(ph * Math.PI) * g; fillHeart(W / 2 + Math.sin(i * 2.3 + local) * ew * .6 * ph, ey - ph * H * .35, k * (.02 + hash(i) * .025), LOVE_COLS[i % 4], Math.sin(local + i) * .3); }
+    ctx.globalAlpha = 1;
+  } else if (kind === 'heartFrame') {
+    const s = H * .92 * grow(local, 0), cy = H * .5;
+    ctx.save(); ctx.lineWidth = k * .008; ctx.strokeStyle = 'rgba(255,215,225,.95)'; ctx.shadowColor = '#ff4d6d'; ctx.shadowBlur = k * .03; heartC(W / 2, cy, s); ctx.stroke();
+    ctx.lineWidth = k * .003; ctx.shadowBlur = 0; ctx.strokeStyle = 'rgba(255,255,255,.6)'; heartC(W / 2, cy, s * .93); ctx.stroke(); ctx.restore();
+    for (let i = 0; i < 26; i++) { const t2 = i / 26 * Math.PI * 2, sc = s / 34, x = W / 2 + 16 * Math.pow(Math.sin(t2), 3) * sc, y = cy + s * .06 - (13 * Math.cos(t2) - 5 * Math.cos(2 * t2) - 2 * Math.cos(3 * t2) - Math.cos(4 * t2)) * sc;
+      ctx.globalAlpha = .5 + .5 * Math.abs(Math.sin(local * 2.5 + i)); fillHeart(x, y, k * .022, LOVE_COLS[i % 4]); }
+    ctx.globalAlpha = 1; return { maxW:W * .42 };
+  }
+  return null;
+}
+
 /* text animation state for a block that appears at `local` seconds and leaves at `dur` */
 function textAnim(anim, local, dur, delay = 0) {
   const tl = local - delay, a = clamp(tl / .9, 0, 1), ea = ease(a);
@@ -1481,6 +1633,8 @@ function textAnim(anim, local, dur, delay = 0) {
     case 'bounce': { const b = clamp(tl / .8, 0, 1); const c = 1.70158 * 1.6; st.scale = b <= 0 ? 0.001 : 1 + (c + 1) * Math.pow(b - 1, 3) + c * Math.pow(b - 1, 2); st.alpha *= clamp(tl / .15, 0, 1); break; }
     case 'glow': st.alpha *= a; st.flicker = tl < 1.1 ? (hash(Math.floor(tl * 22)) > .35 ? 1 : .25) : 1; break;
     case 'split': st.alpha *= a; st.dx = (1 - ea); break;
+    case 'heartbeat': st.alpha *= a; st.scale = (.85 + .15 * ea) * (1 + .07 * beat(tl)); break;
+    case 'float': st.alpha *= a; st.dy = (1 - ea) + Math.sin(tl * 1.6) * .12; break;
     default: st.alpha *= a; st.dy = (1 - ea); // rise
   }
   return st;
@@ -1635,6 +1789,7 @@ function noiseTile() {
 }
 function drawOverlay(time, kind) {
   const k = kind || S.settings.overlay; if (!k || k === 'none') return;
+  if (['heartsRain','heartBalloons','heartBurst','heartBokeh','rosePetals','loveWords','doves','cupid'].includes(k)) { ctx.save(); drawLoveOverlay(k, time); ctx.restore(); return; }
   const W = cv.width, H = cv.height, u = Math.min(W, H) / 720;
   const pal = [S.settings.colors[0], S.settings.colors[1], '#f4a53a', '#ffffff', '#45c9b9', '#ff5d8f'];
   ctx.save();
@@ -1748,6 +1903,19 @@ function drawTrans(A, la, B, lb, p, kind) {
       ctx.save(); ctx.beginPath(); ctx.rect(W / 2 + p * W / 2, 0, W / 2, H); ctx.clip(); ctx.translate(p * W / 2, 0); drawEntry(A, la); ctx.restore(); break;
     case 'spin':
       drawEntry(B, lb); ctx.save(); ctx.globalAlpha = 1 - p; ctx.translate(W / 2, H / 2); ctx.rotate(p * Math.PI * 1.2); const z = Math.max(.02, 1 - .9 * p); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); drawEntry(A, la); ctx.restore(); break;
+    case 'heartsCover': {
+      drawEntry(A, la); const cols = 8, cell = W / cols, rows = Math.ceil(H / cell) + 1;
+      ctx.save(); ctx.beginPath();
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { const x = (c + .5 + (r % 2) * .5) * cell, y = r * cell * .85, d = Math.hypot(x - W / 2, y - H / 2) / Math.hypot(W / 2, H / 2), g = clamp(p * 1.9 - d * .9, 0, 1); if (g > 0) heartSub(x, y - g * cell * .85, g * cell * 1.7); }
+      ctx.clip(); drawEntry(B, lb); ctx.restore(); break; }
+    case 'heartRow': {
+      drawEntry(A, la); const x = p * (W + H * .4), hs = H / 4;
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, Math.max(0, x - hs * .3), H); for (let i = 0; i < 5; i++) heartSub(x - hs * .3, i * hs - hs * .25, hs); ctx.clip(); drawEntry(B, lb); ctx.restore();
+      for (let i = 0; i < 5; i++) { ctx.globalAlpha = .85; fillHeart(x - hs * .3, i * hs + hs * .25, hs * .35, LOVE_COLS[i % 3]); } ctx.globalAlpha = 1; break; }
+    case 'heartFlash': {
+      const pulse = 1 + .05 * beat(p * 1.2);
+      ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(pulse, pulse); ctx.translate(-W / 2, -H / 2); drawEntry(p < .5 ? A : B, p < .5 ? la : lb); ctx.restore();
+      ctx.save(); ctx.globalAlpha = Math.sin(p * Math.PI) * .85; ctx.shadowColor = '#ff4d6d'; ctx.shadowBlur = Math.min(W, H) * .1; ctx.fillStyle = '#ff4d6d'; heartC(W / 2, H / 2, Math.max(W, H) * 2.4 * Math.sin(p * Math.PI)); ctx.fill(); ctx.restore(); break; }
     case 'pixelate': {
       const o = drawToOff(p < .5 ? A : B, p < .5 ? la : lb), amt = 1 - Math.abs(p * 2 - 1), blk = Math.max(1, Math.round(1 + amt * 46 * W / 1280));
       const tw = Math.max(1, Math.round(W / blk)), th = Math.max(1, Math.round(H / blk)); tinyCv.width = tw; tinyCv.height = th;

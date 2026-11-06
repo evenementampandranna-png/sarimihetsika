@@ -1,5 +1,5 @@
 // Sarimihetsika – service worker: keeps the app usable offline after the first visit.
-const CACHE = 'sarimihetsika-v9';
+const CACHE = 'sarimihetsika-v10';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', e => {
