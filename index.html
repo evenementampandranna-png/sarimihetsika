@@ -566,13 +566,13 @@ const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x
 /* ---------- vocab ---------- */
 const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','none'];
 const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
-const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
+const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','handheld','punch','swing'];
 const TBG = ['gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
 const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','none'];
 const LAYOUTS = ['center','left','bottom'];
 const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
 const TFX = ['shadow','glow','outline','none'];
-const EFFECT_POOL = ['kbIn','kbOut','kbRot','panL','panR','panU','panD','drift','swing'];
+const EFFECT_POOL = ['kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','swing'];
 const FILTERS = { none:'', bw:'grayscale(1) contrast(1.05)', noir:'grayscale(1) contrast(1.35) brightness(.9)', sepia:'sepia(.85)', vintage:'sepia(.35) contrast(1.1) saturate(.8) brightness(1.05)', warm:'sepia(.22) saturate(1.3) hue-rotate(-8deg)', golden:'sepia(.4) saturate(1.45) brightness(1.05)', cold:'saturate(.85) hue-rotate(14deg) brightness(1.04)', dream:'saturate(1.2) brightness(1.08) contrast(.9)', vivid:'saturate(1.5) contrast(1.08)' };
 const OVERLAYS = ['none','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
 const FRAMES = ['none','polaroid','rounded','cinema','film','vignette'];
@@ -663,8 +663,54 @@ const TCAT = {
   work:['business','promo','realestate','food','fashion','school'],
   style:['travel','ocean','nature','retro','neon','minimal','sport','movie']
 };
+Object.assign(TPL, {
+  weddingWhite:  T('fade','kbIn','dream','petals','rounded','Playfair Display','#ffffff',['#7c6a59','#e3d5c2'], ['Ny fanambadianay','Rado & Mialy','Misaotra anareo rehetra',''], ['Notre mariage','Rado & Mialy','Merci à tous',''], ['Our wedding','Rado & Mialy','Thank you all','']),
+  weddingGold:   T('heart','kbRot','golden','stars','polaroid','Playfair Display','#fff4d6',['#1b1410','#b8892d'], ['Fitiavana mandrakizay','Rado & Mialy','Ho sambatra mandrakizay',''], ['Un amour éternel','Rado & Mialy','Heureux pour toujours',''], ['Love forever','Rado & Mialy','Happily ever after','']),
+  weddingRustic: T('diag','drift','vintage','grain','film','Lora','#f6ead6',['#3d2b1f','#a07850'], ['Fanambadiana an-tanàna','Rado & Mialy','Misaotra nanatrika',''], ['Mariage champêtre','Rado & Mialy','Merci d’être venus',''], ['Country wedding','Rado & Mialy','Thanks for coming','']),
+  weddingBoho:   T('blinds','swing','warm','petals','polaroid','Dancing Script','#fff8f0',['#7a4e3a','#d9a38a'], ['Ianao sy izaho','Andro fanambadiana','Hiara-dalana mandrakizay',''], ['Toi et moi','Le jour J','Ensemble pour la vie',''], ['You and me','Our big day','Together for life','']),
+  weddingBeach:  T('slideR','drift','cold','bubbles','rounded','Dancing Script','#ffffff',['#0a6c74','#e6c48c'], ['Fanambadiana amoron-dranomasina','Rado & Mialy','Fitiavana sy ranomasina',''], ['Mariage à la plage','Rado & Mialy','L’amour et la mer',''], ['Beach wedding','Rado & Mialy','Love by the sea','']),
+  weddingGarden: T('circle','kbIn','dream','petals','rounded','Lora','#ffffff',['#2f5233','#d88f9b'], ['Fanambadiana an-jaridaina','Rado & Mialy','Voninkazo sy fitiavana',''], ['Mariage au jardin','Rado & Mialy','Fleurs et amour',''], ['Garden wedding','Rado & Mialy','Flowers and love','']),
+  weddingModern: T('wipe','kbIn','none','none','cinema','Montserrat','#ffffff',['#101010','#6e6e6e'], ['Rado & Mialy','06.11.2026','Misaotra',''], ['Rado & Mialy','06.11.2026','Merci',''], ['Rado & Mialy','06.11.2026','Thank you','']),
+  weddingVintage:T('fadeblack','kbOut','sepia','grain','vignette','Playfair Display','#f2e6cf',['#2b2118','#8a6a43'], ['Tantaran’ny fitiavanay','Rado & Mialy','Hatramin’izay ka hatramin’izao',''], ['Notre histoire d’amour','Rado & Mialy','Hier, aujourd’hui, demain',''], ['Our love story','Rado & Mialy','Yesterday, today, always','']),
+  weddingRoyal:  T('zoomOut','kbIn','golden','stars','rounded','Playfair Display','#fff6dc',['#0d1b4c','#c9a227'], ['Fanambadiana lehibe','Rado & Mialy','Fiderana sy fisaorana',''], ['Un mariage royal','Rado & Mialy','Avec gratitude',''], ['A royal wedding','Rado & Mialy','With gratitude','']),
+  weddingChurch: T('fade','kbOut','golden','lightleak','vignette','Lora','#fff8ea',['#2a1f3d','#cdb27a'], ['Mariazy am-piangonana','Rado & Mialy','Ho tahin’Andriamanitra anie',''], ['Mariage religieux','Rado & Mialy','Que Dieu vous bénisse',''], ['Church wedding','Rado & Mialy','May God bless you','']),
+  vodiondry:     T('fade','kbIn','warm','none','polaroid','Lora','#fff6e8',['#6b1f1f','#c98f3e'], ['Vodiondry','Fianakaviana roa mitambatra','Misaotra ray aman-dreny',''], ['Vodiondry','Deux familles réunies','Merci aux parents',''], ['Vodiondry','Two families unite','Thank you, parents','']),
+  baptismBoy:    T('fade','kbIn','dream','bubbles','rounded','Pacifico','#ffffff',['#2f5f92','#9fcbea'], ['Batisan’ny zanakay lahy','Tolotra, 2026','Ho voatahy anie ianao',''], ['Le baptême de notre fils','Tolotra, 2026','Sois béni',''], ['Our son’s baptism','Tolotra, 2026','Be blessed','']),
+  baptismGirl:   T('fade','kbIn','dream','petals','rounded','Pacifico','#ffffff',['#b0476f','#f2b9cf'], ['Batisan’ny zanakay vavy','Fanja, 2026','Ho voatahy anie ianao',''], ['Le baptême de notre fille','Fanja, 2026','Sois bénie',''], ['Our daughter’s baptism','Fanja, 2026','Be blessed','']),
+  baptismDove:   T('blur','kbIn','dream','lightleak','vignette','Lora','#ffffff',['#4f5d6b','#d8d1c2'], ['Batisa masina','Ny Fanahy Masina anie hiaraka aminao','Amen',''], ['Saint baptême','Que l’Esprit soit avec toi','Amen',''], ['Holy baptism','May the Spirit be with you','Amen','']),
+  baptismAngel:  T('circle','pulse','dream','stars','polaroid','Dancing Script','#ffffff',['#6c7fb8','#e8d9b3'], ['Anjely kely','Andro batisa','Tianay ianao',''], ['Petit ange','Jour de baptême','On t’aime',''], ['Little angel','Baptism day','We love you','']),
+  communion:     T('fade','kbOut','golden','stars','rounded','Playfair Display','#fff8ea',['#3b2f5c','#c9a65b'], ['Komonio voalohany','Andro masina','Ho voatahy anie',''], ['Première communion','Un jour saint','Sois béni',''], ['First communion','A holy day','Be blessed','']),
+  baptismParty:  T('diag','drift','warm','petals','rounded','Lora','#ffffff',['#3f6b4c','#e3b98c'], ['Fankalazana ny batisa','Fianakaviana sy namana','Misaotra nanatrika',''], ['Fête du baptême','En famille et entre amis','Merci d’être venus',''], ['Baptism celebration','Family and friends','Thanks for coming',''])
+});
+Object.assign(TPLX, {
+  weddingWhite:{ tanim:'letters', tbg:'blurPhoto', cap:'tag', capAnim:'fade', fx:'shadow' },
+  weddingGold:{ tanim:'blurIn', tbg:'radial', cap:'box', capAnim:'fade', fx:'glow' },
+  weddingRustic:{ tanim:'type', tbg:'dots', cap:'tag', capAnim:'rise', fx:'shadow' },
+  weddingBoho:{ tanim:'letters', tbg:'animated', cap:'tag', capAnim:'bounce', fx:'shadow' },
+  weddingBeach:{ tanim:'rise', tbg:'blurPhoto', cap:'lowerThird', capAnim:'split', fx:'shadow' },
+  weddingGarden:{ tanim:'letters', tbg:'radial', cap:'tag', capAnim:'fade', fx:'glow' },
+  weddingModern:{ tanim:'split', tbg:'solid', cap:'outline', capAnim:'split', fx:'none' },
+  weddingVintage:{ tanim:'type', tbg:'blurPhoto', cap:'center', capAnim:'type', fx:'shadow' },
+  weddingRoyal:{ tanim:'zoom', tbg:'radial', cap:'box', capAnim:'zoom', fx:'glow' },
+  weddingChurch:{ tanim:'blurIn', tbg:'radial', cap:'center', capAnim:'fade', fx:'glow' },
+  vodiondry:{ tanim:'rise', tbg:'stripes', cap:'lowerThird', capAnim:'rise', fx:'shadow' },
+  baptismBoy:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'shadow' },
+  baptismGirl:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'shadow' },
+  baptismDove:{ tanim:'blurIn', tbg:'radial', cap:'center', capAnim:'fade', fx:'glow' },
+  baptismAngel:{ tanim:'letters', tbg:'animated', cap:'tag', capAnim:'fade', fx:'glow' },
+  communion:{ tanim:'blurIn', tbg:'radial', cap:'box', capAnim:'fade', fx:'glow' },
+  baptismParty:{ tanim:'rise', tbg:'blurPhoto', cap:'lowerThird', capAnim:'split', fx:'shadow' }
+});
+Object.assign(TCAT, {
+  wedding:['wedding','weddingWhite','weddingGold','weddingRustic','weddingBoho','weddingBeach','weddingGarden','weddingModern','weddingVintage','weddingRoyal','weddingChurch','vodiondry','engagement','weddingAnniv'],
+  baptism:['baptism','baptismBoy','baptismGirl','baptismDove','baptismAngel','communion','baptismParty']
+});
+TCAT.family = TCAT.family.filter(k => !TCAT.wedding.includes(k));
+TCAT.faith = TCAT.faith.filter(k => !TCAT.baptism.includes(k));
+const TCAT_ORDER = ['wedding', 'baptism', 'fety', 'family', 'faith', 'work', 'style'];
 const I18N = {
   mg: {
+    slideTrans:'Transition mankany amin’ny manaraka', applyAll:'Ampiharo amin’ny sary rehetra', appliedAll:'Nampiharina tamin’ny sary rehetra',
     tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
@@ -698,15 +744,16 @@ const I18N = {
     helpTitle:'Ahoana ny fampiasana azy?', helpKeysH:'Bokotra fohy', helpTipsH:'Torohevitra',
     helpSteps:[
       ['Ampidiro ny sary sy vidéo','Tsindrio «Ampidiro» na sintony ao amin’ny pejy ireo rakitra avy ao amin’ny finday na ordinateur.'],
-      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 33: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
+      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 50: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
       ['Ampio mozika','Ao amin’ny «Mozika», ampidiro hira iray na maromaro. Azonao atao ny mampifanaraka ny faharetan’ny diaporama amin’ny hira.'],
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
-      ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, sivana na soratra.'],
+      ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, transition, haingo, sombiny ary soratra sy ny animation-ny.'],
       ['Avoahy ho vidéo','Tsindrio «Avoahy ho vidéo» hahazoana rakitra MP4 hozaraina amin’ny WhatsApp, Facebook na YouTube.']],
     helpTips:['Ao amin’ny «Soratra» no anovana ny pejy fanombohana sy famaranana: soratra, sary ambadika, animation ary faharetana.','Voatahiry ho azy ao amin’ny navigateur-nao ny asanao.','Ovay ny fiteny amin’ny MG / FR / EN eo ambony.','Ao amin’ny finday: «Ajouter à l’écran d’accueil» dia lasa application izy.'],
     keys:[['Espace','Alefa / ajanony'],['2× clic','Écran feno / miala'],['← →','Teo aloha / manaraka'],['F','Écran feno'],['S','Kisendrasendra'],['Ctrl+Z','Foanana']]
   },
   fr: {
+    slideTrans:'Transition vers la suivante', applyAll:'Appliquer à toutes les photos', appliedAll:'Appliqué à toutes les photos',
     tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
@@ -740,15 +787,16 @@ const I18N = {
     helpTitle:'Comment l’utiliser ?', helpKeysH:'Raccourcis', helpTipsH:'Astuces',
     helpSteps:[
       ['Ajoutez vos photos et vidéos','Touchez « Ajouter » ou glissez vos fichiers sur la page, depuis le téléphone ou l’ordinateur.'],
-      ['Choisissez un modèle','Dans « Modèles », 33 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
+      ['Choisissez un modèle','Dans « Modèles », 50 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
       ['Ajoutez la musique','Dans « Musique », ajoutez un ou plusieurs morceaux. Vous pouvez ajuster la durée du diaporama à la musique.'],
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
-      ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, son filtre ou sa légende.'],
+      ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, sa transition, son ambiance, son cadre, sa légende et son animation.'],
       ['Exportez en vidéo','« Exporter en vidéo » crée un fichier MP4 à partager sur WhatsApp, Facebook ou YouTube.']],
     helpTips:['Dans « Textes », modifiez l’ouverture et la fin : texte, image de fond, animation et durée.','Votre travail est sauvegardé automatiquement dans le navigateur.','Changez de langue avec MG / FR / EN en haut.','Sur téléphone : « Ajouter à l’écran d’accueil » pour l’utiliser comme une application.'],
     keys:[['Espace','Lecture / pause'],['Double-clic','Plein écran / quitter'],['← →','Précédent / suivant'],['F','Plein écran'],['S','Aléatoire'],['Ctrl+Z','Annuler']]
   },
   en: {
+    slideTrans:'Transition to the next one', applyAll:'Apply to all photos', appliedAll:'Applied to all photos',
     tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
@@ -782,17 +830,17 @@ const I18N = {
     helpTitle:'How to use it', helpKeysH:'Shortcuts', helpTipsH:'Tips',
     helpSteps:[
       ['Add your photos and videos','Tap «Add» or drag files onto the page, from your phone or computer.'],
-      ['Pick a template','In «Templates», choose from 33 styles: colours, transitions, effects and frame change at once.'],
+      ['Pick a template','In «Templates», choose from 50 styles: colours, transitions, effects and frame change at once.'],
       ['Add music','In «Music», add one or more tracks. You can match the slideshow length to the music.'],
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
-      ['Adjust each photo','Tap a photo in the strip to change its duration, effect, filter or caption.'],
+      ['Adjust each photo','Tap a photo in the strip to change its duration, effect, transition, overlay, frame, caption and its animation.'],
       ['Export a video','«Export video» makes an MP4 file to share on WhatsApp, Facebook or YouTube.']],
     helpTips:['In «Text», change the opening and closing slides: wording, background image, animation and duration.','Your work is saved automatically in this browser.','Switch language with MG / FR / EN at the top.','On a phone: «Add to Home Screen» to use it like an app.'],
     keys:[['Space','Play / pause'],['Double-click','Full screen on / off'],['← →','Previous / next'],['F','Full screen'],['S','Shuffle'],['Ctrl+Z','Undo']]
   }
 };
 const LBL = {
-  tcat:{ mg:{all:'Rehetra',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
+  tcat:{ mg:{all:'Rehetra',wedding:'Fanambadiana',baptism:'Batisa',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',wedding:'Mariage',baptism:'Baptême',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',wedding:'Wedding',baptism:'Baptism',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
   tbg:{
     mg:{gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
     fr:{gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
@@ -812,9 +860,9 @@ const LBL = {
     fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels'},
     en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate'} },
   eff:{
-    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona'},
-    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement'},
-    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing'} },
+    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona',spiral:'Mihodina miditra',tilt:'Mitongilana dia mahitsy',riseUp:'Miakatra moramora'},
+    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement',spiral:'Spirale',tilt:'Redressement',riseUp:'Montée'},
+    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing',spiral:'Spiral',tilt:'Straighten',riseUp:'Rise'} },
   fil:{
     mg:{inherit:'Araka ny ankapobeny',none:'Tsy misy',bw:'Fotsy sy mainty',noir:'Mainty mafy',sepia:'Sépia',vintage:'Taloha',warm:'Mafana',golden:'Volamena',cold:'Mangatsiaka',dream:'Nofinofy',vivid:'Mamirapiratra'},
     fr:{inherit:'Réglage général',none:'Aucun',bw:'Noir et blanc',noir:'Noir contrasté',sepia:'Sépia',vintage:'Vintage',warm:'Chaud',golden:'Doré',cold:'Froid',dream:'Rêve',vivid:'Éclatant'},
@@ -828,9 +876,9 @@ const LBL = {
     fr:{none:'Aucun',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
     en:{none:'None',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
   tpl:{
-    mg:{baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
-    fr:{baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
-    en:{baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
+    mg:{weddingWhite:'Fotsy madio',weddingGold:'Volamena',weddingRustic:'An-tanàna',weddingBoho:'Bohème',weddingBeach:'Amoron-dranomasina',weddingGarden:'An-jaridaina',weddingModern:'Maoderina',weddingVintage:'Taloha',weddingRoyal:'Mpanjaka',weddingChurch:'Am-piangonana',vodiondry:'Vodiondry',baptismBoy:'Zazalahy',baptismGirl:'Zazavavy',baptismDove:'Voromailala',baptismAngel:'Anjely kely',communion:'Komonio voalohany',baptismParty:'Fankalazana',baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
+    fr:{weddingWhite:'Blanc pur',weddingGold:'Or',weddingRustic:'Champêtre',weddingBoho:'Bohème',weddingBeach:'Plage',weddingGarden:'Jardin',weddingModern:'Moderne',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Religieux',vodiondry:'Vodiondry',baptismBoy:'Garçon',baptismGirl:'Fille',baptismDove:'Colombe',baptismAngel:'Petit ange',communion:'Première communion',baptismParty:'Fête de baptême',baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
+    en:{weddingWhite:'Pure white',weddingGold:'Gold',weddingRustic:'Rustic',weddingBoho:'Boho',weddingBeach:'Beach',weddingGarden:'Garden',weddingModern:'Modern',weddingVintage:'Vintage',weddingRoyal:'Royal',weddingChurch:'Church',vodiondry:'Vodiondry',baptismBoy:'Boy',baptismGirl:'Girl',baptismDove:'Dove',baptismAngel:'Little angel',communion:'First communion',baptismParty:'Baptism party',baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
 };
 
 const LANGS = ['mg', 'fr', 'en'];
@@ -864,7 +912,7 @@ let actx = null, master = null, recDest = null, musicGain = null, duckCur = 1, a
 const mus = new Audio(); mus.preload = 'auto';
 const cv = $('#cv'); let ctx = cv.getContext('2d');
 const itemById = id => S.items.find(i => i.id === id);
-const newItem = (id, kind, name, extra = {}) => Object.assign({ id, kind, name, dur:null, trimStart:0, trimEnd:null, vdur:null, effect:'inherit', filter:'inherit', caption:'', rot:0, mute:false, sample:false }, extra);
+const newItem = (id, kind, name, extra = {}) => Object.assign({ id, kind, name, dur:null, trimStart:0, trimEnd:null, vdur:null, effect:'inherit', filter:'inherit', trans:'inherit', overlay:'inherit', frame:'inherit', capStyle:'inherit', capAnim:'inherit', caption:'', rot:0, mute:false, sample:false }, extra);
 
 /* ---------- storage (IndexedDB) ---------- */
 const DB = {
@@ -1031,7 +1079,10 @@ function buildSeq() {
       if (ef === 'auto') ef = EFFECT_POOL[Math.floor(rng() * EFFECT_POOL.length)];
       e.effect = ef; e.filter = e.item.filter === 'inherit' ? st.filter : e.item.filter;
     } else { e.effect = 'none'; e.filter = 'none'; }
-    e.trans = st.transition === 'random' ? TRANS_POOL[Math.floor(rng() * TRANS_POOL.length)] : st.transition;
+    const own = (f, g) => e.type === 'item' && e.item[f] && e.item[f] !== 'inherit' ? e.item[f] : g;
+    e.overlay = own('overlay', st.overlay); e.frame = own('frame', st.frame); e.capStyle = own('capStyle', st.capStyle); e.capAnim = own('capAnim', st.capAnim);
+    const tr = own('trans', st.transition);
+    e.trans = tr === 'random' ? TRANS_POOL[Math.floor(rng() * TRANS_POOL.length)] : tr;
   });
   let s = 0;
   out.forEach((e, i) => { e.start = s; const nx = out[i + 1]; e.T = nx && e.trans !== 'none' ? Math.min(st.tDur, e.dur / 2, nx.dur / 2) : 0; s += e.dur - e.T; });
@@ -1076,6 +1127,9 @@ function motion(effect, u, W, H, local = 0) {
     case 'panD': sc = 1.12; dy = (u - .5) * .08 * H; break;
     case 'drift': sc = 1.14; dx = (u - .5) * .06 * W; dy = (.5 - u) * .05 * H; break;
     case 'pulse': sc = 1.05 + .035 * Math.sin(u * Math.PI * 2); break;
+    case 'spiral': sc = 1.04 + .14 * u; ang = (u - .5) * .12; break;
+    case 'tilt': sc = 1.1 - .05 * u; ang = .035 * (1 - ease(u)); break;
+    case 'riseUp': sc = 1.08; dy = (1 - ease(u)) * .06 * H - .02 * H; break;
     case 'handheld': sc = 1.07; dx = (Math.sin(local * 1.3) * .006 + Math.sin(local * 3.1 + 1) * .003) * W; dy = (Math.sin(local * 1.7 + 2) * .005 + Math.sin(local * 2.6) * .003) * H; ang = Math.sin(local * .9) * .006; break;
     case 'punch': sc = 1.02 + .16 * Math.pow(1 - ease(clamp(u * 2.5, 0, 1)), 2) + .04 * u; break;
     case 'swing': sc = 1.09; ang = Math.sin(u * Math.PI * 2) * .025; dx = Math.sin(u * Math.PI * 2) * .015 * W; break;
@@ -1104,7 +1158,7 @@ function frameOverlay(fr) {
   }
 }
 function drawEntry(e, local, extraFilter) {
-  const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), fr = st.frame || 'none';
+  const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), fr = e.frame || st.frame || 'none';
   if (e.type !== 'item') { drawTitle(e, local); frameOverlay(fr); return; }
   const it = e.item, m = media[it.id];
   ctx.fillStyle = st.bg; ctx.fillRect(0, 0, W, H);
@@ -1147,7 +1201,7 @@ function drawEntry(e, local, extraFilter) {
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, st.fit === 'blur' ? 'contain' : st.fit, mo, filt);
   }
   frameOverlay(fr);
-  if (it.caption) drawCaption(it.caption, local, e.dur);
+  if (it.caption) drawCaption(it.caption, local, e.dur, e);
 }
 /* text animation state for a block that appears at `local` seconds and leaves at `dur` */
 function textAnim(anim, local, dur, delay = 0) {
@@ -1261,9 +1315,9 @@ function drawTitle(e, local) {
   }
   ctx.restore();
 }
-function drawCaption(text, local, dur) {
-  const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), style = st.capStyle || 'gradient';
-  const an = textAnim(st.capAnim || 'rise', local, dur, .15); if (an.alpha <= 0 && !an.letters) return;
+function drawCaption(text, local, dur, e) {
+  const W = cv.width, H = cv.height, st = S.settings, k = Math.min(W, H), style = (e && e.capStyle) || st.capStyle || 'gradient';
+  const an = textAnim((e && e.capAnim) || st.capAnim || 'rise', local, dur, .15); if (an.alpha <= 0 && !an.letters) return;
   const big = style === 'center', fs = k * (big ? .085 : .052);
   ctx.save(); ctx.font = fontStr(fs); ctx.textBaseline = 'middle'; ctx.fillStyle = st.textColor;
   const lines = wrap(text, W * (big ? .8 : .78)).slice(0, 2), lh = fs * 1.15;
@@ -1314,8 +1368,8 @@ function noiseTile() {
   for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
   g.putImageData(d, 0, 0); return noiseCv;
 }
-function drawOverlay(time) {
-  const k = S.settings.overlay; if (!k || k === 'none') return;
+function drawOverlay(time, kind) {
+  const k = kind || S.settings.overlay; if (!k || k === 'none') return;
   const W = cv.width, H = cv.height, u = Math.min(W, H) / 720;
   const pal = [S.settings.colors[0], S.settings.colors[1], '#f4a53a', '#ffffff', '#45c9b9', '#ff5d8f'];
   ctx.save();
@@ -1449,7 +1503,7 @@ function render(time) {
   const L = locate(clamp(time, 0, Math.max(0, total - .001)));
   if (!L) return null;
   if (L.b) drawTrans(L.a, L.la, L.b, L.lb, ease(clamp(L.p, 0, 1)), L.a.trans); else drawEntry(L.a, L.la);
-  ctx.globalAlpha = 1; drawOverlay(time);
+  ctx.globalAlpha = 1; drawOverlay(time, (L.b && L.p > .5 ? L.b : L.a).overlay);
   return L;
 }
 
@@ -1611,7 +1665,7 @@ function select(id) {
   showTab('media'); renderMediaPanel();
   if (!playing) { const i = seq.findIndex(e => e.item && e.item.id === id); if (i >= 0) seekTo(entryCleanStart(i)); }
 }
-function opts(kind, list, cur) { return list.map(k => `<option value="${k}"${k === cur ? ' selected' : ''}>${esc(lbl(kind, k))}</option>`).join(''); }
+function opts(kind, list, cur) { return list.map(k => `<option value="${k}"${k === cur ? ' selected' : ''}>${esc(k === 'inherit' ? lbl('eff', 'inherit') : lbl(kind, k))}</option>`).join(''); }
 function renderMediaPanel() {
   const el = $('#tb-media'); const it = sel && itemById(sel);
   if (!it) {
@@ -1641,8 +1695,14 @@ function renderMediaPanel() {
         <input type="range" id="iDur" min="1" max="30" step="0.5" value="${itemDur(it)}"></div>`}
       <div class="field"><label class="field-l" for="iEff">${esc(t('effect'))}</label><select id="iEff">${opts('eff', ['inherit', ...EFFECTS], it.effect)}</select></div>
       <div class="field"><label class="field-l" for="iFil">${esc(t('filter'))}</label><select id="iFil">${opts('fil', ['inherit', ...Object.keys(FILTERS)], it.filter)}</select></div>
+      <div class="field"><label class="field-l" for="iTr">${esc(t('slideTrans'))}</label><select id="iTr">${opts('trans', ['inherit', ...TRANS], it.trans || 'inherit')}</select></div>
+      <div class="field"><label class="field-l" for="iOv">${esc(t('overlay'))}</label><select id="iOv">${opts('ov', ['inherit', ...OVERLAYS], it.overlay || 'inherit')}</select></div>
+      <div class="field"><label class="field-l" for="iFr">${esc(t('frameL'))}</label><select id="iFr">${opts('frame', ['inherit', ...FRAMES], it.frame || 'inherit')}</select></div>
       <div class="field"><label class="field-l" for="iCap">${esc(t('caption'))}</label><input type="text" id="iCap" maxlength="90" value="${esc(it.caption)}" placeholder="${esc(t('captionPh'))}"></div>
+      <div class="field"><label class="field-l" for="iCs">${esc(t('capStyleL'))}</label><select id="iCs">${opts('cap', ['inherit', ...CAPS], it.capStyle || 'inherit')}</select></div>
+      <div class="field"><label class="field-l" for="iCa">${esc(t('capAnimL'))}</label><select id="iCa">${opts('tanim', ['inherit', ...TANIM], it.capAnim || 'inherit')}</select></div>
     </fieldset>
+    <div class="row"><button class="btn mini" id="iAll">${icon('copy')}<span>${esc(t('applyAll'))}</span></button></div>
     <div class="row">
       <button class="btn mini" id="iL" ${i === 0 ? 'disabled' : ''}>${icon('left')}<span>${esc(t('moveL'))}</span></button>
       <button class="btn mini" id="iR" ${i === S.items.length - 1 ? 'disabled' : ''}><span>${esc(t('moveR'))}</span>${icon('right')}</button>
@@ -1663,6 +1723,8 @@ function renderMediaPanel() {
   }
   $('#iEff').onchange = e => upd(() => { it.effect = e.target.value; });
   $('#iFil').onchange = e => upd(() => { it.filter = e.target.value; });
+  [['#iTr', 'trans'], ['#iOv', 'overlay'], ['#iFr', 'frame'], ['#iCs', 'capStyle'], ['#iCa', 'capAnim']].forEach(([q, f]) => { $(q).onchange = e => upd(() => { it[f] = e.target.value; }); });
+  $('#iAll').onclick = () => { const F = ['effect', 'filter', 'trans', 'overlay', 'frame', 'capStyle', 'capAnim']; S.items.forEach(x => { if (x !== it) F.forEach(f => { x[f] = it[f] || 'inherit'; }); if (x.kind === 'image' && it.kind === 'image') x.dur = it.dur; }); buildSeq(); renderStrip(); commit(); toast(t('appliedAll')); };
   $('#iCap').oninput = e => upd(() => { it.caption = e.target.value; });
   $('#iCap').onchange = () => renderStrip();
   const move = d => { const j = i + d; if (j < 0 || j >= S.items.length) return; [S.items[i], S.items[j]] = [S.items[j], S.items[i]]; buildSeq(); renderStrip(); renderMediaPanel(); commit(); };
@@ -1702,7 +1764,7 @@ function renderTrackState() { $$('.track').forEach(li => li.classList.toggle('is
 function renderMusicStats() { $('#mstat').textContent = `${t('musicLen')} ${fmtT(musicTotal())} · ${t('showLen')} ${fmtT(total)}`; }
 let tplCat = 'all';
 function renderTpls() {
-  $('#tplCats').innerHTML = ['all', ...Object.keys(TCAT)].map(c => `<button data-cat="${c}" aria-pressed="${c === tplCat}">${esc(lbl('tcat', c))}</button>`).join('');
+  $('#tplCats').innerHTML = ['all', ...TCAT_ORDER].map(c => `<button data-cat="${c}" aria-pressed="${c === tplCat}">${esc(lbl('tcat', c))}</button>`).join('');
   $$('#tplCats button').forEach(b => b.onclick = () => { tplCat = b.dataset.cat; renderTpls(); });
   const keys = tplCat === 'all' ? Object.keys(TPL) : TCAT[tplCat].filter(k => TPL[k]);
   $('#tplCount').textContent = t('tplCount').replace('{n}', keys.length);
