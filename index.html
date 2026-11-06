@@ -218,6 +218,21 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
 .toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:300;display:flex;flex-direction:column;gap:8px;align-items:center;width:max-content;max-width:calc(100vw - 32px)}
 .toast{background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:14px;font-weight:500;box-shadow:0 10px 30px rgb(0 0 0 / .25)}
 .toast.err{background:var(--danger);color:#fff}
+.projs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px}
+.proj{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.proj.is-cur{border-color:var(--accent)}
+.proj-th{position:relative;aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:#111;display:grid;place-items:center;color:#777}
+.proj-th img{width:100%;height:100%;object-fit:cover;display:block}
+.proj-b{display:flex;flex-direction:column;gap:4px;min-width:0}
+.proj-b b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.proj-b .mono{font-size:11.5px;color:var(--muted)}
+.proj-b .row{margin-top:4px;gap:6px}
+.tpl{position:relative}
+.tpl-main{all:unset;display:flex;flex-direction:column;cursor:pointer;width:100%;box-sizing:border-box}
+.tpl-main:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:12px}
+.tpl-edit{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:8px;border:0;background:rgb(0 0 0 / .55);color:#fff;display:grid;place-items:center;cursor:pointer}
+.tpl-edit:hover{background:rgb(0 0 0 / .8)}
+.tpl-edit .ic{width:16px;height:16px}
 .help-steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:h}
 .help-steps li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;font-size:14.5px}
 .help-steps li::before{counter-increment:h;content:counter(h);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font:600 13px var(--f-mono)}
@@ -267,6 +282,8 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
   <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 9l4 6M21 9l-4 6"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 1 1 3.6 2.4c-.7.3-1.1.9-1.1 1.6v.4M12 16.8v.2"/></symbol>
   <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
   <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
@@ -295,6 +312,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
         <span class="saved" id="saved" data-i18n="saved"></span>
         <button class="btn icon" id="bUndo" data-i18n-aria="undo" disabled><svg class="ic"><use href="#i-undo"/></svg></button>
         <button class="btn icon" id="bRedo" data-i18n-aria="redo" disabled><svg class="ic"><use href="#i-redo"/></svg></button>
+        <button class="btn has-lbl" id="bProj"><svg class="ic"><use href="#i-folder"/></svg><span class="lbl-hide" data-i18n="myProjects"></span></button>
         <button class="btn has-lbl" id="bNew"><svg class="ic"><use href="#i-file"/></svg><span class="lbl-hide" data-i18n="newProj"></span></button>
         <span class="sep" aria-hidden="true"></span>
         <div class="seg" role="group" aria-label="Fiteny / Langue / Language">
@@ -545,6 +563,28 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
   </div>
 </div>
 
+<div class="modal" id="mProj" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pTitle" style="width:min(720px,100%)">
+    <div class="sheet-head"><h2 id="pTitle" data-i18n="myProjects"></h2><button class="btn icon" id="pClose" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="field"><label class="field-l" for="pName"><span data-i18n="projName"></span></label>
+      <div class="row" style="flex-wrap:nowrap"><input type="text" id="pName" maxlength="60" style="flex:1"><button class="btn primary" id="pSave"><svg class="ic"><use href="#i-check"/></svg><span data-i18n="saveNow"></span></button></div></div>
+    <div class="row"><button class="btn" id="pNew"><svg class="ic"><use href="#i-plus"/></svg><span data-i18n="newProj"></span></button><p class="note" data-i18n="projNote" style="flex:1;min-width:0"></p></div>
+    <ul class="projs" id="projList"></ul>
+  </div>
+</div>
+
+<div class="modal" id="mTpl" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="teTitle">
+    <div class="sheet-head"><h2 id="teTitle"></h2><button class="btn icon" id="teClose" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="field"><label class="field-l" for="te0"><span data-i18n="introT"></span></label><input type="text" id="te0" maxlength="90"></div>
+    <div class="field"><label class="field-l" for="te1"><span data-i18n="introS"></span></label><input type="text" id="te1" maxlength="90"></div>
+    <div class="field"><label class="field-l" for="te2"><span data-i18n="outroT"></span></label><input type="text" id="te2" maxlength="90"></div>
+    <div class="field"><label class="field-l" for="te3"><span data-i18n="outroS"></span></label><input type="text" id="te3" maxlength="90"></div>
+    <p class="note" data-i18n="tplTxtNote"></p>
+    <div class="row"><button class="btn primary" id="teSave"><svg class="ic"><use href="#i-check"/></svg><span data-i18n="saveNow"></span></button><button class="btn" id="teReset" data-i18n="resetTxt"></button></div>
+  </div>
+</div>
+
 <div class="modal" id="mHelp" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="hTitle">
     <div class="sheet-head"><h2 id="hTitle" data-i18n="helpTitle"></h2><button class="btn icon" id="hClose" data-i18n-aria="close"><svg class="ic"><use href="#i-x"/></svg></button></div>
@@ -737,6 +777,7 @@ const I18N = {
     decorL:'Haingo voninkazo', countdown:'Isa mihemotra 5…1 eo am-piandohana', addText:'Soratra', textSlide:'Pejy soratra', newText:'Soratra vaovao', addChapters:'Ampio pejy toko fanambadiana (4)', chaptersAdded:'Pejy toko 4 voampy',
     chapters:['Fahazazan’ny ampakarina','Fahazazan’ny mpampakatra','Ny fihaonanay','Fianakaviana sy namana mahafinaritra'],
     autoFx:'Effets sy animation kisendrasendra ho azy', autoFxNote:'Miova isaky ny slide sy isaky ny mihodina ny effet, transition ary animation soratra.',
+    myProjects:'Ny asako', projName:'Anaran’ny tetikasa', saveNow:'Tehirizo', savedNow:'Voatahiry: {n}', playThis:'Alefa', openThis:'Sokafy', current:'Misokatra', projWord:'Tetikasa', noProjects:'Mbola tsy misy asa voatahiry.', projNote:'Voatahiry ho azy ao amin’ity navigateur ity ny asa tsirairay.', editTplText:'Ovay ny soratry ny modely', tplEditTitle:'Soratry ny modely: {n}', outroS:'Lohateny kely farany', resetTxt:'Averina ho toy ny taloha', tplTxtSaved:'Voatahiry ny soratry ny modely', tplTxtReset:'Naverina ny soratra voalohany', tplTxtNote:'Ireo soratra ireo no ampiasain’ity modely ity isaky ny misafidy azy ianao.',
     tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
@@ -775,7 +816,7 @@ const I18N = {
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
       ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, transition, haingo, sombiny ary soratra sy ny animation-ny.'],
       ['Avoahy ho vidéo','Tsindrio «Avoahy ho vidéo» hahazoana rakitra MP4 hozaraina amin’ny WhatsApp, Facebook na YouTube.']],
-    helpTips:['Ao amin’ny «Soratra» no anovana ny pejy fanombohana sy famaranana: soratra, sary ambadika, animation ary faharetana.','Voatahiry ho azy ao amin’ny navigateur-nao ny asanao.','Ovay ny fiteny amin’ny MG / FR / EN eo ambony.','Ao amin’ny finday: «Ajouter à l’écran d’accueil» dia lasa application izy.'],
+    helpTips:['«Ny asako» eo ambony: tehirizo ny asanao, dia sokafy na alefaso indray avy amin’ny lisitra.','Ao amin’ny «Soratra» no anovana ny pejy fanombohana sy famaranana: soratra, sary ambadika, animation ary faharetana.','Voatahiry ho azy ao amin’ny navigateur-nao ny asanao.','Ovay ny fiteny amin’ny MG / FR / EN eo ambony.','Ao amin’ny finday: «Ajouter à l’écran d’accueil» dia lasa application izy.'],
     keys:[['Espace','Alefa / ajanony'],['2× clic','Écran feno / miala'],['← →','Teo aloha / manaraka'],['F','Écran feno'],['S','Kisendrasendra'],['Ctrl+Z','Foanana']]
   },
   fr: {
@@ -783,6 +824,7 @@ const I18N = {
     decorL:'Décor', countdown:'Compte à rebours 5…1 au début', addText:'Texte', textSlide:'Diapo texte', newText:'Nouveau texte', addChapters:'Ajouter 4 chapitres de mariage', chaptersAdded:'4 chapitres ajoutés',
     chapters:['L’enfance de la mariée','L’enfance du marié','Notre rencontre','Merci à notre famille et nos amis'],
     autoFx:'Effets et animations aléatoires automatiques', autoFxNote:'Effet, transition et animation du texte changent à chaque diapo et à chaque boucle.',
+    myProjects:'Mes projets', projName:'Nom du projet', saveNow:'Enregistrer', savedNow:'Enregistré : {n}', playThis:'Lire', openThis:'Ouvrir', current:'Ouvert', projWord:'Projet', noProjects:'Aucun projet enregistré.', projNote:'Chaque projet est enregistré automatiquement dans ce navigateur.', editTplText:'Modifier les textes du modèle', tplEditTitle:'Textes du modèle : {n}', outroS:'Sous-titre de fin', resetTxt:'Rétablir', tplTxtSaved:'Textes du modèle enregistrés', tplTxtReset:'Textes d’origine rétablis', tplTxtNote:'Ce modèle utilisera ces textes chaque fois que vous le choisirez.',
     tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
@@ -821,7 +863,7 @@ const I18N = {
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
       ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, sa transition, son ambiance, son cadre, sa légende et son animation.'],
       ['Exportez en vidéo','« Exporter en vidéo » crée un fichier MP4 à partager sur WhatsApp, Facebook ou YouTube.']],
-    helpTips:['Dans « Textes », modifiez l’ouverture et la fin : texte, image de fond, animation et durée.','Votre travail est sauvegardé automatiquement dans le navigateur.','Changez de langue avec MG / FR / EN en haut.','Sur téléphone : « Ajouter à l’écran d’accueil » pour l’utiliser comme une application.'],
+    helpTips:['« Mes projets » en haut : enregistrez vos diaporamas, puis rouvrez-les ou relancez-les depuis la liste.','Dans « Textes », modifiez l’ouverture et la fin : texte, image de fond, animation et durée.','Votre travail est sauvegardé automatiquement dans le navigateur.','Changez de langue avec MG / FR / EN en haut.','Sur téléphone : « Ajouter à l’écran d’accueil » pour l’utiliser comme une application.'],
     keys:[['Espace','Lecture / pause'],['Double-clic','Plein écran / quitter'],['← →','Précédent / suivant'],['F','Plein écran'],['S','Aléatoire'],['Ctrl+Z','Annuler']]
   },
   en: {
@@ -829,6 +871,7 @@ const I18N = {
     decorL:'Decoration', countdown:'Countdown 5…1 at the start', addText:'Text', textSlide:'Text slide', newText:'New text', addChapters:'Add 4 wedding chapters', chaptersAdded:'4 chapters added',
     chapters:['The bride’s childhood','The groom’s childhood','How we met','Thank you, family and friends'],
     autoFx:'Random effects and animations automatically', autoFxNote:'Effect, transition and text animation change on every slide and every loop.',
+    myProjects:'My projects', projName:'Project name', saveNow:'Save', savedNow:'Saved: {n}', playThis:'Play', openThis:'Open', current:'Open now', projWord:'Project', noProjects:'No saved projects yet.', projNote:'Each project is saved automatically in this browser.', editTplText:'Edit template text', tplEditTitle:'Template text: {n}', outroS:'Closing subtitle', resetTxt:'Reset', tplTxtSaved:'Template text saved', tplTxtReset:'Original text restored', tplTxtNote:'This template will use this text whenever you choose it.',
     tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
@@ -867,7 +910,7 @@ const I18N = {
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
       ['Adjust each photo','Tap a photo in the strip to change its duration, effect, transition, overlay, frame, caption and its animation.'],
       ['Export a video','«Export video» makes an MP4 file to share on WhatsApp, Facebook or YouTube.']],
-    helpTips:['In «Text», change the opening and closing slides: wording, background image, animation and duration.','Your work is saved automatically in this browser.','Switch language with MG / FR / EN at the top.','On a phone: «Add to Home Screen» to use it like an app.'],
+    helpTips:['«My projects» at the top: save your slideshows, then reopen or replay them from the list.','In «Text», change the opening and closing slides: wording, background image, animation and duration.','Your work is saved automatically in this browser.','Switch language with MG / FR / EN at the top.','On a phone: «Add to Home Screen» to use it like an app.'],
     keys:[['Space','Play / pause'],['Double-click','Full screen on / off'],['← →','Previous / next'],['F','Full screen'],['S','Shuffle'],['Ctrl+Z','Undo']]
   }
 };
@@ -966,8 +1009,13 @@ const DB = {
 let dbOK = false, saveErrShown = false, saveT = null;
 function saveSoon() { clearTimeout(saveT); saveT = setTimeout(save, 700); }
 async function save() {
-  if (!dbOK || exporting) return;
-  try { await DB.put('kv', 'project', { v:2, items:S.items, music:S.music, titleImgs:S.titleImgs, settings:S.settings }); const s = $('#saved'); s.classList.add('on'); clearTimeout(s._t); s._t = setTimeout(() => s.classList.remove('on'), 1400); } catch (e) {}
+  if (!dbOK || exporting || !projId) return;
+  try {
+    await DB.put('kv', projKey(projId), { v:3, name:S.name, items:S.items, music:S.music, titleImgs:S.titleImgs, settings:S.settings });
+    const ix = await readIndex(), row = { id:projId, name:S.name, updated:Date.now(), n:S.items.filter(i => i.kind !== 'text').length, dur:total, thumb:projectThumb() };
+    const i = ix.findIndex(x => x.id === projId); if (i >= 0) ix[i] = row; else ix.unshift(row); await writeIndex(ix);
+    const sv = $('#saved'); sv.classList.add('on'); clearTimeout(sv._t); sv._t = setTimeout(() => sv.classList.remove('on'), 1400);
+  } catch (e) {}
 }
 async function persistBlob(id, blob, kind, name) {
   if (!dbOK) return;
@@ -1935,7 +1983,7 @@ function renderTextPanel(el, it) {
     </div>`;
   const show = () => { if (!playing) { const k = seq.findIndex(x => x.item === it); if (k >= 0) seekTo(seq[k].start + Math.min(1.6, seq[k].dur * .5)); } };
   const upd = (fn, strip) => { fn(); buildSeq(); if (strip) renderStrip(); dirty = true; show(); commitSoon(); };
-  $('#xT').oninput = e => upd(() => { it.title = e.target.value; }, true);
+  $('#xT').oninput = e => upd(() => { it.title = e.target.value; const h = $('#tb-media .sel-head .clip-txt span'); if (h) h.textContent = it.title; }, true);
   $('#xS').oninput = e => upd(() => { it.sub = e.target.value; });
   [['#xDe', 'decor'], ['#xBg', 'bg'], ['#xAn', 'anim'], ['#xLa', 'layout'], ['#xTr', 'trans'], ['#xOv', 'overlay']].forEach(([q, f]) => { $(q).onchange = e => upd(() => { it[f] = e.target.value; }); });
   $('#xDu').oninput = e => upd(() => { it.dur = +e.target.value; $('#oXDu').textContent = fmtS(it.dur); }, true);
@@ -2049,13 +2097,15 @@ function renderTpls() {
   const keys = tplCat === 'all' ? Object.keys(TPL) : TCAT[tplCat].filter(k => TPL[k]);
   $('#tplCount').textContent = t('tplCount').replace('{n}', keys.length);
   $('#tpls').innerHTML = keys.map(k => { const p = TPL[k];
-    return `<button class="tpl" data-tpl="${k}" aria-pressed="${S.settings.template === k}">
-      <span class="tpl-art" style="background:linear-gradient(135deg,${p.colors[0]},${p.colors[1]});color:${p.textColor};font-family:'${p.font}',serif;font-weight:${FONT_W[p.font]}">${esc(p.text[lang][0])}</span>
-      <span class="tpl-l">${esc(lbl('tpl', k))}<span class="tpl-s">${esc(lbl('trans', p.transition))} · ${esc(lbl('frame', p.frame))}</span></span></button>`; }).join('');
-  $$('.tpl').forEach(b => b.onclick = () => applyTpl(b.dataset.tpl));
+    return `<div class="tpl" data-tpl="${k}" aria-pressed="${S.settings.template === k}"><button class="tpl-main" data-apply="${k}">
+      <span class="tpl-art" style="background:linear-gradient(135deg,${p.colors[0]},${p.colors[1]});color:${p.textColor};font-family:'${p.font}',serif;font-weight:${FONT_W[p.font]}">${esc(tplText(k)[0])}</span>
+      <span class="tpl-l">${esc(lbl('tpl', k))}<span class="tpl-s">${esc(lbl('trans', p.transition))} · ${esc(lbl('frame', p.frame))}</span></span></button>
+      <button class="tpl-edit" data-edit="${k}" aria-label="${esc(t('editTplText'))}" title="${esc(t('editTplText'))}">${icon('pencil')}</button></div>`; }).join('');
+  $$('[data-apply]').forEach(b => b.onclick = () => applyTpl(b.dataset.apply));
+  $$('[data-edit]').forEach(b => b.onclick = () => openTplEdit(b.dataset.edit));
 }
 function applyTpl(k) {
-  const p = TPL[k], st = S.settings, tx = p.text[lang];
+  const p = TPL[k], st = S.settings, tx = tplText(k);
   Object.assign(st, { transition:p.transition, effect:p.effect, filter:p.filter, overlay:p.overlay, frame:p.frame, font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:k });
   if (!st.keepText) { st.intro.title = tx[0]; st.intro.sub = tx[1]; st.outro.title = tx[2]; st.outro.sub = tx[3]; }
   const x = TPLX[k] || {};
@@ -2305,6 +2355,94 @@ function wavBlob(buf) {
   return new Blob([ab], { type:'audio/wav' });
 }
 
+/* ---------- project library ---------- */
+let projId = null;
+const projKey = id => 'project:' + id;
+const refKeys = p => new Set([...(p.items || []).map(i => i.id), ...(p.music || []).map(m => m.id), ...(p.titleImgs || []).map(x => x.id)]);
+async function readIndex() { try { return (await DB.get('kv', 'index')) || []; } catch (e) { return []; } }
+async function writeIndex(ix) { try { await DB.put('kv', 'index', ix); } catch (e) {} }
+function defaultName() { const d = new Date(), z = n => String(n).padStart(2, '0'); return `${t('projWord')} ${z(d.getDate())}/${z(d.getMonth() + 1)} ${z(d.getHours())}:${z(d.getMinutes())}`; }
+function projectThumb() {
+  try {
+    const c = document.createElement('canvas'); c.width = 192; c.height = Math.round(192 * cv.height / cv.width); const g = c.getContext('2d');
+    const it = S.items.find(i => i.kind === 'image' && media[i.id] && media[i.id].el && media[i.id].el.naturalWidth);
+    g.fillStyle = '#111'; g.fillRect(0, 0, c.width, c.height);
+    if (it) { const im = media[it.id].el, r = fitRect(im.naturalWidth, im.naturalHeight, c.width, c.height, 'cover'); g.drawImage(im, (c.width - r.w) / 2, (c.height - r.h) / 2, r.w, r.h); }
+    return c.toDataURL('image/jpeg', .7);
+  } catch (e) { return ''; }
+}
+async function loadProject(id) {
+  const p = await DB.get('kv', projKey(id)); if (!p || !Array.isArray(p.items)) return false;
+  for (const k of refKeys(p)) { if (media[k]) continue; const r = await DB.get('blobs', k); if (r && r.blob) await registerMedia(k, r.blob, r.kind, r.name, false); }
+  S.items = p.items.filter(i => i.kind === 'text' || media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
+  S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
+  const dft = defaults(), ps = p.settings || {}; if (ps.autoFx === undefined) ps.autoFx = true;
+  if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; }
+  S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) });
+  S.name = p.name || defaultName(); projId = id; ls.set('sm.proj', id); return true;
+}
+async function gcBlobs() {
+  if (!dbOK) return;
+  try { const ix = await readIndex(), used = new Set(); for (const r of ix) { const p = await DB.get('kv', projKey(r.id)); if (p) refKeys(p).forEach(k => used.add(k)); }
+    refKeys(S).forEach(k => used.add(k)); const all = await DB.keys('blobs'); (all || []).filter(k => !used.has(k)).forEach(k => DB.del('blobs', k).catch(() => {})); } catch (e) {}
+}
+function resetHistory() { hist = []; fut = []; lastSnap = snap(); updUndo(); }
+async function switchTo(id) {
+  pause(); await save(); sel = null; order = []; mus.dataset.id = '';
+  const ok = await loadProject(id); if (!ok) return false;
+  setPreviewSize(); loadFont(S.settings.font); shuffleOrder(); buildSeq(); seekTo(0); renderAll(); resetHistory(); return true;
+}
+async function newProject() {
+  pause(); await save();
+  projId = uid(); ls.set('sm.proj', projId); S.name = defaultName();
+  S.items = []; S.music = []; S.titleImgs = []; S.settings = defaults(); sel = null; order = []; mus.dataset.id = '';
+  setPreviewSize(); buildSeq(); seekTo(0); renderAll(); resetHistory(); await save(); toast(t('cleared'));
+}
+async function deleteProject(id) {
+  try { await DB.del('kv', projKey(id)); } catch (e) {}
+  await writeIndex((await readIndex()).filter(x => x.id !== id));
+  if (id === projId) { const ix = await readIndex(); if (ix[0]) await switchTo(ix[0].id); else await newProject(); }
+  gcBlobs(); renderProjects();
+}
+async function renderProjects() {
+  const ix = (await readIndex()).slice().sort((a, b) => b.updated - a.updated), z = n => String(n).padStart(2, '0');
+  const when = ms => { const d = new Date(ms); return `${z(d.getDate())}/${z(d.getMonth() + 1)}/${d.getFullYear()} ${z(d.getHours())}:${z(d.getMinutes())}`; };
+  $('#pName').value = S.name || '';
+  $('#projList').innerHTML = ix.length ? ix.map(r => `<li class="proj${r.id === projId ? ' is-cur' : ''}" data-id="${r.id}">
+      <div class="proj-th">${r.thumb ? `<img src="${r.thumb}" alt="">` : icon('film')}${r.id === projId ? `<span class="clip-tag">${esc(t('current'))}</span>` : ''}</div>
+      <div class="proj-b"><b title="${esc(r.name)}">${esc(r.name)}</b><span class="mono">${r.n || 0} · ${fmtT(r.dur || 0).slice(0, 5)} · ${when(r.updated)}</span>
+        <div class="row"><button class="btn mini primary" data-play="${r.id}">${icon('play')}<span>${esc(t('playThis'))}</span></button>
+        <button class="btn mini" data-open="${r.id}">${esc(t('openThis'))}</button>
+        <button class="btn mini danger" data-del="${r.id}">${icon('trash')}<span>${esc(t('remove'))}</span></button></div></div></li>`).join('')
+    : `<li><p class="empty">${esc(t('noProjects'))}</p></li>`;
+  $$('#projList [data-play]').forEach(b => b.onclick = async () => { const id = b.dataset.play; $('#mProj').hidden = true; if (id !== projId) await switchTo(id); seekTo(0); play(); toggleFull(); });
+  $$('#projList [data-open]').forEach(b => b.onclick = async () => { const id = b.dataset.open; $('#mProj').hidden = true; if (id !== projId) await switchTo(id); });
+  $$('#projList [data-del]').forEach(b => b.onclick = () => {
+    if (!b._armed) { b._armed = true; b.classList.add('warn'); $('span', b).textContent = t('confirmNew'); setTimeout(() => { b._armed = false; b.classList.remove('warn'); $('span', b).textContent = t('remove'); }, 3500); return; }
+    deleteProject(b.dataset.del);
+  });
+}
+async function openProjects() { await save(); await renderProjects(); $('#mProj').hidden = false; }
+
+/* ---------- editable template text (remembered in this browser) ---------- */
+let tplCustom = ls.get('sm.tplText', {});
+const tplText = k => (tplCustom[k] && tplCustom[k][lang]) || TPL[k].text[lang] || TPL[k].text.mg;
+let tplEditing = null;
+function openTplEdit(k) {
+  tplEditing = k; const tx = tplText(k);
+  $('#teTitle').textContent = t('tplEditTitle').replace('{n}', lbl('tpl', k));
+  [0, 1, 2, 3].forEach(i => { $('#te' + i).value = tx[i] || ''; });
+  $('#mTpl').hidden = false; setTimeout(() => $('#te0').focus(), 30);
+}
+function saveTplEdit(reset) {
+  const k = tplEditing; if (!k) return;
+  tplCustom[k] = tplCustom[k] || {};
+  if (reset) delete tplCustom[k][lang]; else tplCustom[k][lang] = [0, 1, 2, 3].map(i => $('#te' + i).value);
+  ls.set('sm.tplText', tplCustom);
+  if (S.settings.template === k) { const tx = tplText(k), st = S.settings; st.intro.title = tx[0]; st.intro.sub = tx[1]; st.outro.title = tx[2]; st.outro.sub = tx[3]; fillSettingsUI(); buildSeq(); dirty = true; commit(); }
+  $('#mTpl').hidden = true; renderTpls(); toast(t(reset ? 'tplTxtReset' : 'tplTxtSaved'));
+}
+
 /* ---------- misc UI ---------- */
 function openHelp() {
   const L = I18N[lang];
@@ -2339,15 +2477,6 @@ function toggleFull() {
   if (req) { try { const p = req.call(st); if (p && p.catch) p.catch(() => st.classList.add('is-kiosk')); } catch (e) { st.classList.add('is-kiosk'); } }
   else st.classList.add('is-kiosk');
 }
-async function newProject(btn) {
-  if (!btn._armed) { btn._armed = true; btn.classList.add('warn'); $('span', btn).textContent = t('confirmNew'); $('span', btn).classList.remove('lbl-hide');
-    setTimeout(() => { btn._armed = false; btn.classList.remove('warn'); $('span', btn).textContent = t('newProj'); $('span', btn).classList.add('lbl-hide'); }, 3500); return; }
-  btn._armed = false; btn.classList.remove('warn'); $('span', btn).textContent = t('newProj'); $('span', btn).classList.add('lbl-hide');
-  pause(); commit();
-  S.items = []; S.music = []; S.titleImgs = []; S.settings = defaults(); sel = null; order = []; mus.dataset.id = '';
-  if (dbOK) { try { await DB.clear('blobs'); } catch (e) {} }
-  setPreviewSize(); buildSeq(); seekTo(0); renderAll(); commit(); toast(t('cleared'));
-}
 
 /* ---------- events ---------- */
 function bindEvents() {
@@ -2372,7 +2501,13 @@ function bindEvents() {
   $('#bLoop').onclick = () => { S.settings.loop = !S.settings.loop; fillSettingsUI(); commit(); };
   $('#bFull').onclick = toggleFull; $('#kioskX').onclick = toggleFull;
   $('#bUndo').onclick = undo; $('#bRedo').onclick = redo;
-  $('#bNew').onclick = e => newProject(e.currentTarget);
+  $('#bNew').onclick = () => newProject();
+  $('#bProj').onclick = openProjects; $('#pClose').onclick = () => { $('#mProj').hidden = true; };
+  $('#pNew').onclick = async () => { $('#mProj').hidden = true; await newProject(); };
+  $('#pName').oninput = e => { S.name = e.target.value; saveSoon(); };
+  $('#pSave').onclick = async () => { S.name = $('#pName').value.trim() || defaultName(); await save(); await renderProjects(); toast(t('savedNow').replace('{n}', S.name)); };
+  $('#teClose').onclick = () => { $('#mTpl').hidden = true; }; $('#teSave').onclick = () => saveTplEdit(false); $('#teReset').onclick = () => saveTplEdit(true);
+  ['#mProj', '#mTpl'].forEach(q => $(q).addEventListener('click', e => { if (e.target === $(q)) $(q).hidden = true; }));
   $('#bExport').onclick = openExport;
   $('#exClose').onclick = () => { if (exporting) cancelExport(); $('#mExport').hidden = true; };
   $('#mExport').addEventListener('click', e => { if (e.target.id === 'mExport' && !exporting) $('#mExport').hidden = true; });
@@ -2415,7 +2550,7 @@ function bindEvents() {
     if (e.key === ' ' && !e.target.closest('button,[role=button]')) { e.preventDefault(); togglePlay(); }
     else if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
     else if (e.key.toLowerCase() === 'f') toggleFull(); else if (e.key.toLowerCase() === 's') setShuffle(!S.settings.shuffle);
-    else if (e.key === 'Escape') { $('#stage').classList.remove('is-kiosk'); $('#mHelp').hidden = true; if (!exporting) $('#mExport').hidden = true; }
+    else if (e.key === 'Escape') { $('#stage').classList.remove('is-kiosk'); $('#mHelp').hidden = true; $('#mProj').hidden = true; $('#mTpl').hidden = true; if (!exporting) $('#mExport').hidden = true; }
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden && playing && !exporting) pause(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', setThemeIcon);
@@ -2431,22 +2566,21 @@ async function boot() {
   try { await DB.open(); dbOK = true; } catch (e) { dbOK = false; }
   if (dbOK) {
     try {
-      const p = await DB.get('kv', 'project');
-      if (p && Array.isArray(p.items)) {
-        const keys = new Set([...p.items.map(i => i.id), ...(p.music || []).map(m => m.id), ...(p.titleImgs || []).map(x => x.id)]);
-        for (const id of keys) { const r = await DB.get('blobs', id); if (r && r.blob) await registerMedia(id, r.blob, r.kind, r.name, false); }
-        S.items = p.items.filter(i => i.kind === 'text' || media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
-        S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
-        const dft = defaults(), ps = p.settings || {}; if (ps.autoFx === undefined) ps.autoFx = true;
-        if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; } S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
-        const all = await DB.keys('blobs'); (all || []).filter(k => !keys.has(k)).forEach(k => DB.del('blobs', k).catch(() => {}));
+      let ix = await readIndex();
+      const legacy = await DB.get('kv', 'project');
+      if (legacy && Array.isArray(legacy.items)) {
+        const id = uid(); legacy.name = legacy.name || t('projWord') + ' 1'; await DB.put('kv', projKey(id), legacy);
+        ix.unshift({ id, name:legacy.name, updated:Date.now(), n:legacy.items.length, dur:0 }); await writeIndex(ix); await DB.del('kv', 'project'); ls.set('sm.proj', id);
       }
+      const want = ls.get('sm.proj', null), id = ix.some(x => x.id === want) ? want : (ix[0] && ix[0].id);
+      if (id) restored = await loadProject(id);
     } catch (e) { restored = false; }
   }
+  if (!restored) { projId = uid(); ls.set('sm.proj', projId); S.name = defaultName(); }
   if (!restored) { await makeSamples(); }
   sel = null; setPreviewSize(); loadFont(S.settings.font); FONTS.forEach(loadFont);
   shuffleOrder(); buildSeq(); renderAll(); lastSnap = snap(); updUndo();
-  if (!restored) save();
+  if (!restored) save(); else save().then(gcBlobs);
   if (!ls.get('sm.tip', 0)) $('#tipWrap').hidden = false;
   if (S.settings.autoplay && seq.length) { seekTo(0); play(); }
   try {

@@ -27,6 +27,8 @@ Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les
 | Soratra | Endrika soratra 6 (boaty, tsipika ambany, etikety…), effet soratra 4, endri-tsoratra 7 | 6 styles de légende, 4 effets de texte, 7 polices |
 | Teknika mandroso | Zoom araka ny gadona (BPM), faharetana mifanaraka amin'ny gadona, transitions glitch sy piksely, fakan-tsary an-tanana | Zoom sur le tempo, durées calées sur le BPM, glitch, pixels, caméra à l'épaule |
 | Avoaka | Vidéo MP4 (Chrome/Edge/Safari) na WebM (Firefox), 720p / 1080p, 16:9 · 9:16 · 1:1 · 4:3 | Export MP4 ou WebM |
+| Ny asako | Tetikasa maro voatahiry amin'ny anarana, lisitra misy sary kely, «Alefa» (écran feno avy hatrany), «Sokafy», «Fafao» | Plusieurs projets enregistrés, liste avec aperçu, Lire / Ouvrir / Supprimer |
+| Soratry ny modely | Bokotra ✎ amin'ny modely tsirairay hanovana ny soratra ampiasainy | Textes de chaque modèle modifiables (✎) |
 | Hafa | Torolalana (bokotra ?), tahiry ho azy, Foanana/Averina, écran feno, mandeha tsy misy internet (PWA) | Sauvegarde auto, annuler/rétablir, plein écran, hors ligne |
 
 Raccourcis clavier : `Espace` lecture/pause · `←` `→` précédent/suivant · `F` plein écran · `S` aléatoire · `Ctrl+Z` / `Ctrl+Y`.
