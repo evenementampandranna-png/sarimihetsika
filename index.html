@@ -391,6 +391,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <legend data-i18n="grpOrder"></legend>
           <label class="sw"><input type="checkbox" id="sAutoplay" data-set="autoplay"><span class="sw-ui"></span><span data-i18n="autoplay"></span></label>
           <label class="sw"><input type="checkbox" id="sAutoFx" data-set="autoFx"><span class="sw-ui"></span><span data-i18n="autoFx"></span></label>
+          <label class="sw"><input type="checkbox" id="sAutoOv" data-set="autoOverlay"><span class="sw-ui"></span><span data-i18n="autoOverlay"></span></label>
           <label class="sw"><input type="checkbox" id="sCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
           <label class="sw"><input type="checkbox" id="sShuffle" data-set="shuffle"><span class="sw-ui"></span><span data-i18n="shuffleLong"></span></label>
           <label class="sw"><input type="checkbox" id="sKeepEnds" data-set="keepEnds"><span class="sw-ui"></span><span data-i18n="keepEnds"></span></label>
@@ -469,6 +470,7 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
           <div class="field"><label class="field-l" for="tIntroS"><span data-i18n="introS"></span></label><input type="text" id="tIntroS" data-set="intro.sub" maxlength="80"></div>
           <div class="field"><label class="field-l" for="tOutroT"><span data-i18n="outroT"></span></label><input type="text" id="tOutroT" data-set="outro.title" maxlength="80"></div>
           <label class="sw"><input type="checkbox" id="tAutoFx" data-set="autoFx"><span class="sw-ui"></span><span data-i18n="autoFx"></span></label>
+          <label class="sw"><input type="checkbox" id="tAutoOv" data-set="autoOverlay"><span class="sw-ui"></span><span data-i18n="autoOverlay"></span></label>
           <label class="sw"><input type="checkbox" id="tKeep" data-set="keepText"><span class="sw-ui"></span><span data-i18n="keepText"></span></label>
           <label class="sw"><input type="checkbox" id="tCountdown" data-set="countdown"><span class="sw-ui"></span><span data-i18n="countdown"></span></label>
           <div class="row"><button class="btn mini" id="bChapters"><svg class="ic"><use href="#i-type"/></svg><span data-i18n="addChapters"></span></button></div>
@@ -614,18 +616,19 @@ function mulberry(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Ma
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 
 /* ---------- vocab ---------- */
-const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','heartsCover','heartRow','heartFlash','none'];
+const TRANS = ['random','fade','fadeblack','slideL','slideR','slideU','slideD','zoom','zoomOut','wipe','diag','circle','heart','blinds','door','blur','rotate','spin','flip','split','glitch','pixelate','heartsCover','heartRow','heartFlash','clockWipe','tiles','shutter','none'];
 const TRANS_POOL = TRANS.filter(k => k !== 'random' && k !== 'none');
-const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','heartbeat','handheld','punch','swing'];
+const EFFECTS = ['auto','none','kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','pulse','heartbeat','handheld','punch','swing','zoomTL','zoomBR','slowSpin','wave','pushIn'];
 const TBG = ['black','gradient','radial','animated','stripes','dots','solid','image','blurPhoto'];
-const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','heartbeat','float','none'];
-const TANIM_POOL = ['rise','fade','zoom','letters','blurIn','bounce','split','type','float'];
+const TANIM = ['rise','fade','zoom','type','letters','blurIn','bounce','glow','split','heartbeat','float','slideDown','rotateIn','wave','none'];
+const TANIM_POOL = ['rise','fade','zoom','letters','blurIn','bounce','split','type','float','slideDown','rotateIn','wave','heartbeat'];
 const LAYOUTS = ['center','left','bottom'];
 const CAPS = ['gradient','box','lowerThird','tag','center','outline'];
 const TFX = ['shadow','glow','outline','none'];
-const EFFECT_POOL = ['kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','swing'];
+const EFFECT_POOL = ['kbIn','kbOut','kbRot','spiral','tilt','riseUp','panL','panR','panU','panD','drift','swing','zoomTL','zoomBR','slowSpin','wave','pushIn','heartbeat'];
 const FILTERS = { none:'', bw:'grayscale(1) contrast(1.05)', noir:'grayscale(1) contrast(1.35) brightness(.9)', sepia:'sepia(.85)', vintage:'sepia(.35) contrast(1.1) saturate(.8) brightness(1.05)', warm:'sepia(.22) saturate(1.3) hue-rotate(-8deg)', golden:'sepia(.4) saturate(1.45) brightness(1.05)', cold:'saturate(.85) hue-rotate(14deg) brightness(1.04)', dream:'saturate(1.2) brightness(1.08) contrast(.9)', vivid:'saturate(1.5) contrast(1.08)' };
 const OVERLAYS = ['none','heartsRain','heartBalloons','heartBurst','heartBokeh','rosePetals','loveWords','doves','cupid','sparkle','butterflies','confetti','snow','hearts','petals','stars','bubbles','bokeh','lightleak','grain'];
+const OVERLAY_POOL = OVERLAYS.filter(k => k !== 'none' && k !== 'grain');
 const FRAMES = ['none','heart','soft','floral','polaroid','rounded','cinema','film','vignette'];
 const DECORS = ['none','heartFrame','heartGarland','ringsDecor','loveLetter','daisyWreath','floralBorder','roseBorder','heartWreath','leafGarland','goldCard','cornerVines'];
 const FONTS = ['Gochi Hand','Caveat','Amatic SC','Playfair Display','Bricolage Grotesque','Montserrat','Bebas Neue','Lora','Dancing Script','Pacifico'];
@@ -802,6 +805,7 @@ const I18N = {
     chapters:['Fahazazan’ny ampakarina','Fahazazan’ny mpampakatra','Ny fihaonanay','Fianakaviana sy namana mahafinaritra'],
     autoFx:'Effets sy animation kisendrasendra ho azy', autoFxNote:'Miova isaky ny slide sy isaky ny mihodina ny effet, transition ary animation soratra.',
     myProjects:'Ny asako', projName:'Anaran’ny tetikasa', saveNow:'Tehirizo', savedNow:'Voatahiry: {n}', playThis:'Alefa', openThis:'Sokafy', current:'Misokatra', projWord:'Tetikasa', noProjects:'Mbola tsy misy asa voatahiry.', projNote:'Voatahiry ho azy ao amin’ity navigateur ity ny asa tsirairay.', editTplText:'Ovay ny soratry ny modely', tplEditTitle:'Soratry ny modely: {n}', outroS:'Lohateny kely farany', resetTxt:'Averina ho toy ny taloha', tplTxtSaved:'Voatahiry ny soratry ny modely', tplTxtReset:'Naverina ny soratra voalohany', tplTxtNote:'Ireo soratra ireo no ampiasain’ity modely ity isaky ny misafidy azy ianao.',
+    autoOverlay:'Haingo mihetsika miova isaky ny slide',
     tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
@@ -849,6 +853,7 @@ const I18N = {
     chapters:['L’enfance de la mariée','L’enfance du marié','Notre rencontre','Merci à notre famille et nos amis'],
     autoFx:'Effets et animations aléatoires automatiques', autoFxNote:'Effet, transition et animation du texte changent à chaque diapo et à chaque boucle.',
     myProjects:'Mes projets', projName:'Nom du projet', saveNow:'Enregistrer', savedNow:'Enregistré : {n}', playThis:'Lire', openThis:'Ouvrir', current:'Ouvert', projWord:'Projet', noProjects:'Aucun projet enregistré.', projNote:'Chaque projet est enregistré automatiquement dans ce navigateur.', editTplText:'Modifier les textes du modèle', tplEditTitle:'Textes du modèle : {n}', outroS:'Sous-titre de fin', resetTxt:'Rétablir', tplTxtSaved:'Textes du modèle enregistrés', tplTxtReset:'Textes d’origine rétablis', tplTxtNote:'Ce modèle utilisera ces textes chaque fois que vous le choisirez.',
+    autoOverlay:'Ambiance animée différente à chaque diapo',
     tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
@@ -896,6 +901,7 @@ const I18N = {
     chapters:['The bride’s childhood','The groom’s childhood','How we met','Thank you, family and friends'],
     autoFx:'Random effects and animations automatically', autoFxNote:'Effect, transition and text animation change on every slide and every loop.',
     myProjects:'My projects', projName:'Project name', saveNow:'Save', savedNow:'Saved: {n}', playThis:'Play', openThis:'Open', current:'Open now', projWord:'Project', noProjects:'No saved projects yet.', projNote:'Each project is saved automatically in this browser.', editTplText:'Edit template text', tplEditTitle:'Template text: {n}', outroS:'Closing subtitle', resetTxt:'Reset', tplTxtSaved:'Template text saved', tplTxtReset:'Original text restored', tplTxtNote:'This template will use this text whenever you choose it.',
+    autoOverlay:'Different animated overlay on every slide',
     tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
@@ -948,9 +954,9 @@ const LBL = {
     fr:{black:'Noir',gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
     en:{black:'Black',gradient:'Gradient',radial:'Radial glow',animated:'Animated gradient',stripes:'Stripes',dots:'Dots',solid:'Solid',image:'Image',blurPhoto:'Blurred photo'} },
   tanim:{
-    mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',heartbeat:'Mitempo toy ny fo',float:'Mitsingevaheva',none:'Tsy misy'},
-    fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',heartbeat:'Battement de cœur',float:'Flottement',none:'Aucune'},
-    en:{rise:'Gentle rise',fade:'Fade',zoom:'Zoom',type:'Typewriter',letters:'Letter by letter',blurIn:'Blur to sharp',bounce:'Bounce',glow:'Flickering neon',split:'From the sides',heartbeat:'Heartbeat',float:'Float',none:'None'} },
+    mg:{rise:'Miakatra moramora',fade:'Miseho moramora',zoom:'Zoom',type:'Milina fanoratana',letters:'Litera tsirairay',blurIn:'Manjavozavo dia mazava',bounce:'Mitsambikina',glow:'Néon mipi-pipy',split:'Avy amin’ny sisiny',heartbeat:'Mitempo toy ny fo',float:'Mitsingevaheva',slideDown:'Midina avy any ambony',rotateIn:'Mihodina miditra',wave:'Litera mihetsika toy ny onja',none:'Tsy misy'},
+    fr:{rise:'Montée douce',fade:'Fondu',zoom:'Zoom',type:'Machine à écrire',letters:'Lettre par lettre',blurIn:'Du flou au net',bounce:'Rebond',glow:'Néon qui clignote',split:'Depuis les côtés',heartbeat:'Battement de cœur',float:'Flottement',slideDown:'Descente',rotateIn:'Rotation',wave:'Vague de lettres',none:'Aucune'},
+    en:{rise:'Gentle rise',fade:'Fade',zoom:'Zoom',type:'Typewriter',letters:'Letter by letter',blurIn:'Blur to sharp',bounce:'Bounce',glow:'Flickering neon',split:'From the sides',heartbeat:'Heartbeat',float:'Float',slideDown:'Drop in',rotateIn:'Rotate in',wave:'Letter wave',none:'None'} },
   layout:{ mg:{center:'Afovoany',left:'Ankavia',bottom:'Ambany'}, fr:{center:'Centré',left:'À gauche',bottom:'En bas'}, en:{center:'Centred',left:'Left',bottom:'Bottom'} },
   cap:{
     mg:{gradient:'Aloka ambany',box:'Boaty',lowerThird:'Tsipika ambany',tag:'Etikety soratra tanana',center:'Lehibe afovoany',outline:'Misy sisiny'},
@@ -958,13 +964,13 @@ const LBL = {
     en:{gradient:'Bottom shade',box:'Box',lowerThird:'Lower third',tag:'Handwritten tag',center:'Large, centred',outline:'Outline'} },
   fx:{ mg:{shadow:'Aloka',glow:'Mamirapiratra',outline:'Misy sisiny',none:'Tsy misy'}, fr:{shadow:'Ombre',glow:'Lueur',outline:'Contour',none:'Aucun'}, en:{shadow:'Shadow',glow:'Glow',outline:'Outline',none:'None'} },
   trans:{
-    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy',glitch:'Glitch',pixelate:'Piksely',heartsCover:'Fo manarona',heartRow:'Andalana fo',heartFlash:'Tselatra fo'},
-    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels',heartsCover:'Cœurs qui recouvrent',heartRow:'Rangée de cœurs',heartFlash:'Éclair de cœur'},
-    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate',heartsCover:'Hearts cover',heartRow:'Row of hearts',heartFlash:'Heart flash'} },
+    mg:{random:'Kisendrasendra',fade:'Manjavona',fadeblack:'Maizina',slideL:'Mitsoaka ankavia',slideR:'Mitsoaka ankavanana',slideU:'Miakatra',slideD:'Midina',zoom:'Zoom miditra',zoomOut:'Zoom mivoaka',wipe:'Famafana',diag:'Famafana mitongilana',circle:'Boribory',heart:'Fo',blinds:'Jalousie',door:'Varavarana',blur:'Manjavozavo',rotate:'Mihodina',spin:'Mihodinkodina',flip:'Mivadika',split:'Lambamaso mivoha',none:'Tsy misy',glitch:'Glitch',pixelate:'Piksely',heartsCover:'Fo manarona',heartRow:'Andalana fo',heartFlash:'Tselatra fo',clockWipe:'Famantaranandro',tiles:'Kapila kely',shutter:'Varavarankely'},
+    fr:{random:'Aléatoire',fade:'Fondu',fadeblack:'Fondu au noir',slideL:'Glissement à gauche',slideR:'Glissement à droite',slideU:'Glissement vers le haut',slideD:'Glissement vers le bas',zoom:'Zoom avant',zoomOut:'Zoom arrière',wipe:'Balayage',diag:'Balayage diagonal',circle:'Cercle',heart:'Cœur',blinds:'Store',door:'Portes',blur:'Flou',rotate:'Rotation',spin:'Tourbillon',flip:'Retournement',split:'Rideau',none:'Aucune',glitch:'Glitch',pixelate:'Pixels',heartsCover:'Cœurs qui recouvrent',heartRow:'Rangée de cœurs',heartFlash:'Éclair de cœur',clockWipe:'Horloge',tiles:'Mosaïque',shutter:'Volets'},
+    en:{random:'Random',fade:'Crossfade',fadeblack:'Fade to black',slideL:'Slide left',slideR:'Slide right',slideU:'Slide up',slideD:'Slide down',zoom:'Zoom in',zoomOut:'Zoom out',wipe:'Wipe',diag:'Diagonal wipe',circle:'Circle',heart:'Heart',blinds:'Blinds',door:'Doors',blur:'Blur',rotate:'Rotate',spin:'Spin',flip:'Flip',split:'Curtain',none:'None',glitch:'Glitch',pixelate:'Pixelate',heartsCover:'Hearts cover',heartRow:'Row of hearts',heartFlash:'Heart flash',clockWipe:'Clock wipe',tiles:'Tiles',shutter:'Shutters'} },
   eff:{
-    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',heartbeat:'Fo mitempo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona',spiral:'Mihodina miditra',tilt:'Mitongilana dia mahitsy',riseUp:'Miakatra moramora'},
-    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',heartbeat:'Battement de cœur',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement',spiral:'Spirale',tilt:'Redressement',riseUp:'Montée'},
-    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',heartbeat:'Heartbeat',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing',spiral:'Spiral',tilt:'Straighten',riseUp:'Rise'} },
+    mg:{inherit:'Araka ny ankapobeny',auto:'Kisendrasendra',none:'Tsy misy',kbIn:'Manakaiky (zoom)',kbOut:'Manalavitra (zoom)',kbRot:'Zoom mihodina',panL:'Mandeha ankavia',panR:'Mandeha ankavanana',panU:'Miakatra',panD:'Midina',drift:'Mitsingevaheva',pulse:'Mifofofofo',heartbeat:'Fo mitempo',handheld:'Fakan-tsary an-tanana',punch:'Zoom tampoka',swing:'Mihozongozona',zoomTL:'Zoom mankany ambony ankavia',zoomBR:'Zoom mankany ambany ankavanana',slowSpin:'Mihodina moramora',wave:'Onja',pushIn:'Manakaiky haingana',spiral:'Mihodina miditra',tilt:'Mitongilana dia mahitsy',riseUp:'Miakatra moramora'},
+    fr:{inherit:'Réglage général',auto:'Aléatoire',none:'Aucun',kbIn:'Zoom avant',kbOut:'Zoom arrière',kbRot:'Zoom tournant',panL:'Panoramique gauche',panR:'Panoramique droite',panU:'Panoramique haut',panD:'Panoramique bas',drift:'Dérive',pulse:'Respiration',heartbeat:'Battement de cœur',handheld:'Caméra à l’épaule',punch:'Zoom choc',swing:'Balancement',zoomTL:'Zoom vers le haut à gauche',zoomBR:'Zoom vers le bas à droite',slowSpin:'Rotation lente',wave:'Vague',pushIn:'Zoom rapide',spiral:'Spirale',tilt:'Redressement',riseUp:'Montée'},
+    en:{inherit:'General setting',auto:'Random',none:'None',kbIn:'Zoom in',kbOut:'Zoom out',kbRot:'Turning zoom',panL:'Pan left',panR:'Pan right',panU:'Pan up',panD:'Pan down',drift:'Drift',pulse:'Breathe',heartbeat:'Heartbeat',handheld:'Handheld camera',punch:'Punch zoom',swing:'Swing',zoomTL:'Zoom to top left',zoomBR:'Zoom to bottom right',slowSpin:'Slow spin',wave:'Wave',pushIn:'Fast push in',spiral:'Spiral',tilt:'Straighten',riseUp:'Rise'} },
   fil:{
     mg:{inherit:'Araka ny ankapobeny',none:'Tsy misy',bw:'Fotsy sy mainty',noir:'Mainty mafy',sepia:'Sépia',vintage:'Taloha',warm:'Mafana',golden:'Volamena',cold:'Mangatsiaka',dream:'Nofinofy',vivid:'Mamirapiratra'},
     fr:{inherit:'Réglage général',none:'Aucun',bw:'Noir et blanc',noir:'Noir contrasté',sepia:'Sépia',vintage:'Vintage',warm:'Chaud',golden:'Doré',cold:'Froid',dream:'Rêve',vivid:'Éclatant'},
@@ -998,7 +1004,7 @@ function defaults() {
   return {
     aspect:'16:9', fit:'blur', fitV:2, keepText:false, bg:'#0b0a10', frame:p.frame,
     transition:p.transition, tDur:0.9, defDur:4, effect:p.effect, filter:p.filter, overlay:p.overlay,
-    autoplay:true, autoFx:true, shuffle:true, keepEnds:false, loop:true,
+    autoplay:true, autoFx:true, autoOverlay:true, shuffle:true, keepEnds:false, loop:true,
     musicVol:0.8, videoVol:0.7, fadeAudio:true, duck:true, fitMusic:false,
     font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:'travel',
     capStyle:'lowerThird', capAnim:'split', textFx:'shadow', bpm:100, beatZoom:false, beatSnap:false, countdown:false,
@@ -1008,7 +1014,7 @@ function defaults() {
 }
 const S = { items:[], music:[], titleImgs:[], settings:defaults() };
 const media = {};            // id -> {blob,url,kind,name,el,thumb,gain}
-let order = [], seq = [], total = 0, seqSeed = 12345;
+let order = [], seq = [], total = 0, seqSeed = 12345, lastPicks = {}, seqTail = {};
 let playhead = 0, musicClock = 0, playing = false, exporting = false, dirty = true, curL = null, sel = null;
 let actx = null, master = null, recDest = null, musicGain = null, duckCur = 1, audioUnlocked = false, justUnlocked = false;
 const mus = new Audio(); mus.preload = 'auto';
@@ -1182,7 +1188,11 @@ function buildSeq() {
     }
   }
   if (st.beatSnap) { const bar = 4 * 60 / (st.bpm || 100); out.forEach(e => { if (e.type === 'item' && e.item.kind === 'image') e.dur = Math.max(1, Math.round(e.dur / bar)) * bar; }); }
-  const pick = a => a[Math.floor(rng() * a.length)], AUTO = st.autoFx !== false;
+  const AUTO = st.autoFx !== false, AUTO_OV = AUTO && st.autoOverlay !== false;
+  /* shuffled decks: every option is used once before any repeats, and two neighbours never match */
+  const deck = (pool, start) => { let bag = [], last = start; return () => { if (!bag.length) { bag = pool.slice(); for (let i = bag.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [bag[i], bag[j]] = [bag[j], bag[i]]; } if (bag.length > 1 && bag[bag.length - 1] === last) [bag[0], bag[bag.length - 1]] = [bag[bag.length - 1], bag[0]]; } return (last = bag.pop()); }; };
+  const L0 = lastPicks, nEf = deck(EFFECT_POOL, L0.ef), nTr = deck(TRANS_POOL, L0.tr), nCa = deck(TANIM_POOL, L0.ca), nTa = deck(TANIM_POOL, L0.ta), nOv = deck(OVERLAY_POOL, L0.ov);
+  const pick = a => a === EFFECT_POOL ? nEf() : a === TRANS_POOL ? nTr() : a[Math.floor(rng() * a.length)];
   out.forEach(e => {
     if (e.type === 'item' && e.item.kind !== 'text') {
       let ef = e.item.effect === 'inherit' ? st.effect : e.item.effect;
@@ -1193,11 +1203,14 @@ function buildSeq() {
     } else { e.effect = 'none'; e.filter = 'none'; }
     const own = (f, g) => e.type === 'item' && e.item[f] && e.item[f] !== 'inherit' ? e.item[f] : g;
     e.overlay = own('overlay', st.overlay); e.frame = own('frame', st.frame); e.capStyle = own('capStyle', st.capStyle); e.capAnim = own('capAnim', st.capAnim);
-    if (AUTO && !(e.type === 'item' && e.item.capAnim && e.item.capAnim !== 'inherit')) e.capAnim = pick(TANIM_POOL);
-    if (AUTO && e.type !== 'countdown') e.tanim = pick(TANIM_POOL);
+    if (AUTO && !(e.type === 'item' && e.item.capAnim && e.item.capAnim !== 'inherit')) e.capAnim = nCa();
+    if (AUTO && e.type !== 'countdown') e.tanim = nTa();
+    if (AUTO_OV && e.type !== 'countdown' && !(e.type === 'item' && e.item.overlay && e.item.overlay !== 'inherit')) e.overlay = nOv();
     const tr = AUTO && !(e.type === 'item' && e.item.trans && e.item.trans !== 'inherit') ? 'random' : own('trans', st.transition);
-    e.trans = tr === 'random' ? TRANS_POOL[Math.floor(rng() * TRANS_POOL.length)] : tr;
+    e.trans = tr === 'random' ? nTr() : tr;
   });
+  const lastOf = f => { for (let i = out.length - 1; i >= 0; i--) if (out[i][f]) return out[i][f]; return null; };
+  seqTail = { ef:lastOf('effect'), tr:lastOf('trans'), ca:lastOf('capAnim'), ta:lastOf('tanim'), ov:lastOf('overlay') };
   let s = 0;
   out.forEach((e, i) => { e.start = s; const nx = out[i + 1]; e.T = nx && e.trans !== 'none' ? Math.min(st.tDur, e.dur / 2, nx.dur / 2) : 0; s += e.dur - e.T; });
   seq = out; total = s;
@@ -1242,6 +1255,11 @@ function motion(effect, u, W, H, local = 0) {
     case 'drift': sc = 1.14; dx = (u - .5) * .06 * W; dy = (.5 - u) * .05 * H; break;
     case 'pulse': sc = 1.05 + .035 * Math.sin(u * Math.PI * 2); break;
     case 'heartbeat': sc = 1.04 + .05 * beat(local); break;
+    case 'zoomTL': sc = 1.02 + .18 * u; dx = .07 * W * u; dy = .06 * H * u; break;
+    case 'zoomBR': sc = 1.02 + .18 * u; dx = -.07 * W * u; dy = -.06 * H * u; break;
+    case 'slowSpin': sc = 1.14; ang = (u - .5) * .09; break;
+    case 'wave': sc = 1.1; dx = Math.sin(u * Math.PI * 2) * .03 * W; dy = Math.cos(u * Math.PI * 2) * .02 * H; break;
+    case 'pushIn': sc = 1 + .2 * (1 - Math.pow(1 - u, 3)); break;
     case 'spiral': sc = 1.04 + .14 * u; ang = (u - .5) * .12; break;
     case 'tilt': sc = 1.1 - .05 * u; ang = .035 * (1 - ease(u)); break;
     case 'riseUp': sc = 1.08; dy = (1 - ease(u)) * .06 * H - .02 * H; break;
@@ -1635,6 +1653,9 @@ function textAnim(anim, local, dur, delay = 0) {
     case 'split': st.alpha *= a; st.dx = (1 - ea); break;
     case 'heartbeat': st.alpha *= a; st.scale = (.85 + .15 * ea) * (1 + .07 * beat(tl)); break;
     case 'float': st.alpha *= a; st.dy = (1 - ea) + Math.sin(tl * 1.6) * .12; break;
+    case 'slideDown': st.alpha *= a; st.dy = -(1 - ea) * 1.4; break;
+    case 'rotateIn': st.alpha *= a; st.rot = -(1 - ea) * .4; st.scale = .75 + .25 * ea; break;
+    case 'wave': st.letters = true; st.wave = true; break;
     default: st.alpha *= a; st.dy = (1 - ea); // rise
   }
   return st;
@@ -1651,7 +1672,7 @@ function fxText(str, x, y, fs, align, an, side) {
     if (an.dx) ctx.translate(an.dx * (side || 1) * cv.width * .25, 0);
     if (an.dy) ctx.translate(0, an.dy * fs * .9);
     if (an.blur) ctx.filter = `blur(${an.blur.toFixed(1)}px)`;
-    if (an.scale !== 1) { ctx.translate(x0 + full / 2, y); ctx.scale(an.scale, an.scale); ctx.translate(-(x0 + full / 2), -y); }
+    if (an.scale !== 1 || an.rot) { ctx.translate(x0 + full / 2, y); if (an.rot) ctx.rotate(an.rot); ctx.scale(an.scale, an.scale); ctx.translate(-(x0 + full / 2), -y); }
   }
   const paint = (s, px) => {
     if (fx === 'shadow') { ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = fs * .18; ctx.shadowOffsetY = fs * .04; }
@@ -1664,7 +1685,7 @@ function fxText(str, x, y, fs, align, an, side) {
     let px = x0;
     for (let i = 0; i < str.length; i++) {
       const ch = str[i], w = ctx.measureText(ch).width, lt = clamp((an.tl - i * .045) / .4, 0, 1);
-      if (lt > 0) { ctx.save(); ctx.globalAlpha *= lt; ctx.translate(0, (1 - ease(lt)) * fs * .45); paint(ch, px); ctx.restore(); }
+      if (lt > 0) { ctx.save(); ctx.globalAlpha *= lt; ctx.translate(0, (1 - ease(lt)) * fs * .45 + (an.wave ? Math.sin(an.tl * 4 - i * .55) * fs * .09 : 0)); paint(ch, px); ctx.restore(); }
       px += w;
     }
   } else paint(shown, x0);
@@ -1903,6 +1924,14 @@ function drawTrans(A, la, B, lb, p, kind) {
       ctx.save(); ctx.beginPath(); ctx.rect(W / 2 + p * W / 2, 0, W / 2, H); ctx.clip(); ctx.translate(p * W / 2, 0); drawEntry(A, la); ctx.restore(); break;
     case 'spin':
       drawEntry(B, lb); ctx.save(); ctx.globalAlpha = 1 - p; ctx.translate(W / 2, H / 2); ctx.rotate(p * Math.PI * 1.2); const z = Math.max(.02, 1 - .9 * p); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); drawEntry(A, la); ctx.restore(); break;
+    case 'clockWipe':
+      drawEntry(A, la); ctx.save(); ctx.beginPath(); ctx.moveTo(W / 2, H / 2); ctx.arc(W / 2, H / 2, Math.hypot(W, H), -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2); ctx.closePath(); ctx.clip(); drawEntry(B, lb); ctx.restore(); break;
+    case 'tiles': {
+      drawEntry(A, la); const cx = 8, cy = 5, tw = W / cx, th = H / cy; ctx.save(); ctx.beginPath();
+      for (let i = 0; i < cx * cy; i++) { const g = clamp((p - hash(i + 17) * .7) / .3, 0, 1); if (g <= 0) continue; const x = (i % cx) * tw, y = Math.floor(i / cx) * th; ctx.rect(x + tw * (1 - g) / 2, y + th * (1 - g) / 2, tw * g + .5, th * g + .5); }
+      ctx.clip(); drawEntry(B, lb); ctx.restore(); break; }
+    case 'shutter': {
+      drawEntry(A, la); const n = 8, bh = H / n; ctx.save(); ctx.beginPath(); for (let i = 0; i < n; i++) ctx.rect(0, i * bh, W, bh * ease(clamp(p * 1.4 - i * .05, 0, 1)) + .5); ctx.clip(); drawEntry(B, lb); ctx.restore(); break; }
     case 'heartsCover': {
       drawEntry(A, la); const cols = 8, cell = W / cols, rows = Math.ceil(H / cell) + 1;
       ctx.save(); ctx.beginPath();
@@ -2024,6 +2053,7 @@ function frame(now) {
     if (playhead >= total) {
       if (exporting) { playhead = total; finishExport(); }
       else if (S.settings.loop && total > 0) {
+        lastPicks = seqTail;
         if (S.settings.shuffle) { shuffleOrder(order[order.length - 1]); buildSeq(); renderStrip(); }
         else if (S.settings.autoFx !== false) { seqSeed = (Math.random() * 1e9) | 0; buildSeq(); }
         playhead = 0;
@@ -2328,7 +2358,7 @@ function onSetting(key) {
   });
   buildSeq(); fillSettingsUI(); dirty = true;
   ['intro', 'outro'].forEach(w => { if (key.startsWith(w + '.') && !playing) { const i = seq.findIndex(x => x.type === w); if (i >= 0) seekTo(seq[i].start + Math.min(1.4, seq[i].dur * .45)); } });
-  if (['autoFx','countdown','shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
+  if (['autoFx','autoOverlay','countdown','shuffle','keepEnds','defDur','tDur','fitMusic','intro.on','outro.on','intro.dur','outro.dur','transition','bpm','beatSnap'].includes(key)) renderStrip();
   renderMusicStats(); commitSoon();
 }
 function bindSettings() {
@@ -2544,7 +2574,7 @@ async function loadProject(id) {
   for (const k of refKeys(p)) { if (media[k]) continue; const r = await DB.get('blobs', k); if (r && r.blob) await registerMedia(k, r.blob, r.kind, r.name, false); }
   S.items = p.items.filter(i => i.kind === 'text' || media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
   S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
-  const dft = defaults(), ps = p.settings || {}; if (ps.autoFx === undefined) ps.autoFx = true;
+  const dft = defaults(), ps = p.settings || {}; if (ps.autoFx === undefined) ps.autoFx = true; if (ps.autoOverlay === undefined) ps.autoOverlay = true;
   if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; }
   S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) });
   S.name = p.name || defaultName(); projId = id; ls.set('sm.proj', id); return true;
