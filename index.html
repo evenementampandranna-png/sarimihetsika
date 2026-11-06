@@ -440,7 +440,15 @@ input[type=color]{width:46px;height:38px;border:1px solid var(--line);border-rad
       </div>
 
       <div class="tab-body" id="tb-tpl" role="tabpanel" hidden>
-        <p class="note" data-i18n="tplHint"></p>
+        <fieldset class="grp">
+          <legend data-i18n="tplTexts"></legend>
+          <div class="field"><label class="field-l" for="tIntroT"><span data-i18n="introT"></span></label><input type="text" id="tIntroT" data-set="intro.title" maxlength="80"></div>
+          <div class="field"><label class="field-l" for="tIntroS"><span data-i18n="introS"></span></label><input type="text" id="tIntroS" data-set="intro.sub" maxlength="80"></div>
+          <div class="field"><label class="field-l" for="tOutroT"><span data-i18n="outroT"></span></label><input type="text" id="tOutroT" data-set="outro.title" maxlength="80"></div>
+          <label class="sw"><input type="checkbox" id="tKeep" data-set="keepText"><span class="sw-ui"></span><span data-i18n="keepText"></span></label>
+        </fieldset>
+        <div class="row" style="justify-content:space-between"><p class="note" data-i18n="tplHint" style="flex:1;min-width:0"></p><span class="mstat" id="tplCount"></span></div>
+        <div class="seg" role="group" id="tplCats" style="align-self:flex-start"></div>
         <div class="tpls" id="tpls"></div>
       </div>
 
@@ -614,8 +622,50 @@ const TPLX = {
   kids:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'bounce', fx:'outline' },
   movie:{ tanim:'type', tbg:'blurPhoto', cap:'lowerThird', capAnim:'type', fx:'shadow' }
 };
+Object.assign(TPL, {
+  baptism:     T('fade','kbIn','dream','stars','rounded','Lora','#ffffff',['#4f6f96','#cdb78f'], ['Batisa','Andro masina','Ho voatahy anie',''], ['Baptême','Un jour béni','Que Dieu le bénisse',''], ['Baptism','A blessed day','God bless','']),
+  engagement:  T('heart','kbRot','warm','hearts','polaroid','Dancing Script','#fff6f0',['#5a2340','#e58fa5'], ['Fofombady','Hoe eny!','Ho mandrakizay',''], ['Fiançailles','Elle a dit oui !','Pour toujours',''], ['Engagement','She said yes!','Forever','']),
+  weddingAnniv:T('fade','kbIn','golden','petals','rounded','Playfair Display','#fff8ea',['#3a2a1c','#c9a227'], ['Tsingerin’ny fanambadianay','Taona maro niarahana','Mbola tiako ianao',''], ['Notre anniversaire de mariage','Tant d’années ensemble','Je t’aime toujours',''], ['Our wedding anniversary','So many years together','Still in love','']),
+  newyear:     T('zoom','punch','vivid','confetti','none','Bebas Neue','#ffd86b',['#0b1030','#3a1c71'], ['Arahaba tratry ny taona 2027','Taom-baovao sambatra','Mirary soa!',''], ['Bonne année 2027','Meilleurs vœux','Santé et bonheur',''], ['Happy New Year 2027','Best wishes','Cheers!','']),
+  mothers:     T('fade','kbIn','warm','petals','polaroid','Dancing Script','#ffffff',['#b23a6f','#f6a6b2'], ['Ho an’i Neny','Fetin’ny reny sambatra','Misaotra Neny',''], ['Pour Maman','Bonne fête des mères','Merci Maman',''], ['For Mum','Happy Mother’s Day','Thank you, Mum','']),
+  fathers:     T('slideR','kbIn','none','none','cinema','Montserrat','#ffffff',['#1c2b3a','#4f7ca8'], ['Ho an’i Dada','Fetin’ny ray sambatra','Misaotra Dada',''], ['Pour Papa','Bonne fête des pères','Merci Papa',''], ['For Dad','Happy Father’s Day','Thank you, Dad','']),
+  valentine:   T('heart','pulse','dream','hearts','rounded','Pacifico','#ffffff',['#8b0f3a','#ff5c8a'], ['Fetin’ny mpifankatia','Ho anao ry malala','Tiako ianao',''], ['Saint-Valentin','Pour toi, mon amour','Je t’aime',''], ['Valentine’s Day','For you, my love','I love you','']),
+  school:      T('slideL','kbIn','vivid','stars','polaroid','Bricolage Grotesque','#ffffff',['#1d6fb8','#ffb703'], ['Ny sekolinay','Taom-pianarana 2026–2027','Mazotoa mianatra!',''], ['Notre école','Année scolaire 2026–2027','Bonne rentrée !',''], ['Our school','School year 2026–27','Have a great year!','']),
+  food:        T('wipe','kbIn','golden','none','rounded','Playfair Display','#fff8ec',['#3b1f10','#d9822b'], ['Ny sakafonay','Matsiro sy vaovao','Tongava mihinana!',''], ['Notre cuisine','Frais et savoureux','Bon appétit !',''], ['Our kitchen','Fresh and tasty','Enjoy your meal!','']),
+  fashion:     T('flip','kbRot','noir','none','cinema','Bebas Neue','#ffffff',['#111111','#5a5a5a'], ['Lamaody vaovao','Fanangonana 2026','Hita ao amin’ny fivarotanay',''], ['Nouvelle collection','Saison 2026','En boutique maintenant',''], ['New collection','Season 2026','In store now','']),
+  realestate:  T('diag','drift','none','none','cinema','Montserrat','#ffffff',['#0f2a2a','#2a9d8f'], ['Trano amidy','Toerana tsara, vidiny mety','Antsoy izahay',''], ['Maison à vendre','Bel emplacement','Appelez-nous',''], ['Home for sale','Great location','Call us','']),
+  promo:       T('zoomOut','punch','vivid','confetti','none','Bebas Neue','#ffffff',['#b00000','#ffba08'], ['Fihenam-bidy lehibe!','Hatramin’ny 50%','Aza latsaka!',''], ['Grandes promos !','Jusqu’à -50 %','Ne ratez pas ça !',''], ['Big sale!','Up to 50% off','Don’t miss out!','']),
+  concert:     T('glitch','handheld','vivid','bokeh','none','Bebas Neue','#ffffff',['#14002e','#ff006e'], ['Fampisehoana','Mivantana','Misaotra anareo!',''], ['En concert','En direct','Merci à tous !',''], ['Live concert','On stage','Thank you all!','']),
+  ocean:       T('slideR','drift','cold','bubbles','none','Montserrat','#ffffff',['#023e8a','#48cae4'], ['Ranomasina','Nosy sy tora-pasika','Hiverina izahay',''], ['L’océan','Îles et plages','On reviendra',''], ['The ocean','Islands and beaches','We’ll be back','']),
+  easter:      T('fade','kbIn','dream','petals','rounded','Lora','#ffffff',['#6a4c93','#e0a85a'], ['Paska sambatra','Nitsangana Izy','Fiadanana ho anareo',''], ['Joyeuses Pâques','Il est ressuscité','Paix à vous',''], ['Happy Easter','He is risen','Peace be with you',''])
+});
+Object.assign(TPLX, {
+  baptism:{ tanim:'blurIn', tbg:'radial', cap:'tag', capAnim:'fade', fx:'glow' },
+  engagement:{ tanim:'letters', tbg:'animated', cap:'tag', capAnim:'bounce', fx:'glow' },
+  weddingAnniv:{ tanim:'letters', tbg:'radial', cap:'box', capAnim:'fade', fx:'shadow' },
+  newyear:{ tanim:'zoom', tbg:'animated', cap:'outline', capAnim:'zoom', fx:'glow' },
+  mothers:{ tanim:'letters', tbg:'radial', cap:'tag', capAnim:'rise', fx:'shadow' },
+  fathers:{ tanim:'split', tbg:'stripes', cap:'lowerThird', capAnim:'split', fx:'shadow' },
+  valentine:{ tanim:'bounce', tbg:'animated', cap:'tag', capAnim:'bounce', fx:'glow' },
+  school:{ tanim:'bounce', tbg:'dots', cap:'tag', capAnim:'rise', fx:'outline' },
+  food:{ tanim:'rise', tbg:'blurPhoto', cap:'box', capAnim:'rise', fx:'shadow' },
+  fashion:{ tanim:'split', tbg:'solid', cap:'outline', capAnim:'split', fx:'none' },
+  realestate:{ tanim:'rise', tbg:'blurPhoto', cap:'lowerThird', capAnim:'split', fx:'shadow' },
+  promo:{ tanim:'zoom', tbg:'stripes', cap:'box', capAnim:'zoom', fx:'outline' },
+  concert:{ tanim:'glow', tbg:'animated', cap:'outline', capAnim:'glow', fx:'glow' },
+  ocean:{ tanim:'rise', tbg:'blurPhoto', cap:'lowerThird', capAnim:'rise', fx:'shadow' },
+  easter:{ tanim:'blurIn', tbg:'radial', cap:'tag', capAnim:'fade', fx:'glow' }
+});
+const TCAT = {
+  fety:['anniv','party','newyear','valentine','christmas','independence','concert'],
+  family:['wedding','engagement','weddingAnniv','mothers','fathers','kids','graduation','romance','memorial'],
+  faith:['church','baptism','easter'],
+  work:['business','promo','realestate','food','fashion','school'],
+  style:['travel','ocean','nature','retro','neon','minimal','sport','movie']
+};
 const I18N = {
   mg: {
+    tplTexts:'Ny soratrao', keepText:'Tazony ny soratro rehefa manova modely', introT:'Lohateny voalohany', introS:'Lohateny kely', outroT:'Lohateny farany', tplCount:'{n} modely',
     tbgL:'Endrika ambadika', imgL:'Sary ambadika', uploadImg:'Ampidiro sary vaovao', tanimL:'Animation soratra', layoutL:'Toerana misy ny soratra', slideDur:'Faharetana', none:'Tsy misy',
     capGroup:'Soratra eo amin’ny sary', capStyleL:'Endriky ny soratra', capAnimL:'Animation', textFxL:'Effet soratra',
     grpAdv:'Teknika mandroso', bpm:'Gadon’ny mozika (BPM)', beatZoom:'Zoom kely isaky ny gadona', beatSnap:'Ampifanaraho amin’ny gadona ny faharetan’ny sary', advNote:'Ny BPM no isan’ny gadona isa-minitra amin’ny hira (hira malaza matetika: 90–130).', fromPhotos:'Avy amin’ny sarinao', uploaded:'Sary nampidirina',
@@ -637,7 +687,7 @@ const I18N = {
     musicEmpty:'Mbola tsy misy mozika.', addMusic:'Ampidiro mozika', sampleMusic:'Mozika santionany', making:'Mamorona…',
     musicVol:'Haben’ny mozika', videoVol:'Haben’ny feon’ny vidéo', fadeAudio:'Miditra sy mivoaka moramora', duck:'Ampihenina ny mozika rehefa misy vidéo', fitMusic:'Ampifanaraho amin’ny halavan’ny mozika',
     musicLen:'Mozika', showLen:'Diaporama', rights:'Ianao no tompon’andraikitra amin’ny zon’ny mpamorona ny hira ampidirinao.', up:'Miakatra', down:'Midina',
-    tplHint:'Ovain’ny modely ny transition, effet, sombiny, loko ary soratra. Tsy voakasika ny sarinao.',
+    tplHint:'Ovain’ny modely ny transition, effet, sombiny sy loko. Tsy voakasika ny sarinao.',
     intro:'Pejy fanombohana', outro:'Pejy famaranana', show:'Asehoy', titleL:'Lohateny', subL:'Lohateny kely', font:'Endri-tsoratra', textColor:'Loko soratra', colors:'Loko ambadika',
     exportTitle:'Avoahy ho vidéo', quality:'Kalitao', fmt:'Endrika rakitra', total:'Faharetana',
     exportNote:'Mandeha amin’ny fotoana marina ny firaketana: aza akatona na afenina ity pejy ity mandritra izany. Ny vidéo dia manaraka ny filaharana ankehitriny.',
@@ -648,7 +698,7 @@ const I18N = {
     helpTitle:'Ahoana ny fampiasana azy?', helpKeysH:'Bokotra fohy', helpTipsH:'Torohevitra',
     helpSteps:[
       ['Ampidiro ny sary sy vidéo','Tsindrio «Ampidiro» na sintony ao amin’ny pejy ireo rakitra avy ao amin’ny finday na ordinateur.'],
-      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 18: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
+      ['Safidio modely','Ao amin’ny «Modely», misafidiana endrika 33: miova avy hatrany ny loko, transitions, effets ary sombiny.'],
       ['Ampio mozika','Ao amin’ny «Mozika», ampidiro hira iray na maromaro. Azonao atao ny mampifanaraka ny faharetan’ny diaporama amin’ny hira.'],
       ['Avelao handeha ho azy','Mandeha ho azy ny diaporama. Ny «Kisendrasendra» dia manova ny filaharana isaky ny mihodina. Tsindrio indray mandeha ny efijery raha te hijanona, tsindrio indroa raha te ho écran feno na hiala.'],
       ['Ahitsio ny sary tsirairay','Tsindrio sary iray ao amin’ny tsipika ambany hanovana ny faharetany, effet, sivana na soratra.'],
@@ -657,6 +707,7 @@ const I18N = {
     keys:[['Espace','Alefa / ajanony'],['2× clic','Écran feno / miala'],['← →','Teo aloha / manaraka'],['F','Écran feno'],['S','Kisendrasendra'],['Ctrl+Z','Foanana']]
   },
   fr: {
+    tplTexts:'Vos textes', keepText:'Garder mes textes quand je change de modèle', introT:'Titre d’ouverture', introS:'Sous-titre', outroT:'Titre de fin', tplCount:'{n} modèles',
     tbgL:'Style de fond', imgL:'Image de fond', uploadImg:'Ajouter une image', tanimL:'Animation du texte', layoutL:'Position du texte', slideDur:'Durée', none:'Aucune',
     capGroup:'Légendes', capStyleL:'Style de légende', capAnimL:'Animation', textFxL:'Effet de texte',
     grpAdv:'Techniques avancées', bpm:'Tempo de la musique (BPM)', beatZoom:'Petit zoom à chaque temps', beatSnap:'Caler la durée des photos sur le tempo', advNote:'Le BPM est le nombre de temps par minute du morceau (chansons courantes : 90–130).', fromPhotos:'Vos photos', uploaded:'Images ajoutées',
@@ -678,7 +729,7 @@ const I18N = {
     musicEmpty:'Aucune musique pour l’instant.', addMusic:'Ajouter une musique', sampleMusic:'Musique d’exemple', making:'Création…',
     musicVol:'Volume de la musique', videoVol:'Volume des vidéos', fadeAudio:'Fondu d’entrée et de sortie', duck:'Baisser la musique pendant les vidéos', fitMusic:'Ajuster la durée à la musique',
     musicLen:'Musique', showLen:'Diaporama', rights:'Vous êtes responsable des droits des musiques importées.', up:'Monter', down:'Descendre',
-    tplHint:'Un modèle change transitions, effets, cadre, couleurs et textes. Vos médias restent intacts.',
+    tplHint:'Un modèle change transitions, effets, cadre et couleurs. Vos médias restent intacts.',
     intro:'Diapo d’ouverture', outro:'Diapo de fin', show:'Afficher', titleL:'Titre', subL:'Sous-titre', font:'Police', textColor:'Couleur du texte', colors:'Couleurs de fond',
     exportTitle:'Exporter en vidéo', quality:'Qualité', fmt:'Format de fichier', total:'Durée',
     exportNote:'L’enregistrement se fait en temps réel : gardez cette page ouverte et visible. La vidéo suit l’ordre actuel.',
@@ -689,7 +740,7 @@ const I18N = {
     helpTitle:'Comment l’utiliser ?', helpKeysH:'Raccourcis', helpTipsH:'Astuces',
     helpSteps:[
       ['Ajoutez vos photos et vidéos','Touchez « Ajouter » ou glissez vos fichiers sur la page, depuis le téléphone ou l’ordinateur.'],
-      ['Choisissez un modèle','Dans « Modèles », 18 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
+      ['Choisissez un modèle','Dans « Modèles », 33 styles : couleurs, transitions, effets et cadre changent d’un coup.'],
       ['Ajoutez la musique','Dans « Musique », ajoutez un ou plusieurs morceaux. Vous pouvez ajuster la durée du diaporama à la musique.'],
       ['Laissez défiler','Le diaporama démarre tout seul. « Aléatoire » change l’ordre à chaque boucle. Une touche sur l’image : pause. Deux touches : plein écran ou sortie.'],
       ['Réglez chaque photo','Touchez une photo dans la frise pour changer sa durée, son effet, son filtre ou sa légende.'],
@@ -698,6 +749,7 @@ const I18N = {
     keys:[['Espace','Lecture / pause'],['Double-clic','Plein écran / quitter'],['← →','Précédent / suivant'],['F','Plein écran'],['S','Aléatoire'],['Ctrl+Z','Annuler']]
   },
   en: {
+    tplTexts:'Your text', keepText:'Keep my text when switching templates', introT:'Opening title', introS:'Subtitle', outroT:'Closing title', tplCount:'{n} templates',
     tbgL:'Background style', imgL:'Background image', uploadImg:'Add an image', tanimL:'Text animation', layoutL:'Text position', slideDur:'Duration', none:'None',
     capGroup:'Captions', capStyleL:'Caption style', capAnimL:'Animation', textFxL:'Text effect',
     grpAdv:'Advanced techniques', bpm:'Music tempo (BPM)', beatZoom:'Small zoom on every beat', beatSnap:'Snap photo durations to the tempo', advNote:'BPM is the number of beats per minute in the track (most songs: 90–130).', fromPhotos:'Your photos', uploaded:'Added images',
@@ -719,7 +771,7 @@ const I18N = {
     musicEmpty:'No music yet.', addMusic:'Add music', sampleMusic:'Sample music', making:'Creating…',
     musicVol:'Music volume', videoVol:'Video volume', fadeAudio:'Fade in and out', duck:'Lower music during videos', fitMusic:'Match length to the music',
     musicLen:'Music', showLen:'Slideshow', rights:'You are responsible for the rights to the music you add.', up:'Move up', down:'Move down',
-    tplHint:'A template changes transitions, effects, frame, colours and titles. Your media stay as they are.',
+    tplHint:'A template changes transitions, effects, frame and colours. Your media stay as they are.',
     intro:'Opening slide', outro:'Closing slide', show:'Show', titleL:'Title', subL:'Subtitle', font:'Font', textColor:'Text colour', colors:'Background colours',
     exportTitle:'Export video', quality:'Quality', fmt:'File format', total:'Duration',
     exportNote:'Recording happens in real time: keep this page open and visible. The video follows the current order.',
@@ -730,7 +782,7 @@ const I18N = {
     helpTitle:'How to use it', helpKeysH:'Shortcuts', helpTipsH:'Tips',
     helpSteps:[
       ['Add your photos and videos','Tap «Add» or drag files onto the page, from your phone or computer.'],
-      ['Pick a template','In «Templates», choose from 18 styles: colours, transitions, effects and frame change at once.'],
+      ['Pick a template','In «Templates», choose from 33 styles: colours, transitions, effects and frame change at once.'],
       ['Add music','In «Music», add one or more tracks. You can match the slideshow length to the music.'],
       ['Let it play','The slideshow starts on its own. «Shuffle» changes the order every loop. Tap the picture once to pause, twice for full screen on or off.'],
       ['Adjust each photo','Tap a photo in the strip to change its duration, effect, filter or caption.'],
@@ -740,6 +792,7 @@ const I18N = {
   }
 };
 const LBL = {
+  tcat:{ mg:{all:'Rehetra',fety:'Fety',family:'Fianakaviana',faith:'Fivavahana',work:'Orinasa',style:'Endrika'}, fr:{all:'Tous',fety:'Fêtes',family:'Famille',faith:'Foi',work:'Pro',style:'Styles'}, en:{all:'All',fety:'Celebrations',family:'Family',faith:'Faith',work:'Business',style:'Styles'} },
   tbg:{
     mg:{gradient:'Loko miova',radial:'Hazavana afovoany',animated:'Loko mihetsika',stripes:'Tsipika mitongilana',dots:'Teboka',solid:'Loko iray',image:'Sary',blurPhoto:'Sary manjavozavo'},
     fr:{gradient:'Dégradé',radial:'Halo central',animated:'Dégradé animé',stripes:'Rayures',dots:'Pois',solid:'Uni',image:'Image',blurPhoto:'Photo floutée'},
@@ -775,9 +828,9 @@ const LBL = {
     fr:{none:'Aucun',polaroid:'Polaroid',rounded:'Coins arrondis',cinema:'Cinéma',film:'Pellicule',vignette:'Vignettage'},
     en:{none:'None',polaroid:'Polaroid',rounded:'Rounded',cinema:'Cinema',film:'Film strip',vignette:'Vignette'} },
   tpl:{
-    mg:{travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
-    fr:{travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
-    en:{travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
+    mg:{baptism:'Batisa',engagement:'Fofombady',weddingAnniv:'Tsingerin’ny fanambadiana',newyear:'Taom-baovao',mothers:'Fetin’ny reny',fathers:'Fetin’ny ray',valentine:'Mpifankatia',school:'Sekoly',food:'Sakafo',fashion:'Lamaody',realestate:'Trano',promo:'Fihenam-bidy',concert:'Fampisehoana',ocean:'Ranomasina',easter:'Paska',travel:'Dia',anniv:'Tsingerin-taona',wedding:'Fanambadiana',memorial:'Fahatsiarovana',party:'Fety',business:'Orinasa',christmas:'Krismasy',independence:'26 Jona',romance:'Fitiavana',retro:'Taloha',neon:'Néon',minimal:'Tsotra',nature:'Zava-boahary',sport:'Fanatanjahantena',graduation:'Diplaoma',church:'Fiangonana',kids:'Ankizy',movie:'Sinema'},
+    fr:{baptism:'Baptême',engagement:'Fiançailles',weddingAnniv:'Anniversaire de mariage',newyear:'Nouvel an',mothers:'Fête des mères',fathers:'Fête des pères',valentine:'Saint-Valentin',school:'École',food:'Restaurant',fashion:'Mode',realestate:'Immobilier',promo:'Promotion',concert:'Concert',ocean:'Océan',easter:'Pâques',travel:'Voyage',anniv:'Anniversaire',wedding:'Mariage',memorial:'Hommage',party:'Fête',business:'Entreprise',christmas:'Noël',independence:'26 juin',romance:'Romance',retro:'Rétro',neon:'Néon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Diplôme',church:'Église',kids:'Enfants',movie:'Cinéma'},
+    en:{baptism:'Baptism',engagement:'Engagement',weddingAnniv:'Wedding anniversary',newyear:'New Year',mothers:'Mother’s Day',fathers:'Father’s Day',valentine:'Valentine’s',school:'School',food:'Restaurant',fashion:'Fashion',realestate:'Real estate',promo:'Sale',concert:'Concert',ocean:'Ocean',easter:'Easter',travel:'Travel',anniv:'Birthday',wedding:'Wedding',memorial:'Memorial',party:'Party',business:'Business',christmas:'Christmas',independence:'26 June',romance:'Romance',retro:'Retro',neon:'Neon',minimal:'Minimal',nature:'Nature',sport:'Sport',graduation:'Graduation',church:'Church',kids:'Kids',movie:'Movie'} }
 };
 
 const LANGS = ['mg', 'fr', 'en'];
@@ -793,7 +846,7 @@ const lbl = (kind, k) => (LBL[kind][lang] || LBL[kind].mg)[k] || LBL[kind].mg[k]
 function defaults() {
   const p = TPL.travel, tx = p.text[lang];
   return {
-    aspect:'16:9', fit:'cover', bg:'#0b0a10', frame:p.frame,
+    aspect:'16:9', fit:'blur', fitV:2, keepText:false, bg:'#0b0a10', frame:p.frame,
     transition:p.transition, tDur:0.9, defDur:4, effect:p.effect, filter:p.filter, overlay:p.overlay,
     autoplay:true, shuffle:true, keepEnds:false, loop:true,
     musicVol:0.8, videoVol:0.7, fadeAudio:true, duck:true, fitMusic:false,
@@ -1060,11 +1113,14 @@ function drawEntry(e, local, extraFilter) {
   if (m && it.kind === 'video' && m.el && m.el.readyState >= 2 && m.el.videoWidth) { src = m.el; sw = m.el.videoWidth; sh = m.el.videoHeight; }
   if (!src) return;
   const u = clamp(local / e.dur, 0, 1), mo = motion(e.effect, u, W, H, local);
+  if (st.fit !== 'cover') { mo.sc = 1 + (mo.sc - 1) * .3; mo.dx *= .3; mo.dy *= .3; }
   const filt = [FILTERS[e.filter] || '', extraFilter || ''].filter(Boolean).join(' ');
   if (st.fit === 'blur' || fr === 'polaroid' || fr === 'rounded')
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, 'cover', { sc:1.15, dx:0, dy:0, ang:0 }, (filt + ` blur(${Math.round(k * .035)}px) brightness(.6)`).trim());
   if (fr === 'polaroid') {
-    const ar = 4 / 3, pw = Math.min(W * .64, H * .6 * ar), ph = pw / ar, b = pw * .045, cw = pw + 2 * b, ch = ph + b * 5.2;
+    const rq = ((it.rot || 0) % 180 + 180) % 180 === 90, ar = clamp(rq ? sh / sw : sw / sh, .55, 1.9);
+    let ph = H * .66, pw = ph * ar; if (pw > W * .7) { pw = W * .7; ph = pw / ar; }
+    const b = Math.max(pw, ph) * .04, cw = pw + 2 * b, ch = ph + b * 5.2; ph -= 0; 
     const tilt = (hash(it.id.charCodeAt(0) * 31 + it.id.charCodeAt(1)) - .5) * .09 + mo.ang * .5, s2 = 1 + (mo.sc - 1) * .35;
     const enter = () => { ctx.translate(W / 2, H / 2); ctx.rotate(tilt); ctx.scale(s2, s2); };
     ctx.save(); enter();
@@ -1086,7 +1142,7 @@ function drawEntry(e, local, extraFilter) {
     const pad = k * .06, bx = pad, by = pad, bw = W - 2 * pad, bh = H - 2 * pad, r = k * .04;
     ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = k * .05; ctx.fillStyle = '#000'; rr(bx, by, bw, bh, r); ctx.fill();
     ctx.shadowColor = 'transparent'; rr(bx, by, bw, bh, r); ctx.clip();
-    placeImg(src, sw, sh, it.rot, { x:bx, y:by, w:bw, h:bh }, st.fit === 'contain' ? 'contain' : 'cover', mo, filt); ctx.restore();
+    placeImg(src, sw, sh, it.rot, { x:bx, y:by, w:bw, h:bh }, st.fit === 'cover' ? 'cover' : 'contain', mo, filt); ctx.restore();
   } else {
     placeImg(src, sw, sh, it.rot, { x:0, y:0, w:W, h:H }, st.fit === 'blur' ? 'contain' : st.fit, mo, filt);
   }
@@ -1513,7 +1569,7 @@ function updateTransport(L) {
   const sc = $('#scrub'); if (document.activeElement !== sc) sc.value = total ? Math.round(playhead / total * 1000) : 0;
   const hud = $('#hud'); const e = L ? (L.b && L.p > .5 ? L.b : L.a) : null;
   const items = seq.filter(x => x.type === 'item'); const pos = e && e.type === 'item' ? items.indexOf(e) + 1 : 0;
-  const html = (pos ? `<span class="chip">${pos} / ${items.length}</span>` : '') + (S.settings.shuffle ? `<span class="chip amber">${esc(t('shuffle'))}</span>` : '') + (e && e.item && e.item.sample ? `<span class="chip">${esc(t('sample'))}</span>` : '') + (playing && S.music.length && !audioUnlocked ? `<span class="chip amber">${esc(t('tapSound'))}</span>` : '');
+  const html = playing ? (S.music.length && !audioUnlocked ? `<span class="chip amber">${esc(t('tapSound'))}</span>` : '') : (pos ? `<span class="chip">${pos} / ${items.length}</span>` : '') + (S.settings.shuffle ? `<span class="chip amber">${esc(t('shuffle'))}</span>` : '') + (e && e.item && e.item.sample ? `<span class="chip">${esc(t('sample'))}</span>` : '') + (playing && S.music.length && !audioUnlocked ? `<span class="chip amber">${esc(t('tapSound'))}</span>` : '');
   if (hud._h !== html) { hud.innerHTML = html; hud._h = html; }
   const liveId = e && e.item ? e.item.id : null;
   if (liveId !== lastLiveIdx) { lastLiveIdx = liveId; $$('.clip').forEach(c => c.classList.toggle('is-live', c.dataset.id === liveId)); }
@@ -1644,8 +1700,13 @@ function renderMusic() {
 }
 function renderTrackState() { $$('.track').forEach(li => li.classList.toggle('is-on', playing && li.dataset.id === mus.dataset.id)); }
 function renderMusicStats() { $('#mstat').textContent = `${t('musicLen')} ${fmtT(musicTotal())} · ${t('showLen')} ${fmtT(total)}`; }
+let tplCat = 'all';
 function renderTpls() {
-  $('#tpls').innerHTML = Object.keys(TPL).map(k => { const p = TPL[k];
+  $('#tplCats').innerHTML = ['all', ...Object.keys(TCAT)].map(c => `<button data-cat="${c}" aria-pressed="${c === tplCat}">${esc(lbl('tcat', c))}</button>`).join('');
+  $$('#tplCats button').forEach(b => b.onclick = () => { tplCat = b.dataset.cat; renderTpls(); });
+  const keys = tplCat === 'all' ? Object.keys(TPL) : TCAT[tplCat].filter(k => TPL[k]);
+  $('#tplCount').textContent = t('tplCount').replace('{n}', keys.length);
+  $('#tpls').innerHTML = keys.map(k => { const p = TPL[k];
     return `<button class="tpl" data-tpl="${k}" aria-pressed="${S.settings.template === k}">
       <span class="tpl-art" style="background:linear-gradient(135deg,${p.colors[0]},${p.colors[1]});color:${p.textColor};font-family:'${p.font}',serif;font-weight:${FONT_W[p.font]}">${esc(p.text[lang][0])}</span>
       <span class="tpl-l">${esc(lbl('tpl', k))}<span class="tpl-s">${esc(lbl('trans', p.transition))} · ${esc(lbl('frame', p.frame))}</span></span></button>`; }).join('');
@@ -1654,7 +1715,7 @@ function renderTpls() {
 function applyTpl(k) {
   const p = TPL[k], st = S.settings, tx = p.text[lang];
   Object.assign(st, { transition:p.transition, effect:p.effect, filter:p.filter, overlay:p.overlay, frame:p.frame, font:p.font, textColor:p.textColor, colors:p.colors.slice(), template:k });
-  st.intro.title = tx[0]; st.intro.sub = tx[1]; st.outro.title = tx[2]; st.outro.sub = tx[3];
+  if (!st.keepText) { st.intro.title = tx[0]; st.intro.sub = tx[1]; st.outro.title = tx[2]; st.outro.sub = tx[3]; }
   const x = TPLX[k] || {};
   Object.assign(st, { capStyle:x.cap || 'gradient', capAnim:x.capAnim || 'rise', textFx:x.fx || 'shadow' });
   ['intro', 'outro'].forEach(w => { st[w].anim = x.tanim || 'rise'; if (st[w].bg !== 'image') st[w].bg = x.tbg || 'gradient'; });
@@ -1698,6 +1759,7 @@ function onSetting(key) {
   if (key === 'shuffle' || key === 'keepEnds') { if (st.shuffle) shuffleOrder(); }
   if (key === 'aspect') setPreviewSize();
   if (key === 'font') loadFont(st.font);
+  if (/^(intro|outro)\.(title|sub)$/.test(key)) st.keepText = true;
   ['intro', 'outro'].forEach(w => {
     const d = st[w];
     if (key === w + '.imgId' && d.imgId && d.bg !== 'image') d.bg = 'image';
@@ -2031,7 +2093,7 @@ async function boot() {
         for (const id of keys) { const r = await DB.get('blobs', id); if (r && r.blob) await registerMedia(id, r.blob, r.kind, r.name, false); }
         S.items = p.items.filter(i => media[i.id]); S.music = (p.music || []).filter(m => media[m.id]);
         S.titleImgs = (p.titleImgs || []).filter(x => media[x.id]);
-        const dft = defaults(), ps = p.settings || {}; S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
+        const dft = defaults(), ps = p.settings || {}; if (ps.fitV !== 2) { if (ps.fit === 'cover') ps.fit = 'blur'; ps.fitV = 2; } S.settings = Object.assign(dft, ps, { intro:Object.assign(dft.intro, ps.intro || {}), outro:Object.assign(dft.outro, ps.outro || {}) }); restored = true;
         const all = await DB.keys('blobs'); (all || []).filter(k => !keys.has(k)).forEach(k => DB.del('blobs', k).catch(() => {}));
       }
     } catch (e) { restored = false; }

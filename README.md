@@ -16,7 +16,7 @@ Tout fonctionne dans le navigateur : aucun serveur, aucune base de données, les
 | Transitions | 19 karazana (fo, varavarana, jalousie...) + kisendrasendra | 19 transitions (cœur, portes, store…) + aléatoire |
 | Mozika | Hira maromaro, fade, fampihenana rehefa misy vidéo, mozika santionany | Playlist, fondu, ducking, musique d'exemple |
 | Kisendrasendra | Filaharana vaovao isaky ny mihodina, tsy misy averina | Nouvel ordre à chaque boucle, sans répétition |
-| Modely | 18 (Dia, Tsingerin-taona, Fanambadiana, Fahatsiarovana, Fety, Orinasa, Krismasy, 26 Jona, Fitiavana, Taloha, Néon, Tsotra, Zava-boahary, Fanatanjahantena, Diplaoma, Fiangonana, Ankizy, Sinema) | 18 modèles |
+| Modely | 33, voasokajy (Fety, Fianakaviana, Fivavahana, Orinasa, Endrika) — ohatra: (Dia, Tsingerin-taona, Fanambadiana, Fahatsiarovana, Fety, Orinasa, Krismasy, 26 Jona, Fitiavana, Taloha, Néon, Tsotra, Zava-boahary, Fanatanjahantena, Diplaoma, Fiangonana, Ankizy, Sinema, Batisa, Fofombady, Taom-baovao, Fetin'ny reny, Fetin'ny ray, Sekoly, Sakafo, Lamaody, Trano, Fihenam-bidy, Fampisehoana, Ranomasina, Paska) | 33 modèles classés par catégorie, textes personnalisables |
 | Sombiny | Polaroid, zoro boribory, sinema, sarimihetsika, vignette, ambadika manjavozavo | Cadres Polaroid, arrondi, cinéma, pellicule, vignettage, fond flou |
 | Haingo | Confetti, oram-panala, fo, felana, kintana, bobongolo, bokeh, hazavana, sarimihetsika taloha | 9 ambiances animées |
 | Mandeha ho azy | Manomboka ho azy rehefa misokatra ny pejy; tsindrio indray mandeha raha te handre ny mozika | Lecture automatique à l'ouverture |
